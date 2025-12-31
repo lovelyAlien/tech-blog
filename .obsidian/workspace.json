@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/Spring/영속성 컨텍스트 지연 쓰기.md",
+                "file": "templates/chapter.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "영속성 컨텍스트 지연 쓰기"
+              "title": "chapter"
             }
           }
         ]
@@ -104,7 +104,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/Spring/영속성 컨텍스트 지연 쓰기.md",
+                "file": "templates/chapter.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +114,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "영속성 컨텍스트 지연 쓰기 의 백링크"
+              "title": "chapter 의 백링크"
             }
           },
           {
@@ -123,12 +123,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/Spring/영속성 컨텍스트 지연 쓰기.md",
+                "file": "templates/chapter.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "영속성 컨텍스트 지연 쓰기 의 나가는 링크"
+              "title": "chapter 의 나가는 링크"
             }
           },
           {
@@ -166,13 +166,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/Spring/영속성 컨텍스트 지연 쓰기.md",
+                "file": "templates/chapter.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "영속성 컨텍스트 지연 쓰기 의 개요"
+              "title": "chapter 의 개요"
             }
           }
         ]
@@ -196,6 +196,12 @@
   },
   "active": "e65f05e26a5ba381",
   "lastOpenFiles": [
+    "content/Spring/영속성 컨텍스트 지연 쓰기.md",
+    "content/Spring/Index.md",
+    "content/index.md",
+    "content/Spring",
+    "content/Readme.md",
+    "content",
     "public/index-og-image.webp",
     "public/Spring/영속성-컨텍스트-지연-쓰기-og-image.webp",
     "public/Spring/Index-og-image.webp",
@@ -209,20 +215,13 @@
     "public/Readme.html",
     "public/favicon.ico",
     "templates/chapter.md",
-    "content/Spring/영속성 컨텍스트 지연 쓰기.md",
-    "content/Spring/영속성 컨텍스트 지연 쓰기.md",
     "public/Spring/Untitled-og-image.webp",
-    "public/Spring/Untitled.html",
-    "content/index.md",
-    "content/Spring/Index.md",
-    "content/Spring",
     "content/Springg/Index.md",
     "public/Springg/안녕하세요반반-og-image.webp",
     "public/Springg/안녕하세요₩-og-image.webp",
     "public/Springg/안녕하세요~-반-og-image.webp",
     "public/Springg/안녕하세요-반갑스빈다-og-image.webp",
     "public/Springg/안녕하세요-~-og-image.webp",
-    "public/Springg/안녕하세요-~-반-og-image.webp",
     "content/Springg/안녕하세요 ~.md",
     "content/Springg/반.md",
     "content/Springg/안녕하세요 ~ 반.md",
@@ -239,7 +238,6 @@
     "content/Network/Index.md",
     "content/Java/Index.md",
     "content/Java/Validator.md",
-    "content/Readme.md",
     "content/Java/Valid 와 Validator 관계.md",
     "content/Java/Introduction.md"
   ]
