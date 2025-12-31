@@ -1,7 +1,7 @@
 {
   "version": 3,
   "projects": {},
-  "selectedDraftVaultPath": "content/Spring/Index.md",
+  "selectedDraftVaultPath": "content/Java/Index.md",
   "userScriptFolder": null,
   "sessionStorage": "data",
   "sessions": [
@@ -10,16 +10,12 @@
       "total": 0,
       "drafts": {
         "content/Java/Index.md": {
-          "total": 312,
-          "scenes": {
-            "Validator": 312
-          }
+          "total": 0,
+          "scenes": {}
         },
         "content/Network/Index.md": {
-          "total": 253,
-          "scenes": {
-            "HTTPS, 인증서, 암호화 통신 과정 정리": 253
-          }
+          "total": 0,
+          "scenes": {}
         },
         "content/Spring/Index.md": {
           "total": 0,
