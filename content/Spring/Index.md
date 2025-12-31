@@ -1,7 +1,7 @@
 ---
 longform:
   format: scenes
-  title: Java
+  title: Spring
   workflow: Default Workflow
   sceneFolder: /
   scenes: []

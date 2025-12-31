@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/Java/Index.md",
+                "file": "content/Spring/영속성 컨텍스트 지연 쓰기.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Index"
+              "title": "영속성 컨텍스트 지연 쓰기"
             }
           }
         ]
@@ -104,7 +104,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/Java/Index.md",
+                "file": "content/Spring/영속성 컨텍스트 지연 쓰기.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +114,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Index 의 백링크"
+              "title": "영속성 컨텍스트 지연 쓰기 의 백링크"
             }
           },
           {
@@ -123,12 +123,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/Java/Index.md",
+                "file": "content/Spring/영속성 컨텍스트 지연 쓰기.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Index 의 나가는 링크"
+              "title": "영속성 컨텍스트 지연 쓰기 의 나가는 링크"
             }
           },
           {
@@ -166,13 +166,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/Java/Index.md",
+                "file": "content/Spring/영속성 컨텍스트 지연 쓰기.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Index 의 개요"
+              "title": "영속성 컨텍스트 지연 쓰기 의 개요"
             }
           }
         ]
@@ -196,32 +196,51 @@
   },
   "active": "e65f05e26a5ba381",
   "lastOpenFiles": [
-    "content/Readme.md",
-    "content/index.md",
-    "content/Java/Index.md",
-    "templates/chapter.md",
-    "public/Java/Index-og-image.webp",
-    "content/Java",
-    "content/Java/Valid 와 Validator 관계.md",
     "public/index-og-image.webp",
+    "public/Spring/영속성-컨텍스트-지연-쓰기-og-image.webp",
+    "public/Spring/Index-og-image.webp",
     "public/postscript.js",
     "public/prescript.js",
-    "public/Readme-og-image.webp",
-    "public/index.css",
     "public/index.html",
-    "public/Java/Valid-와-Validator-관계-og-image.webp",
-    "public/static/giscus/light.css",
-    "public/static/giscus/dark.css",
-    "public/static/og-image.png",
-    "public/static/icon.png",
-    "public/static/giscus",
-    "public/static/contentIndex.json",
-    "public/static",
-    "content/Java/Introduction.md",
-    "README.md",
+    "public/index.css",
+    "public/Spring/영속성-컨텍스트-지연-쓰기.html",
+    "public/Readme-og-image.webp",
+    "public/404.html",
+    "public/Readme.html",
+    "public/favicon.ico",
+    "templates/chapter.md",
+    "content/Spring/영속성 컨텍스트 지연 쓰기.md",
+    "content/Spring/영속성 컨텍스트 지연 쓰기.md",
+    "public/Spring/Untitled-og-image.webp",
+    "public/Spring/Untitled.html",
+    "content/index.md",
+    "content/Spring/Index.md",
+    "content/Spring",
+    "content/Springg/Index.md",
+    "public/Springg/안녕하세요반반-og-image.webp",
+    "public/Springg/안녕하세요₩-og-image.webp",
+    "public/Springg/안녕하세요~-반-og-image.webp",
+    "public/Springg/안녕하세요-반갑스빈다-og-image.webp",
+    "public/Springg/안녕하세요-~-og-image.webp",
+    "public/Springg/안녕하세요-~-반-og-image.webp",
+    "content/Springg/안녕하세요 ~.md",
+    "content/Springg/반.md",
+    "content/Springg/안녕하세요 ~ 반.md",
+    "content/Springg/안녕하세요 반갑스빈다.md",
+    "content/Springg/안녕하세요~ 반.md",
+    "content/Springg/안녕하세요₩.md",
+    "content/Springg/안녕하세요반반.md",
+    "content/Springg/무제.md",
     "CODE_OF_CONDUCT.md",
-    "public/무제-og-image.webp",
-    "public/Java/무제-og-image.webp",
-    "public/Java/@Valid-와-Validator-관계-og-image.webp"
+    "content/Network/아.md",
+    "content/Network/sdsdsd.md",
+    "content/Untitled.md",
+    "content/Network/HTTPS, 인증서, 암호화 통신 과정 정리.md",
+    "content/Network/Index.md",
+    "content/Java/Index.md",
+    "content/Java/Validator.md",
+    "content/Readme.md",
+    "content/Java/Valid 와 Validator 관계.md",
+    "content/Java/Introduction.md"
   ]
 }

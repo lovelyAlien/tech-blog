@@ -6,23 +6,29 @@
       <description>Last 10 notes on Quartz 4</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
+    <title>Index</title>
+    <link>https://quartz.jzhao.xyz/Spring/Index</link>
+    <guid>https://quartz.jzhao.xyz/Spring/Index</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Wed, 31 Dec 2025 08:20:36 GMT</pubDate>
+  </item><item>
     <title>Readme</title>
     <link>https://quartz.jzhao.xyz/Readme</link>
     <guid>https://quartz.jzhao.xyz/Readme</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Wed, 31 Dec 2025 07:23:33 GMT</pubDate>
-  </item><item>
-    <title>Index</title>
-    <link>https://quartz.jzhao.xyz/Java/Index</link>
-    <guid>https://quartz.jzhao.xyz/Java/Index</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Wed, 31 Dec 2025 07:14:47 GMT</pubDate>
+    <pubDate>Wed, 31 Dec 2025 07:45:20 GMT</pubDate>
   </item><item>
     <title>Welcome to Quartz</title>
     <link>https://quartz.jzhao.xyz/</link>
     <guid>https://quartz.jzhao.xyz/</guid>
     <description><![CDATA[ This is a blank Quartz installation. See the documentation for how to get started. ]]></description>
     <pubDate>Wed, 31 Dec 2025 06:48:52 GMT</pubDate>
+  </item><item>
+    <title>영속성 컨텍스트 지연 쓰기</title>
+    <link>https://quartz.jzhao.xyz/Spring/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-%EC%A7%80%EC%97%B0-%EC%93%B0%EA%B8%B0</link>
+    <guid>https://quartz.jzhao.xyz/Spring/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-%EC%A7%80%EC%97%B0-%EC%93%B0%EA%B8%B0</guid>
+    <description><![CDATA[ 지연 쓰기(Delayed Write) 메커니즘 변경 감지(Dirty Checking) 영속성 컨텍스트는 엔티티의 최초 상태를 스냅샷으로 저장해둡니다. 트랜잭션 커밋 시점에 현재 엔티티와 스냅샷을 비교하여 변경된 사항을 감지합니다. ]]></description>
+    <pubDate>Tue, 30 Dec 2025 15:00:00 GMT</pubDate>
   </item>
     </channel>
   </rss>
