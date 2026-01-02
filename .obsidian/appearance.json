@@ -1,5 +1,8 @@
 {
   "cssTheme": "Things",
   "theme": "moonstone",
-  "accentColor": ""
+  "accentColor": "",
+  "interfaceFontFamily": "Atkinson Hyperlegible",
+  "textFontFamily": "Atkinson Hyperlegible",
+  "monospaceFontFamily": "JetBrains Mono NL"
 }
