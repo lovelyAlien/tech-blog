@@ -1,5 +1,6 @@
 [
   "templater-obsidian",
   "longform",
-  "obsidian-git"
+  "obsidian-git",
+  "obsidian-style-settings"
 ]
