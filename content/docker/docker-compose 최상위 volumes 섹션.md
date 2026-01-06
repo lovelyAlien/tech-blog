@@ -29,7 +29,9 @@ volumes:
 ```
 
 
-volumes
+`postgres-data`라는 볼륨을  
+컨테이너 내부의 `/var/lib/postgresql/data`에 연결하겠다
+
 
 ```swift
 Docker VM

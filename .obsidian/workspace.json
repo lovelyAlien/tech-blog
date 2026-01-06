@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/docker/docker-compose volumes 섹션.md",
+                "file": "content/docker/docker-compose 최상위 volumes 섹션.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "docker-compose volumes 섹션"
+              "title": "docker-compose 최상위 volumes 섹션"
             }
           }
         ]
@@ -198,7 +198,7 @@
   "active": "e65f05e26a5ba381",
   "lastOpenFiles": [
     "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
-    "content/docker/docker-compose volumes 섹션.md",
+    "content/docker/docker-compose 최상위 volumes 섹션.md",
     "content/docker",
     "Pasted image 20260102213338.png",
     "Pasted image 20260102213312.png",
