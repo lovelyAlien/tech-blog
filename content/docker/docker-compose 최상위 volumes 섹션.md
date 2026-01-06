@@ -37,7 +37,7 @@ volumes:
 - `postgres-data`라는 볼륨을 컨테이너 내부의 `/var/lib/postgresql/data`에 연결하겠다
 
 ## volumes 섹션에서 정의한 볼륨은 실제 로컬에 있나?
-실제 로컬에 존재한다. 하지만 Linux가 아닌 OS에서는 Docker Desktop을 통해 Linux VM을 사용하므로, 
+Yes. 실제 로컬에 존재한다. 하지만 Linux가 아닌 OS에서는 Docker Desktop을 통해 Linux VM 내부에 존재한다.
 ```swift
 Docker VM
 └── /var/lib/docker/volumes/chat-server_postgres-data/_data
