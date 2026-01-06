@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
+                "file": "content/docker/docker-compose volumes 섹션.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "채팅 시스템 개발 가이드"
+              "title": "docker-compose volumes 섹션"
             }
           }
         ]
@@ -197,9 +197,11 @@
   },
   "active": "e65f05e26a5ba381",
   "lastOpenFiles": [
+    "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
+    "content/docker/docker-compose volumes 섹션.md",
+    "content/docker",
     "Pasted image 20260102213338.png",
     "Pasted image 20260102213312.png",
-    "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
     "content/개인 프로젝트/채팅 시스템/설계",
     "content/Spring/영속성 컨텍스트 지연 쓰기.md",
     "content/개인 프로젝트/채팅 시스템",
@@ -221,14 +223,12 @@
     "public/Spring/Index-og-image.webp",
     "public/postscript.js",
     "public/prescript.js",
-    "public/index.html",
     "public/Readme-og-image.webp",
     "public/Spring/Untitled-og-image.webp",
     "content/Springg/Index.md",
     "public/Springg/안녕하세요반반-og-image.webp",
     "public/Springg/안녕하세요₩-og-image.webp",
     "public/Springg/안녕하세요~-반-og-image.webp",
-    "public/Springg/안녕하세요-반갑스빈다-og-image.webp",
     "content/Springg/안녕하세요 ~.md",
     "content/Springg/반.md",
     "content/Springg/안녕하세요 ~ 반.md",
