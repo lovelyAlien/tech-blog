@@ -28,9 +28,13 @@ volumes:
   redis-data:
 ```
 
-
-`postgres-data`라는 볼륨을  
-컨테이너 내부의 `/var/lib/postgresql/data`에 연결하겠다
+## volumes 섹션
+- Docker가 관리하는 **Named Volume**
+- 실제 위치:
+```swift
+/var/lib/docker/volumes/...
+```
+- `postgres-data`라는 볼륨을 컨테이너 내부의 `/var/lib/postgresql/data`에 연결하겠다
 
 
 ```swift
