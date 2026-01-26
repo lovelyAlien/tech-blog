@@ -1,5 +1,6 @@
 {
   "promptDelete": false,
   "alwaysUpdateLinks": true,
-  "attachmentFolderPath": "첨부파일"
+  "attachmentFolderPath": "첨부파일",
+  "showLineNumber": true
 }
