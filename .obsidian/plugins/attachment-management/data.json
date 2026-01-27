@@ -1,10 +1,10 @@
 {
   "language": "en",
   "attachPath": {
-    "attachmentRoot": "",
-    "saveAttE": "obsFolder",
-    "attachmentPath": "${notepath}/${notename}",
-    "attachFormat": "IMG-${date}",
+    "attachmentRoot": "content",
+    "saveAttE": "inFolderBelow",
+    "attachmentPath": "attachments/${parent}",
+    "attachFormat": "${notename}-${date}",
     "type": "GLOBAL",
     "extensionOverride": [
       {
@@ -16,7 +16,7 @@
       }
     ]
   },
-  "dateFormat": "YYYYMMDDHHmmssSSS",
+  "dateFormat": "YYYYMMDD-HHmmss",
   "excludeExtensionPattern": "",
   "autoRenameAttachment": true,
   "excludedPaths": "",
