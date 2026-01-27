@@ -2,7 +2,7 @@
   "language": "en",
   "attachPath": {
     "attachmentRoot": "",
-    "saveAttE": "obsFolder",
+    "saveAttE": "nextToNote",
     "attachmentPath": "${notepath}/${notename}",
     "attachFormat": "IMG-${date}",
     "type": "GLOBAL",
