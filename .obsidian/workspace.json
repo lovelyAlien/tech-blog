@@ -104,7 +104,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/Spring/영속성 컨텍스트 지연 쓰기.md",
+                "file": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/1장. 사용자 수에 따른 규모 확장성.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +114,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "영속성 컨텍스트 지연 쓰기 의 백링크"
+              "title": "1장. 사용자 수에 따른 규모 확장성 의 백링크"
             }
           },
           {
@@ -174,13 +174,23 @@
               "icon": "lucide-list",
               "title": "영속성 컨텍스트 지연 쓰기 의 개요"
             }
+          },
+          {
+            "id": "8f7dd68ed8c73495",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
-        ]
+        ],
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -197,12 +207,12 @@
   },
   "active": "4f70aa034cf5d9d2",
   "lastOpenFiles": [
-    "content/개발 스터디/2026-01-18 ~ 2026-03-01/스터디 설계.md",
-    "첨부파일/content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/1장. 사용자 수에 따른 규모 확장성/IMG-20260126100207255.png",
-    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/1장. 사용자 수에 따른 규모 확장성.md",
-    "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/3장. 시스템 설계 면접 공략법.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/2장. 개략적인 규모 추정.md",
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/1장. 사용자 수에 따른 규모 확장성.md",
+    "content/개발 스터디/2026-01-18 ~ 2026-03-01/스터디 설계.md",
+    "첨부파일/content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/1장. 사용자 수에 따른 규모 확장성/IMG-20260126100207255.png",
+    "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
     "첨부파일/content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/1장. 사용자 수에 따른 규모 확장성",
     "첨부파일/content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초",
     "첨부파일/content/개발 스터디",
