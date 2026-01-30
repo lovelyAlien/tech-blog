@@ -166,7 +166,15 @@ Docker 이미지에서 에러 발생하는 이유:
 
 # ⭐ 1. build.gradle에 적힌 의존성 선언 예시
 
-`dependencies {     implementation 'org.springframework.boot:spring-boot-starter-web'     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'     compileOnly 'org.projectlombok:lombok'     runtimeOnly 'com.h2database:h2'     testImplementation 'org.springframework.boot:spring-boot-starter-test' }`
+```yaml
+dependencies {     
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'     
+	compileOnly 'org.projectlombok:lombok'     
+	runtimeOnly 'com.h2database:h2'     
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' 
+	}
+```
 
 ---
 
@@ -184,7 +192,9 @@ IntelliJ가 다음처럼 말한다고 생각해봐:
 
 이걸 실제로 실행해보면, 이런 그래프가 나온다:
 
-`implementation - Implementation only dependencies ... +--- org.springframework.boot:spring-boot-starter-web:3.2.2 |    +--- org.springframework:spring-web:6.1.3 |    +--- org.springframework.boot:spring-boot-starter-json:3.2.2 |    \--- ... +--- org.springframework.boot:spring-boot-starter-data-jpa:3.2.2 |    +--- org.hibernate.orm:hibernate-core:6.4.1 |    \--- ...`
+```yaml
+implementation - Implementation only dependencies ... +--- org.springframework.boot:spring-boot-starter-web:3.2.2 |    +--- org.springframework:spring-web:6.1.3 |    +--- org.springframework.boot:spring-boot-starter-json:3.2.2 |    \--- ... +--- org.springframework.boot:spring-boot-starter-data-jpa:3.2.2 |    +--- org.hibernate.orm:hibernate-core:6.4.1 |    \--- ...
+```
 
 이거 그대로 IDE가 받아서 classpath에 추가하는 거야.
 
