@@ -190,8 +190,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -208,7 +207,7 @@
   },
   "active": "4f70aa034cf5d9d2",
   "lastOpenFiles": [
-    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/7장.md",
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/7장. 분산 시스템을 위한 유일 ID 생성기 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/6장. 키-값 저장소 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/4장 처리율 제한 장치 설계.md",
