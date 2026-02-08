@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계.md",
+                "file": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/6장. 키-값 저장소 설계.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "5장 안정 해시 설계"
+              "title": "6장. 키-값 저장소 설계"
             }
           }
         ]
@@ -88,7 +88,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 242.5
   },
   "right": {
     "id": "f80c50e336deeb93",
@@ -190,7 +190,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -207,12 +208,14 @@
   },
   "active": "4f70aa034cf5d9d2",
   "lastOpenFiles": [
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/7장.md",
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/6장. 키-값 저장소 설계.md",
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/4장 처리율 제한 장치 설계.md",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/4장 처리율 제한 장치 설계-20260202-211114.png",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/4장 처리율 제한 장치 설계-20260202-211103.png",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/4장 처리율 제한 장치 설계-20260202-211037.png",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/4장 처리율 제한 장치 설계-20260202-211011.png",
-    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계.md",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계-20260202-210851.png",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계-20260202-210742.png",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/4장 처리율 제한 장치 설계-20260202-210714.png",
@@ -250,7 +253,6 @@
     "templates/chapter.md",
     "content/Springg/Index.md",
     "content/Springg/안녕하세요 ~.md",
-    "content/Springg/반.md",
-    "content/Springg/안녕하세요 ~ 반.md"
+    "content/Springg/반.md"
   ]
 }
