@@ -41,7 +41,7 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": true
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "파일 탐색기"
@@ -206,8 +206,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4f70aa034cf5d9d2",
+  "active": "615a5c2d72e7ff76",
   "lastOpenFiles": [
+    "content/무제",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/6장. 키-값 저장소 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/7장. 분산 시스템을 위한 유일 ID 생성기 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계.md",
@@ -252,7 +253,6 @@
     "content/Readme.md",
     "templates/chapter.md",
     "content/Springg/Index.md",
-    "content/Springg/안녕하세요 ~.md",
-    "content/Springg/반.md"
+    "content/Springg/안녕하세요 ~.md"
   ]
 }
