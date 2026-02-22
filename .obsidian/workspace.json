@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/workspace/기술 회의 프롬프트 템플릿.md",
+                "file": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/9장. 웹 크롤러 설계.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "기술 회의 프롬프트 템플릿"
+              "title": "9장. 웹 크롤러 설계"
             }
           }
         ]
@@ -208,8 +208,9 @@
   },
   "active": "4f70aa034cf5d9d2",
   "lastOpenFiles": [
-    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계.md",
     "content/workspace/기술 회의 프롬프트 템플릿.md",
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/9장. 웹 크롤러 설계.md",
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계.md",
     "content/workspace",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/6장. 키-값 저장소 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/7장. 분산 시스템을 위한 유일 ID 생성기 설계.md",
@@ -252,7 +253,6 @@
     "content/index.md",
     "content/Readme.md",
     "templates/chapter.md",
-    "content/Springg/Index.md",
-    "content/Springg/안녕하세요 ~.md"
+    "content/Springg/Index.md"
   ]
 }
