@@ -208,6 +208,7 @@
   },
   "active": "4f70aa034cf5d9d2",
   "lastOpenFiles": [
+    "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/9장. 웹 크롤러 설계-20260222-174713.png",
     "content/workspace/기술 회의 프롬프트 템플릿.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/9장. 웹 크롤러 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계.md",
@@ -252,7 +253,6 @@
     "content/Network/Index.md",
     "content/index.md",
     "content/Readme.md",
-    "templates/chapter.md",
-    "content/Springg/Index.md"
+    "templates/chapter.md"
   ]
 }
