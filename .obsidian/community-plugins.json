@@ -4,5 +4,6 @@
   "obsidian-git",
   "obsidian-style-settings",
   "attachment-management",
-  "image-converter"
+  "image-converter",
+  "obsidian-linter"
 ]
