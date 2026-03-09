@@ -2,3 +2,29 @@
 @use "./themes";
 
 // put your custom CSS here!
+h1 {
+  color: #ff6b6b;
+  border-bottom: 2px solid #ff6b6b;
+  padding-bottom: 4px;
+}
+
+h2 {
+  color: #f59f00;
+  border-bottom: 1px solid #f59f00;
+}
+
+h3 {
+  color: #37b24d;
+}
+
+h4 {
+  color: #4c6ef5;
+}
+
+h5 {
+  color: #7048e8;
+}
+
+h6 {
+  color: #868e96;
+}
