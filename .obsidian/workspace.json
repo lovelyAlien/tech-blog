@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "2442d078fc2c1b78",
+        "id": "93759c514a5b3ee1",
         "type": "tabs",
         "children": [
           {
-            "id": "4f70aa034cf5d9d2",
+            "id": "c3ce49fc9a3c9b34",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계.md",
-                "bFile": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계.md",
-                "aRef": ""
+                "file": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/12장. 채팅시스템 설계.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: 14장. 유튜브 설계"
+              "icon": "lucide-file",
+              "title": "12장. 채팅시스템 설계"
             }
           }
         ]
@@ -205,14 +205,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4f70aa034cf5d9d2",
+  "active": "c3ce49fc9a3c9b34",
   "lastOpenFiles": [
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/9장. 웹 크롤러 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/13장. 검색어 자동완성 시스템.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/12장. 채팅시스템 설계.md",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계-20260308-020828.png",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계-20260308-020226.png",
-    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/9장. 웹 크롤러 설계.md",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/9장. 웹 크롤러 설계-20260222-174713.png",
     "content/workspace/기술 회의 프롬프트 템플릿.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계.md",
