@@ -11,14 +11,14 @@
             "id": "4f70aa034cf5d9d2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계.md",
-                "mode": "source",
-                "source": false
+                "aFile": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계.md",
+                "bFile": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계.md",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "14장. 유튜브 설계"
+              "icon": "diff",
+              "title": "Diff: 14장. 유튜브 설계"
             }
           }
         ]
@@ -207,9 +207,9 @@
   },
   "active": "4f70aa034cf5d9d2",
   "lastOpenFiles": [
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/13장. 검색어 자동완성 시스템.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/12장. 채팅시스템 설계.md",
-    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계.md",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계-20260308-020828.png",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계-20260308-020226.png",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/9장. 웹 크롤러 설계.md",
