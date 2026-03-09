@@ -11,10 +11,14 @@
             "id": "dd5103ca16486143",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "content/Java/Java 리소스 누수.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "새 탭"
+              "title": "Java 리소스 누수"
             }
           }
         ]
@@ -100,7 +104,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/1장. 사용자 수에 따른 규모 확장성.md",
+                "file": "content/Java/Java 리소스 누수.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -110,7 +114,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "1장. 사용자 수에 따른 규모 확장성 의 백링크"
+              "title": "Java 리소스 누수 의 백링크"
             }
           },
           {
@@ -119,12 +123,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/Spring/영속성 컨텍스트 지연 쓰기.md",
+                "file": "content/Java/Java 리소스 누수.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "영속성 컨텍스트 지연 쓰기 의 나가는 링크"
+              "title": "Java 리소스 누수 의 나가는 링크"
             }
           },
           {
@@ -162,12 +166,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "content/Java/Java 리소스 누수.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "개요"
+              "title": "Java 리소스 누수 의 개요"
             }
           }
         ],
@@ -190,7 +195,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "1f810fe9885a458b",
+  "active": "dd5103ca16486143",
   "lastOpenFiles": [
     "quartz/styles/custom.scssr",
     "quartz/styles/themes/README.md",
