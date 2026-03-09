@@ -2,26 +2,162 @@
 @use "./themes";
 
 // put your custom CSS here!
-h1 {
-  color: var(--secondary);
+/* -------------------------------- */
+/* Site Title */
+/* -------------------------------- */
+
+.site-title {
+  color: #f38ba8;
+  font-weight: 700;
+  font-size: 1.4rem;
 }
 
-h2 {
-  color: var(--tertiary);
+.site-title:hover {
+  color: #fab387;
 }
 
-h3 {
-  color: var(--highlight);
+
+/* -------------------------------- */
+/* Page Title */
+/* -------------------------------- */
+
+.page-title {
+  color: #f38ba8;
+  font-weight: 700;
 }
 
-h4 {
-  color: var(--gray);
+
+/* -------------------------------- */
+/* Headers */
+/* -------------------------------- */
+
+.prose h1 {
+  color: #f38ba8;
+  border-bottom: 2px solid #f38ba8;
+  padding-bottom: 4px;
 }
 
-h5 {
-  color: var(--darkgray);
+.prose h2 {
+  color: #fab387;
+  border-bottom: 1px solid #fab387;
 }
 
-h6 {
-  color: var(--gray);
+.prose h3 {
+  color: #a6e3a1;
 }
+
+.prose h4 {
+  color: #89b4fa;
+}
+
+.prose h5 {
+  color: #cba6f7;
+}
+
+.prose h6 {
+  color: #9399b2;
+}
+
+
+/* -------------------------------- */
+/* Links */
+/* -------------------------------- */
+
+.prose a {
+  color: #89b4fa;
+  text-decoration: none;
+}
+
+.prose a:hover {
+  color: #f38ba8;
+  text-decoration: underline;
+}
+
+
+/* -------------------------------- */
+/* Sidebar */
+/* -------------------------------- */
+
+.sidebar a {
+  color: #89b4fa;
+}
+
+.sidebar a:hover {
+  color: #f38ba8;
+}
+
+
+/* -------------------------------- */
+/* Background */
+/* -------------------------------- */
+
+body {
+  background-color: #1e1e2e;
+}
+
+
+/* -------------------------------- */
+/* Code */
+/* -------------------------------- */
+
+code {
+  background-color: #313244;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+pre code {
+  background-color: #1e1e2e;
+}
+
+
+/* -------------------------------- */
+/* Blockquote */
+/* -------------------------------- */
+
+blockquote {
+  border-left: 4px solid #f38ba8;
+  padding-left: 12px;
+  color: #bac2de;
+}
+
+
+/* -------------------------------- */
+/* Table */
+/* -------------------------------- */
+
+table {
+  border-collapse: collapse;
+}
+
+table th {
+  border-bottom: 2px solid #f38ba8;
+}
+
+table td {
+  border-bottom: 1px solid #313244;
+}
+
+
+/* -------------------------------- */
+/* Callout */
+/* -------------------------------- */
+
+.callout {
+  border-left: 4px solid #89b4fa;
+  background: #181825;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+
+/* -------------------------------- */
+/* Horizontal Rule */
+/* -------------------------------- */
+
+hr {
+  border: none;
+  border-top: 1px solid #313244;
+}
+
+
