@@ -3,28 +3,25 @@
 
 // put your custom CSS here!
 h1 {
-  color: #ff6b6b;
-  border-bottom: 2px solid #ff6b6b;
-  padding-bottom: 4px;
+  color: var(--secondary);
 }
 
 h2 {
-  color: #f59f00;
-  border-bottom: 1px solid #f59f00;
+  color: var(--tertiary);
 }
 
 h3 {
-  color: #37b24d;
+  color: var(--highlight);
 }
 
 h4 {
-  color: #4c6ef5;
+  color: var(--gray);
 }
 
 h5 {
-  color: #7048e8;
+  color: var(--darkgray);
 }
 
 h6 {
-  color: #868e96;
+  color: var(--gray);
 }
