@@ -31,26 +31,26 @@
 
 article h1 {
   color: var(--secondary);
-  border-bottom: 2px solid var(--secondary);
-  padding-bottom: 4px;
 }
 
 article h2 {
   color: var(--tertiary);
-  border-bottom: 1px solid var(--tertiary);
 }
 
 article h3 {
-  color: var(--dark);
+  color: #22d3ee;
 }
 
 article h4 {
-  color: var(--darkgray);
+  color: #14b8a6;
 }
 
-article h5,
+article h5 {
+  color: #06b6d4;
+}
+
 article h6 {
-  color: var(--gray);
+  color: #0d9488;
 }
 
 /* ================================ */
