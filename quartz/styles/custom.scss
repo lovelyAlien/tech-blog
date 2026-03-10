@@ -1,7 +1,6 @@
 @use "./base.scss";
 @use "./themes";
 
-// put your custom CSS here!
 /* -------------------------------- */
 /* Site Title */
 /* -------------------------------- */
@@ -16,7 +15,6 @@
   color: #fab387;
 }
 
-
 /* -------------------------------- */
 /* Page Title */
 /* -------------------------------- */
@@ -26,53 +24,50 @@
   font-weight: 700;
 }
 
-
 /* -------------------------------- */
 /* Headers */
 /* -------------------------------- */
 
-.prose h1 {
+article h1 {
   color: #f38ba8;
   border-bottom: 2px solid #f38ba8;
   padding-bottom: 4px;
 }
 
-.prose h2 {
+article h2 {
   color: #fab387;
   border-bottom: 1px solid #fab387;
 }
 
-.prose h3 {
+article h3 {
   color: #a6e3a1;
 }
 
-.prose h4 {
+article h4 {
   color: #89b4fa;
 }
 
-.prose h5 {
+article h5 {
   color: #cba6f7;
 }
 
-.prose h6 {
+article h6 {
   color: #9399b2;
 }
-
 
 /* -------------------------------- */
 /* Links */
 /* -------------------------------- */
 
-.prose a {
+article a {
   color: #89b4fa;
   text-decoration: none;
 }
 
-.prose a:hover {
+article a:hover {
   color: #f38ba8;
   text-decoration: underline;
 }
-
 
 /* -------------------------------- */
 /* Sidebar */
@@ -86,7 +81,6 @@
   color: #f38ba8;
 }
 
-
 /* -------------------------------- */
 /* Background */
 /* -------------------------------- */
@@ -94,7 +88,6 @@
 body {
   background-color: #1e1e2e;
 }
-
 
 /* -------------------------------- */
 /* Code */
@@ -110,7 +103,6 @@ pre code {
   background-color: #1e1e2e;
 }
 
-
 /* -------------------------------- */
 /* Blockquote */
 /* -------------------------------- */
@@ -120,7 +112,6 @@ blockquote {
   padding-left: 12px;
   color: #bac2de;
 }
-
 
 /* -------------------------------- */
 /* Table */
@@ -138,7 +129,6 @@ table td {
   border-bottom: 1px solid #313244;
 }
 
-
 /* -------------------------------- */
 /* Callout */
 /* -------------------------------- */
@@ -150,7 +140,6 @@ table td {
   border-radius: 6px;
 }
 
-
 /* -------------------------------- */
 /* Horizontal Rule */
 /* -------------------------------- */
@@ -159,5 +148,3 @@ hr {
   border: none;
   border-top: 1px solid #313244;
 }
-
-
