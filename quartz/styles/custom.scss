@@ -6,13 +6,25 @@
 /* ================================ */
 
 :root[data-theme="light"] {
-  --secondary: #d6336c;
-  --tertiary: #e8590c;
+  --secondary: #7c3aed;
+  --tertiary: #6366f1;
+
+  --highlight: #f1f3f5;
+
+  --gray: #495057;
+  --darkgray: #343a40;
+  --dark: #212529;
 }
 
 :root[data-theme="dark"] {
-  --secondary: #f38ba8;
-  --tertiary: #fab387;
+  --secondary: #c084fc;
+  --tertiary: #a5b4fc;
+
+  --highlight: #2a2a33;
+
+  --gray: #adb5bd;
+  --darkgray: #ced4da;
+  --dark: #f1f3f5;
 }
 
 /* ================================ */
