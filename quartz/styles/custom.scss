@@ -9,12 +9,12 @@
   color: var(--secondary);
   font-weight: 700;
   font-size: 1.4rem;
+  transition: color 0.2s ease;
 }
 
 .site-title:hover {
   color: var(--tertiary);
 }
-
 
 /* ================================ */
 /* Page Title */
@@ -24,7 +24,6 @@
   color: var(--secondary);
   font-weight: 700;
 }
-
 
 /* ================================ */
 /* Headers */
@@ -49,14 +48,10 @@ article h4 {
   color: var(--darkgray);
 }
 
-article h5 {
-  color: var(--gray);
-}
-
+article h5,
 article h6 {
   color: var(--gray);
 }
-
 
 /* ================================ */
 /* Header Anchor UX */
@@ -79,7 +74,6 @@ article h4:hover a[role="anchor"] {
   color: var(--secondary);
 }
 
-
 /* ================================ */
 /* Links */
 /* ================================ */
@@ -87,6 +81,7 @@ article h4:hover a[role="anchor"] {
 article a {
   color: var(--secondary);
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 article a:hover {
@@ -94,19 +89,30 @@ article a:hover {
   text-decoration: underline;
 }
 
-
 /* ================================ */
 /* Sidebar */
 /* ================================ */
 
 .sidebar a {
   color: var(--gray);
+  transition: color 0.2s ease;
 }
 
 .sidebar a:hover {
   color: var(--secondary);
 }
 
+/* ================================ */
+/* Sidebar hover animation */
+/* ================================ */
+
+.sidebar li {
+  transition: transform 0.15s ease;
+}
+
+.sidebar li:hover {
+  transform: translateX(3px);
+}
 
 /* ================================ */
 /* Code */
@@ -118,11 +124,36 @@ code {
   border-radius: 4px;
 }
 
+/* ================================ */
+/* Code Block */
+/* ================================ */
+
 pre {
   border-radius: 8px;
   border: 1px solid var(--lightgray);
+  padding: 0.6rem;
 }
 
+/* ================================ */
+/* Code Copy Button */
+/* ================================ */
+
+.copy-code-button {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  font-size: 0.8rem;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: var(--lightgray);
+  color: var(--dark);
+  cursor: pointer;
+}
+
+.copy-code-button:hover {
+  background: var(--secondary);
+  color: white;
+}
 
 /* ================================ */
 /* Blockquote */
@@ -133,6 +164,15 @@ blockquote {
   padding-left: 12px;
 }
 
+/* ================================ */
+/* Callout */
+/* ================================ */
+
+.callout {
+  border-left: 4px solid var(--secondary);
+  background: var(--highlight);
+  border-radius: 6px;
+}
 
 /* ================================ */
 /* Table */
@@ -151,7 +191,6 @@ table tr:hover {
   background: var(--highlight);
 }
 
-
 /* ================================ */
 /* Images */
 /* ================================ */
@@ -161,7 +200,6 @@ img {
   margin: 1.5rem 0;
 }
 
-
 /* ================================ */
 /* Horizontal Rule */
 /* ================================ */
@@ -170,7 +208,6 @@ hr {
   border: none;
   border-top: 1px solid var(--lightgray);
 }
-
 
 /* ================================ */
 /* TOC */
@@ -184,11 +221,33 @@ hr {
   color: var(--secondary);
 }
 
+.toc .active {
+  color: var(--secondary);
+  font-weight: 600;
+}
 
 /* ================================ */
-/* Navigation Progress Bar */
+/* Scroll Progress Bar */
 /* ================================ */
 
 .navigation-progress {
-  background: var(--secondary);
+  background: linear-gradient(
+    90deg,
+    var(--secondary),
+    var(--tertiary)
+  );
+}
+
+/* ================================ */
+/* Optional: Header Gradient */
+/* ================================ */
+
+.gradient-header article h1 {
+  background: linear-gradient(
+    90deg,
+    var(--secondary),
+    var(--tertiary)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
