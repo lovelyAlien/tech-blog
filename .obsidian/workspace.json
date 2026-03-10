@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "6e4f2a872df3f6af",
+        "id": "c80993c5f9d614bf",
         "type": "tabs",
         "children": [
           {
-            "id": "7087a4a5674d3873",
+            "id": "275ba8c47f342d40",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -190,8 +190,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "615a5c2d72e7ff76",
+  "active": "275ba8c47f342d40",
   "lastOpenFiles": [
+    "quartz/styles/themes/_fonts.scss",
     "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
     "content/Java/Java 리소스 누수.md",
     "quartz/styles/custom.scssr",

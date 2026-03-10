@@ -1,3 +1,4 @@
+@use "./themes/fonts";
 @use "./base.scss";
 @use "./themes";
 @use "./themes/light";
@@ -62,6 +63,32 @@ article a {
 article a:hover {
   color: var(--tertiary);
   text-decoration: underline;
+}
+
+/* ================================ */
+/* Interface Font (SN Pro)          */
+/* ================================ */
+
+:root {
+  --interfaceFont: "SN Pro", system-ui, sans-serif;
+}
+
+.site-title,
+header,
+nav,
+.sidebar,
+.toc,
+.explorer,
+.backlinks,
+.recent-notes,
+.tags-list,
+.page-header,
+.page-footer,
+.search,
+.graph,
+.breadcrumb-container,
+.meta {
+  font-family: var(--interfaceFont);
 }
 
 /* ================================ */
