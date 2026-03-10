@@ -2,32 +2,6 @@
 @use "./themes";
 
 /* ================================ */
-/* Color Override */
-/* ================================ */
-
-:root.light {
-  --secondary: #7c3aed;
-  --tertiary: #6366f1;
-
-  --highlight: #f1f3f5;
-
-  --gray: #495057;
-  --darkgray: #343a40;
-  --dark: #212529;
-}
-
-:root.dark {
-  --secondary: #c084fc;
-  --tertiary: #a5b4fc;
-
-  --highlight: #2a2a33;
-
-  --gray: #adb5bd;
-  --darkgray: #ced4da;
-  --dark: #f1f3f5;
-}
-
-/* ================================ */
 /* Site Title */
 /* ================================ */
 
