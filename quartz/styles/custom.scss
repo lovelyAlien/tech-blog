@@ -2,6 +2,20 @@
 @use "./themes";
 
 /* ================================ */
+/* Color Override */
+/* ================================ */
+
+:root[data-theme="light"] {
+  --secondary: #d6336c;
+  --tertiary: #e8590c;
+}
+
+:root[data-theme="dark"] {
+  --secondary: #f38ba8;
+  --tertiary: #fab387;
+}
+
+/* ================================ */
 /* Site Title */
 /* ================================ */
 
