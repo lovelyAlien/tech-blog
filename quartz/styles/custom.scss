@@ -158,6 +158,7 @@ pre {
   border-radius: 8px;
   border: 1px solid var(--lightgray);
   padding: 0.6rem;
+  position: relative;
 }
 
 /* ================================ */
@@ -221,7 +222,7 @@ table tr:hover {
 /* Images */
 /* ================================ */
 
-img {
+article img {
   border-radius: 10px;
   margin: 1.5rem 0;
 }
