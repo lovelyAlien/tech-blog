@@ -8,3 +8,13 @@
 [saved-theme="dark"] article h4 { color: #59d5c4; }
 [saved-theme="dark"] article h5 { color: #2a8aff; }
 [saved-theme="dark"] article h6 { color: #b99aff; }
+
+/* ================================ */
+/* Inline Text — Dark Mode          */
+/* ================================ */
+
+[saved-theme="dark"] article em                 { color: #86c98a; font-style: italic; }
+[saved-theme="dark"] article strong             { color: #7ab4f5; font-weight: 700; }
+[saved-theme="dark"] article strong em,
+[saved-theme="dark"] article em strong          { color: #7ab4f5; font-weight: 700; font-style: italic; }
+[saved-theme="dark"] article mark               { background-color: #5c3e1e; color: #fde3c0; border-radius: 3px; padding: 0 2px; }

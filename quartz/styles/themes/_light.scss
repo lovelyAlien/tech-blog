@@ -8,3 +8,13 @@ article h3 { color: #2c8a32; }
 article h4 { color: #007a7a; }
 article h5 { color: #1a5fb4; }
 article h6 { color: #6a40bf; }
+
+/* ================================ */
+/* Inline Text — Light Mode         */
+/* ================================ */
+
+article em                  { color: #4e9a5e; font-style: italic; }
+article strong              { color: #3d7cc9; font-weight: 700; }
+article strong em,
+article em strong           { color: #3d7cc9; font-weight: 700; font-style: italic; }
+article mark                { background-color: #fde3c0; color: inherit; border-radius: 3px; padding: 0 2px; }

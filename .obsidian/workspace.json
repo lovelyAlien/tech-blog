@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "7d87d82f48b35148",
+        "id": "6e4f2a872df3f6af",
         "type": "tabs",
         "children": [
           {
-            "id": "78fd016d5e7ac1b5",
+            "id": "7087a4a5674d3873",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "content/Java/Java 리소스 누수.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Java 리소스 누수"
+              "title": "새 탭"
             }
           }
         ]
@@ -195,7 +191,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "78fd016d5e7ac1b5",
+  "active": "615a5c2d72e7ff76",
   "lastOpenFiles": [
     "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
     "content/Java/Java 리소스 누수.md",
