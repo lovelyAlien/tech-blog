@@ -1,150 +1,194 @@
 @use "./base.scss";
 @use "./themes";
 
-/* -------------------------------- */
+/* ================================ */
 /* Site Title */
-/* -------------------------------- */
+/* ================================ */
 
 .site-title {
-  color: #f38ba8;
+  color: var(--secondary);
   font-weight: 700;
   font-size: 1.4rem;
 }
 
 .site-title:hover {
-  color: #fab387;
+  color: var(--tertiary);
 }
 
-/* -------------------------------- */
+
+/* ================================ */
 /* Page Title */
-/* -------------------------------- */
+/* ================================ */
 
 .page-title {
-  color: #f38ba8;
+  color: var(--secondary);
   font-weight: 700;
 }
 
-/* -------------------------------- */
+
+/* ================================ */
 /* Headers */
-/* -------------------------------- */
+/* ================================ */
 
 article h1 {
-  color: #f38ba8;
-  border-bottom: 2px solid #f38ba8;
+  color: var(--secondary);
+  border-bottom: 2px solid var(--secondary);
   padding-bottom: 4px;
 }
 
 article h2 {
-  color: #fab387;
-  border-bottom: 1px solid #fab387;
+  color: var(--tertiary);
+  border-bottom: 1px solid var(--tertiary);
 }
 
 article h3 {
-  color: #a6e3a1;
+  color: var(--dark);
 }
 
 article h4 {
-  color: #89b4fa;
+  color: var(--darkgray);
 }
 
 article h5 {
-  color: #cba6f7;
+  color: var(--gray);
 }
 
 article h6 {
-  color: #9399b2;
+  color: var(--gray);
 }
 
-/* -------------------------------- */
+
+/* ================================ */
+/* Header Anchor UX */
+/* ================================ */
+
+article h1 a[role="anchor"],
+article h2 a[role="anchor"],
+article h3 a[role="anchor"],
+article h4 a[role="anchor"] {
+  opacity: 0;
+  color: var(--gray);
+  transition: opacity 0.2s ease;
+}
+
+article h1:hover a[role="anchor"],
+article h2:hover a[role="anchor"],
+article h3:hover a[role="anchor"],
+article h4:hover a[role="anchor"] {
+  opacity: 1;
+  color: var(--secondary);
+}
+
+
+/* ================================ */
 /* Links */
-/* -------------------------------- */
+/* ================================ */
 
 article a {
-  color: #89b4fa;
+  color: var(--secondary);
   text-decoration: none;
 }
 
 article a:hover {
-  color: #f38ba8;
+  color: var(--tertiary);
   text-decoration: underline;
 }
 
-/* -------------------------------- */
+
+/* ================================ */
 /* Sidebar */
-/* -------------------------------- */
+/* ================================ */
 
 .sidebar a {
-  color: #89b4fa;
+  color: var(--gray);
 }
 
 .sidebar a:hover {
-  color: #f38ba8;
+  color: var(--secondary);
 }
 
-/* -------------------------------- */
-/* Background */
-/* -------------------------------- */
 
-body {
-  background-color: #1e1e2e;
-}
-
-/* -------------------------------- */
+/* ================================ */
 /* Code */
-/* -------------------------------- */
+/* ================================ */
 
 code {
-  background-color: #313244;
+  background-color: var(--highlight);
   padding: 2px 6px;
   border-radius: 4px;
 }
 
-pre code {
-  background-color: #1e1e2e;
+pre {
+  border-radius: 8px;
+  border: 1px solid var(--lightgray);
 }
 
-/* -------------------------------- */
+
+/* ================================ */
 /* Blockquote */
-/* -------------------------------- */
+/* ================================ */
 
 blockquote {
-  border-left: 4px solid #f38ba8;
+  border-left: 4px solid var(--secondary);
   padding-left: 12px;
-  color: #bac2de;
 }
 
-/* -------------------------------- */
+
+/* ================================ */
 /* Table */
-/* -------------------------------- */
+/* ================================ */
 
 table {
   border-collapse: collapse;
+  margin: 1rem 0;
 }
 
 table th {
-  border-bottom: 2px solid #f38ba8;
+  border-bottom: 2px solid var(--secondary);
 }
 
-table td {
-  border-bottom: 1px solid #313244;
+table tr:hover {
+  background: var(--highlight);
 }
 
-/* -------------------------------- */
-/* Callout */
-/* -------------------------------- */
 
-.callout {
-  border-left: 4px solid #89b4fa;
-  background: #181825;
-  padding: 12px;
-  border-radius: 6px;
+/* ================================ */
+/* Images */
+/* ================================ */
+
+img {
+  border-radius: 10px;
+  margin: 1.5rem 0;
 }
 
-/* -------------------------------- */
+
+/* ================================ */
 /* Horizontal Rule */
-/* -------------------------------- */
+/* ================================ */
 
 hr {
   border: none;
-  border-top: 1px solid #313244;
+  border-top: 1px solid var(--lightgray);
+}
+
+
+/* ================================ */
+/* TOC */
+/* ================================ */
+
+.toc a {
+  color: var(--gray);
+}
+
+.toc a:hover {
+  color: var(--secondary);
+}
+
+
+/* ================================ */
+/* Navigation Progress Bar */
+/* ================================ */
+
+.navigation-progress {
+  background: var(--secondary);
 }
