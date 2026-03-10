@@ -375,4 +375,4 @@ FileInputStream fis = new FileInputStream("file.txt"); // ⚠️ Warning: Resour
 ### 참고 자료  
 - [Oracle Java Tutorials - The try-with-resources Statement](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html)  
 - [Effective Java (3rd Edition) - Item 9: Prefer try-with-resources to try-finally](https://www.oreilly.com/library/view/effective-java/9780134686097/)  
-- [Baeldung - Java Try with Resources](https://www.baeldung.com/java-try-with-resources)
+- [Baeldung - Java Try with Resources](https://www.baeldung.com/java-try-with-resources
