@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "9830951f332d5b28",
+        "id": "7d87d82f48b35148",
         "type": "tabs",
         "children": [
           {
-            "id": "dd5103ca16486143",
+            "id": "78fd016d5e7ac1b5",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "content/Java/Java 리소스 누수.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Java 리소스 누수"
+              "title": "새 탭"
             }
           }
         ]
@@ -123,12 +119,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/Java/Java 리소스 누수.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Java 리소스 누수 의 나가는 링크"
+              "title": "나가는 링크"
             }
           },
           {
@@ -195,8 +190,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "dd5103ca16486143",
+  "active": "78fd016d5e7ac1b5",
   "lastOpenFiles": [
+    "content/Java/Java 리소스 누수.md",
     "quartz/styles/custom.scssr",
     "quartz/styles/themes/README.md",
     "quartz/styles/themes/publish.css",
@@ -229,7 +225,6 @@
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/4장 처리율 제한 장치 설계-20260202-210714.png",
     "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
     "content/docker/docker-compose 최상위 volumes 섹션.md",
-    "content/Java/Java 리소스 누수.md",
     "content/Java/Index.md",
     "content/Spring/IDE 실행과 Gradle 빌드 실행 차이.md",
     "content/Spring/Index.md",
@@ -237,7 +232,6 @@
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/1장. 사용자 수에 따른 규모 확장성.md",
     "content/개발 스터디/2026-01-18 ~ 2026-03-01/스터디 설계.md",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초",
-    "content/attachments",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/2장. 개략적인 규모 추정.md",
     "README.md",
     "CODE_OF_CONDUCT.md",

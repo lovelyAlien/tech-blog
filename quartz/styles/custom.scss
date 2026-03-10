@@ -5,9 +5,9 @@
 /* Color Override */
 /* ================================ */
 
-:root[data-theme="light"] {
-  --secondary: red;
-  --tertiary: red;
+:root.light {
+  --secondary: #7c3aed;
+  --tertiary: #6366f1;
 
   --highlight: #f1f3f5;
 
@@ -16,7 +16,7 @@
   --dark: #212529;
 }
 
-:root[data-theme="dark"] {
+:root.dark {
   --secondary: #c084fc;
   --tertiary: #a5b4fc;
 
