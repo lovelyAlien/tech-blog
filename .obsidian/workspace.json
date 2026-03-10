@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "c80993c5f9d614bf",
+        "id": "73ce8a6712e54565",
         "type": "tabs",
         "children": [
           {
-            "id": "275ba8c47f342d40",
+            "id": "2d3ac651e8a30150",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -190,7 +190,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "275ba8c47f342d40",
+  "active": "2d3ac651e8a30150",
   "lastOpenFiles": [
     "quartz/styles/themes/_fonts.scss",
     "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
