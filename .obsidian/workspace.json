@@ -119,12 +119,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/Java/Java 리소스 누수.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Java 리소스 누수 의 나가는 링크"
+              "title": "나가는 링크"
             }
           },
           {
