@@ -1,5 +1,7 @@
 @use "./base.scss";
 @use "./themes";
+@use "./themes/light";
+@use "./themes/dark";
 
 /* ================================ */
 /* Site Title */
@@ -25,33 +27,6 @@
   font-weight: 700;
 }
 
-/* ================================ */
-/* Headers */
-/* ================================ */
-
-article h1 {
-  color: var(--secondary);
-}
-
-article h2 {
-  color: var(--tertiary);
-}
-
-article h3 {
-  color: #22d3ee;
-}
-
-article h4 {
-  color: #14b8a6;
-}
-
-article h5 {
-  color: #06b6d4;
-}
-
-article h6 {
-  color: #0d9488;
-}
 
 /* ================================ */
 /* Header Anchor UX */
