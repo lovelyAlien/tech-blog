@@ -8,7 +8,7 @@ draft: false
 
 ## 리소스 누수란?  
   
-리소스 누수(Resource Leak)는 프로그램이 사용한 시스템 리소스를 적절히 해제하지 않아 메모리나 리소스가 계속 점유되는 현상입니다. 
+리소스 누수(Resource Leak)는 프로그램이 사용한 시스템 리소스를 적절히 해제하지 않아 메모리나 리소스가 계속 점유되는 현상입니다.
   
 ### 주요 리소스 타입  
 - **파일 핸들**: InputStream, OutputStream, Reader, Writer  
@@ -375,4 +375,4 @@ FileInputStream fis = new FileInputStream("file.txt"); // ⚠️ Warning: Resour
 ### 참고 자료  
 - [Oracle Java Tutorials - The try-with-resources Statement](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html)  
 - [Effective Java (3rd Edition) - Item 9: Prefer try-with-resources to try-finally](https://www.oreilly.com/library/view/effective-java/9780134686097/)  
-- [Baeldung - Java Try with Resources](https://www.baeldung.com/java-try-with-resources
+- [Baeldung - Java Try with Resources](https://www.baeldung.com/java-try-with-resources)
