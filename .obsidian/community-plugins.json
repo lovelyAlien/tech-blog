@@ -5,5 +5,6 @@
   "obsidian-style-settings",
   "attachment-management",
   "image-converter",
-  "obsidian-linter"
+  "obsidian-linter",
+  "obsidian-plugin-prettier"
 ]
