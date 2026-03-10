@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
+                "file": "content/Java/Java 리소스 누수.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "채팅 시스템 개발 가이드"
+              "title": "Java 리소스 누수"
             }
           }
         ]
@@ -123,12 +123,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
+                "file": "content/Java/Java 리소스 누수.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "채팅 시스템 개발 가이드 의 나가는 링크"
+              "title": "Java 리소스 누수 의 나가는 링크"
             }
           },
           {
@@ -197,6 +197,7 @@
   },
   "active": "78fd016d5e7ac1b5",
   "lastOpenFiles": [
+    "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
     "content/Java/Java 리소스 누수.md",
     "quartz/styles/custom.scssr",
     "quartz/styles/themes/README.md",
@@ -228,7 +229,6 @@
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계-20260202-210851.png",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계-20260202-210742.png",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/4장 처리율 제한 장치 설계-20260202-210714.png",
-    "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
     "content/docker/docker-compose 최상위 volumes 섹션.md",
     "content/Java/Index.md",
     "content/Spring/IDE 실행과 Gradle 빌드 실행 차이.md",
