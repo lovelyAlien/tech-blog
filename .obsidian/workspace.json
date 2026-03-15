@@ -11,10 +11,14 @@
             "id": "2d3ac651e8a30150",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "새 탭"
+              "title": "14장. 유튜브 설계"
             }
           }
         ]
@@ -119,11 +123,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "나가는 링크"
+              "title": "14장. 유튜브 설계 의 나가는 링크"
             }
           },
           {
@@ -192,8 +197,9 @@
   },
   "active": "2d3ac651e8a30150",
   "lastOpenFiles": [
-    "quartz/styles/themes/_fonts.scss",
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/15..md",
     "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
+    "quartz/styles/themes/_fonts.scss",
     "content/Java/Java 리소스 누수.md",
     "quartz/styles/custom.scssr",
     "quartz/styles/themes/README.md",
@@ -232,7 +238,6 @@
     "content/Spring/영속성 컨텍스트 지연 쓰기.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/1장. 사용자 수에 따른 규모 확장성.md",
     "content/개발 스터디/2026-01-18 ~ 2026-03-01/스터디 설계.md",
-    "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/2장. 개략적인 규모 추정.md",
     "README.md",
     "CODE_OF_CONDUCT.md",
