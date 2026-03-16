@@ -1,7 +1,6 @@
 {
 	"nodes":[
-		{"id":"0d9a6fc969653ad8","x":-360,"y":-380,"width":460,"height":420,"type":"text","text":"Redis와 RDMBS 차이는?\n\n"},
-		{"id":"df76eb84965221aa","x":-980,"y":-920,"width":454,"height":582,"type":"text","text":"1️⃣ Redis와 RDBMS 차이  \n2️⃣ Redis는 왜 캐시로 많이 사용되나요  \n3️⃣ Redis 싱글 스레드 구조 설명  \n4️⃣ Redis Cluster 동작 방식  \n5️⃣ Redis Cluster에서 데이터는 어떻게 분산되나요  \n6️⃣ Redis Sentinel vs Cluster 차이  \n7️⃣ Redis persistence (RDB / AOF)  \n8️⃣ Cache Aside 패턴 설명  \n9️⃣ Redis 장애 발생 시 대응 방법  \n🔟 Redis connection pool 문제"}
+		{"id":"df76eb84965221aa","type":"text","text":"1️⃣ Redis와 RDBMS 차이  \n2️⃣ Redis는 왜 캐시로 많이 사용되나요  \n3️⃣ Redis 싱글 스레드 구조 설명  \n4️⃣ Redis Cluster 동작 방식  \n5️⃣ Redis Cluster에서 데이터는 어떻게 분산되나요  \n6️⃣ Redis Sentinel vs Cluster 차이  \n7️⃣ Redis persistence (RDB / AOF)  \n8️⃣ Cache Aside 패턴 설명  \n9️⃣ Redis 장애 발생 시 대응 방법  \n🔟 Redis connection pool 문제","x":-980,"y":-920,"width":454,"height":291}
 	],
 	"edges":[]
 }
