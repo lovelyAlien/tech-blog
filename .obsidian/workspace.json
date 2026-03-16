@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/15. 구글 드라이브 설계.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "15. 구글 드라이브 설계"
+              "title": "README"
             }
           }
         ]
@@ -123,12 +123,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/15. 구글 드라이브 설계.md",
+                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "15. 구글 드라이브 설계 의 나가는 링크"
+              "title": "README 의 나가는 링크"
             }
           },
           {
@@ -197,8 +197,13 @@
   },
   "active": "2d3ac651e8a30150",
   "lastOpenFiles": [
-    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계.md",
+    "CODE_OF_CONDUCT.md",
+    "무제.md",
+    "README.md",
+    "templates/chapter.md",
+    "첨부파일/content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/1장. 사용자 수에 따른 규모 확장성/IMG-20260126100207255.png",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/15. 구글 드라이브 설계.md",
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계.md",
     "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
     "quartz/styles/themes/_fonts.scss",
     "content/Java/Java 리소스 누수.md",
@@ -230,7 +235,6 @@
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/4장 처리율 제한 장치 설계-20260202-211011.png",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계-20260202-210851.png",
     "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/5장 안정 해시 설계-20260202-210742.png",
-    "content/attachments/가상 면접 사례로 배우는 대규모 시스템 설계 기초/4장 처리율 제한 장치 설계-20260202-210714.png",
     "content/docker/docker-compose 최상위 volumes 섹션.md",
     "content/Java/Index.md",
     "content/Spring/IDE 실행과 Gradle 빌드 실행 차이.md",
@@ -238,10 +242,6 @@
     "content/Spring/영속성 컨텍스트 지연 쓰기.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/1장. 사용자 수에 따른 규모 확장성.md",
     "content/개발 스터디/2026-01-18 ~ 2026-03-01/스터디 설계.md",
-    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/2장. 개략적인 규모 추정.md",
-    "README.md",
-    "CODE_OF_CONDUCT.md",
-    "content/개발 스터디/2026-01-18 ~ 2026-03-01/무제.md",
-    "무제.md"
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/2장. 개략적인 규모 추정.md"
   ]
 }
