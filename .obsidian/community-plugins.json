@@ -6,5 +6,7 @@
   "attachment-management",
   "image-converter",
   "obsidian-linter",
-  "obsidian-plugin-prettier"
+  "obsidian-plugin-prettier",
+  "obsidian-minimal-settings",
+  "calendar"
 ]
