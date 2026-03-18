@@ -23,4 +23,3 @@ Redis는 단순 Key-Value 저장소가 아니라 다양한 자료구조를 제�
 Redis는 다양한 캐시 전략(Cache Aside, Write Through 등)을 쉽게 구현할 수 있어 **DB 부하를 줄이는 캐시 계층으로 많이 사용됩니다.**
 
 ## TTL 관리 어떻게 동작하지?
-
