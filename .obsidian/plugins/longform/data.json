@@ -6,6 +6,24 @@
   "sessionStorage": "data",
   "sessions": [
     {
+      "start": "2026-03-21T07:29:47.302Z",
+      "total": 0,
+      "drafts": {
+        "content/Spring/Index.md": {
+          "total": 0,
+          "scenes": {}
+        },
+        "content/Network/Index.md": {
+          "total": 0,
+          "scenes": {}
+        },
+        "content/Java/Index.md": {
+          "total": 0,
+          "scenes": {}
+        }
+      }
+    },
+    {
       "start": "2026-03-16T15:40:58.968Z",
       "total": 0,
       "drafts": {
