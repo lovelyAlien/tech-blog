@@ -11,10 +11,14 @@
             "id": "c4e3a5fe957def54",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "content/Spring/카카오 소셜 로그인.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "새 탭"
+              "title": "카카오 소셜 로그인"
             }
           }
         ]
@@ -80,8 +84,7 @@
               "title": "Longform"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -204,6 +207,10 @@
   },
   "active": "c4e3a5fe957def54",
   "lastOpenFiles": [
+    "content/attachments/Spring/카카오 소셜 로그인-20260624-174624.svg",
+    "content/attachments/Spring",
+    "content/attachments/Spring/카카오 소셜 로그인-20260624-174544.svg",
+    "content/Spring/카카오 소셜 로그인.md",
     "content/attachments/kafka",
     "content/attachments/kafka/1. kafka-20260322-005818.png",
     "content/Java/Hibernate/Hibernate.md",
@@ -227,7 +234,6 @@
     "첨부파일/image-3.png",
     "첨부파일/image-1.png",
     "redis",
-    "첨부파일/image.png",
     "무제.md",
     "content/workspace/기술 회의 프롬프트 템플릿.md",
     "content/redis/Redis와.md",
@@ -240,8 +246,6 @@
     "quartz/styles/custom.scssr",
     "quartz/styles/themes/README.md",
     "quartz/styles/themes/publish.css",
-    "quartz/styles/themes/_index.scss",
-    "quartz-themes/themes/anuppuccin",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/9장. 웹 크롤러 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/13장. 검색어 자동완성 시스템.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/12장. 채팅시스템 설계.md",
@@ -249,7 +253,6 @@
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/6장. 키-값 저장소 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/7장. 분산 시스템을 위한 유일 ID 생성기 설계.md",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/4장 처리율 제한 장치 설계.md",
-    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/3장. 시스템 설계 면접 공략법.md",
-    "content/docker/docker-compose 최상위 volumes 섹션.md"
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/3장. 시스템 설계 면접 공략법.md"
   ]
 }
