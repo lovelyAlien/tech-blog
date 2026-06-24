@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "73ce8a6712e54565",
+        "id": "c6a4e951f0cf3188",
         "type": "tabs",
         "children": [
           {
-            "id": "2d3ac651e8a30150",
+            "id": "c4e3a5fe957def54",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "content/kafka/1. kafka.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "1. kafka"
+              "title": "새 탭"
             }
           }
         ]
@@ -84,7 +80,8 @@
               "title": "Longform"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -205,7 +202,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "2d3ac651e8a30150",
+  "active": "c4e3a5fe957def54",
   "lastOpenFiles": [
     "content/attachments/kafka",
     "content/attachments/kafka/1. kafka-20260322-005818.png",
