@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>IDE 실행과 Gradle 빌드 실행 차이</title><meta charset="utf-8"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="Quartz 4"/><meta property="og:title" content="IDE 실행과 Gradle 빌드 실행 차이"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="IDE 실행과 Gradle 빌드 실행 차이"/><meta name="twitter:description" content="✅ IDE로 실행하는 것은 “Gradle이 직접 관여하지 않는다.” 하지만 “Gradle이 완전히 빠지는 것”도 아니다. 아주 정확한 동작 구조를 단계별로 설명해줄게. ⭐ 1."/><meta property="og:description" content="✅ IDE로 실행하는 것은 “Gradle이 직접 관여하지 않는다.” 하지만 “Gradle이 완전히 빠지는 것”도 아니다. 아주 정확한 동작 구조를 단계별로 설명해줄게. ⭐ 1."/><meta property="og:image:alt" content="✅ IDE로 실행하는 것은 “Gradle이 직접 관여하지 않는다.” 하지만 “Gradle이 완전히 빠지는 것”도 아니다. 아주 정확한 동작 구조를 단계별로 설명해줄게. ⭐ 1."/><meta property="twitter:domain" content="quartz.jzhao.xyz"/><meta property="og:url" content="https://quartz.jzhao.xyz/Spring/IDE-실행과-Gradle-빌드-실행-차이"/><meta property="twitter:url" content="https://quartz.jzhao.xyz/Spring/IDE-실행과-Gradle-빌드-실행-차이"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="✅ IDE로 실행하는 것은 “Gradle이 직접 관여하지 않는다.” 하지만 “Gradle이 완전히 빠지는 것”도 아니다. 아주 정확한 동작 구조를 단계별로 설명해줄게. ⭐ 1."/><meta name="generator" content="Quartz"/><link href="../index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL1VzZXJzL2xvdmVseWFsaWVuL0RvY3VtZW50cy93b3Jrc3BhY2UvT2JzaWRpYW4vdGVjaC1ibG9nL3F1YXJ0ei9jb21wb25lbnRzL3N0eWxlcyIsInNvdXJjZXMiOlsibWVybWFpZC5pbmxpbmUuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTs7O0FBS0Y7RUFDRTtFQUNBOzs7QUFJSjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFOztBQUdGO0VBQ0U7O0FBSUY7RUFDRTtFQUNBO0VBQ0EiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhwYW5kLWJ1dHRvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBwYWRkaW5nOiAwLjRyZW07XG4gIG1hcmdpbjogMC4zcmVtO1xuICByaWdodDogMDsgLy8gTk9URTogcmlnaHQgd2lsbCBiZSBzZXQgaW4gbWVybWFpZC5pbmxpbmUudHNcbiAgY29sb3I6IHZhcigtLWdyYXkpO1xuICBib3JkZXItY29sb3I6IHZhcigtLWRhcmspO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1saWdodCk7XG4gIGJvcmRlcjogMXB4IHNvbGlkO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIG9wYWNpdHk6IDA7XG4gIHRyYW5zaXRpb246IDAuMnM7XG5cbiAgJiA+IHN2ZyB7XG4gICAgZmlsbDogdmFyKC0tbGlnaHQpO1xuICAgIGZpbHRlcjogY29udHJhc3QoMC4zKTtcbiAgfVxuXG4gICY6aG92ZXIge1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBib3JkZXItY29sb3I6IHZhcigtLXNlY29uZGFyeSk7XG4gIH1cblxuICAmOmZvY3VzIHtcbiAgICBvdXRsaW5lOiAwO1xuICB9XG59XG5cbnByZSB7XG4gICY6aG92ZXIgPiAuZXhwYW5kLWJ1dHRvbiB7XG4gICAgb3BhY2l0eTogMTtcbiAgICB0cmFuc2l0aW9uOiAwLjJzO1xuICB9XG59XG5cbiNtZXJtYWlkLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgY29udGFpbjogbGF5b3V0O1xuICB6LWluZGV4OiA5OTk7XG4gIGxlZnQ6IDA7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDEwMHZ3O1xuICBoZWlnaHQ6IDEwMHZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBkaXNwbGF5OiBub25lO1xuICBiYWNrZHJvcC1maWx0ZXI6IGJsdXIoNHB4KTtcbiAgYmFja2dyb3VuZDogcmdiYSgwLCAwLCAwLCAwLjUpO1xuXG4gICYuYWN0aXZlIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIH1cblxuICAmID4gI21lcm1haWQtc3BhY2Uge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgdG9wOiA1MCU7XG4gICAgbGVmdDogNTAlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xuICAgIGhlaWdodDogODB2aDtcbiAgICB3aWR0aDogODB2dztcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRlbnQge1xuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgdHJhbnNmb3JtLW9yaWdpbjogMCAwO1xuICAgICAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDAuMXMgZWFzZTtcbiAgICAgIG92ZXJmbG93OiB2aXNpYmxlO1xuICAgICAgbWluLWhlaWdodDogMjAwcHg7XG4gICAgICBtaW4td2lkdGg6IDIwMHB4O1xuXG4gICAgICBwcmUge1xuICAgICAgICBtYXJnaW46IDA7XG4gICAgICAgIGJvcmRlcjogbm9uZTtcbiAgICAgIH1cblxuICAgICAgc3ZnIHtcbiAgICAgICAgbWF4LXdpZHRoOiBub25lO1xuICAgICAgICBoZWlnaHQ6IGF1dG87XG4gICAgICB9XG4gICAgfVxuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRyb2xzIHtcbiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgIGJvdHRvbTogMjBweDtcbiAgICAgIHJpZ2h0OiAyMHB4O1xuICAgICAgZGlzcGxheTogZmxleDtcbiAgICAgIGdhcDogOHB4O1xuICAgICAgcGFkZGluZzogOHB4O1xuICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgIGJvcmRlci1yYWRpdXM6IDZweDtcbiAgICAgIGJveC1zaGFkb3c6IDAgMnB4IDRweCByZ2JhKDAsIDAsIDAsIDAuMSk7XG4gICAgICB6LWluZGV4OiAyO1xuXG4gICAgICAubWVybWFpZC1jb250cm9sLWJ1dHRvbiB7XG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgICAgICB3aWR0aDogMzJweDtcbiAgICAgICAgaGVpZ2h0OiAzMnB4O1xuICAgICAgICBwYWRkaW5nOiAwO1xuICAgICAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgICAgICBiYWNrZ3JvdW5kOiB2YXIoLS1saWdodCk7XG4gICAgICAgIGNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgICAgICAgYm9yZGVyLXJhZGl1czogNHB4O1xuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICAgICAgZm9udC1mYW1pbHk6IHZhcigtLWJvZHlGb250KTtcbiAgICAgICAgdHJhbnNpdGlvbjogYWxsIDAuMnMgZWFzZTtcblxuICAgICAgICAmOmhvdmVyIHtcbiAgICAgICAgICBiYWNrZ3JvdW5kOiB2YXIoLS1saWdodGdyYXkpO1xuICAgICAgICB9XG5cbiAgICAgICAgJjphY3RpdmUge1xuICAgICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgxcHgpO1xuICAgICAgICB9XG5cbiAgICAgICAgLy8gU3R5bGUgdGhlIHJlc2V0IGJ1dHRvbiBkaWZmZXJlbnRseVxuICAgICAgICAmOm50aC1jaGlsZCgyKSB7XG4gICAgICAgICAgd2lkdGg6IGF1dG87XG4gICAgICAgICAgcGFkZGluZzogMCAxMnB4O1xuICAgICAgICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgfVxufVxuIl19 */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://quartz.jzhao.xyz/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://quartz.jzhao.xyz/Spring/IDE-실행과-Gradle-빌드-실행-차이-og-image.webp"/><meta property="og:image:url" content="https://quartz.jzhao.xyz/Spring/IDE-실행과-Gradle-빌드-실행-차이-og-image.webp"/><meta name="twitter:image" content="https://quartz.jzhao.xyz/Spring/IDE-실행과-Gradle-빌드-실행-차이-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="Spring/IDE-실행과-Gradle-빌드-실행-차이"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">Quartz 4</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-11"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-11" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../Spring/">Spring</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>IDE 실행과 Gradle 빌드 실행 차이</a></div></nav><h1 class="article-title">IDE 실행과 Gradle 빌드 실행 차이</h1><p show-comma="true" class="content-meta"><time datetime="2025-12-30T15:00:00.000Z">Dec 31, 2025</time><span>7 min read</span></p></div></div><article class="popover-hint"><h1 id="-ide로-실행하는-것은-gradle이-직접-관여하지-않는다">✅ <strong>IDE로 실행하는 것은 “Gradle이 직접 관여하지 않는다.”</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-ide로-실행하는-것은-gradle이-직접-관여하지-않는다" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>하지만 “Gradle이 완전히 빠지는 것”도 아니다.<br/>
+아주 정확한 동작 구조를 단계별로 설명해줄게.</p>
+<hr/>
+<h1 id="-1-ide-실행은-gradle-의존성을-한-번만-가져오고-끝">⭐ 1. IDE 실행은 “Gradle 의존성을 <em>한 번만</em> 가져오고 끝”<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-1-ide-실행은-gradle-의존성을-한-번만-가져오고-끝" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>IntelliJ/VSCode/Eclipse는 다음을 한다:</p>
+<ol>
+<li>Gradle 프로젝트를 처음 import할 때<br/>
+→ build.gradle 기반으로 의존성 다운로드<br/>
+→ 소스 경로 / 리소스 경로 / JDK 설정 읽기</li>
+</ol>
+<p><strong>이때만 Gradle을 사용함.</strong></p>
+<p>그 이후 실행(Run) 시에는:</p>
+<h3 id="-gradle이-아니라-ide-자체의-빌드-시스템이-컴파일--실행함">👉 Gradle이 아니라 IDE 자체의 빌드 시스템이 컴파일 &amp; 실행함.<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-gradle이-아니라-ide-자체의-빌드-시스템이-컴파일--실행함" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<hr/>
+<h1 id="-2-ide-실행-시에는-gradle이-동작하지-않는다">⭐ 2. IDE 실행 시에는 Gradle이 동작하지 않는다<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-2-ide-실행-시에는-gradle이-동작하지-않는다" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>예를 들어 IntelliJ 기준:</p>
+<h3 id="-소스-코드-컴파일">✔ 소스 코드 컴파일<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-소스-코드-컴파일" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>IDE 자체의 내부 빌드 도구(javac 기반 incremental compiler)가 처리<br/>
+→ Gradle의 <code>compileJava</code> 안 돌음</p>
+<h3 id="-spring-boot-실행">✔ Spring Boot 실행<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-spring-boot-실행" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>IDE가 만든 classpath를 기반으로 <code>main()</code>을 직접 실행<br/>
+→ Gradle의 <code>bootRun</code> 안 돌음<br/>
+→ Gradle Task 호출도 없음</p>
+<p>즉,</p>
+<h3 id="-실행-경로는-ide--jvm">👉 실행 경로는 IDE → JVM<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-실행-경로는-ide--jvm" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Gradle은 끼지 않는다.</p>
+<hr/>
+<h1 id="-3-buildgradle-build는-완전히-독립된-프로세스">⭐ 3. Build(gradle build)는 완전히 독립된 프로세스<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-3-buildgradle-build는-완전히-독립된-프로세스" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>Gradle로 빌드하면:</p>
+<p><code>./gradlew clean build</code></p>
+<p>또는</p>
+<p><code>./gradlew bootJar</code></p>
+<p>이때는 IDE가 아무 역할도 하지 않음.</p>
+<p>Gradle은 전체 코드를:</p>
+<ul>
+<li>
+<p>compileJava</p>
+</li>
+<li>
+<p>processResources</p>
+</li>
+<li>
+<p>test</p>
+</li>
+<li>
+<p>bootJar</p>
+</li>
+<li>
+<p>assemble</p>
+</li>
+</ul>
+<p>등 모든 task를 실행하며 JAR/WAR을 만든다.</p>
+<p>즉,</p>
+<h3 id="-gradle-build는-ide를-전혀-신뢰하지-않는다">👉 Gradle Build는 IDE를 전혀 신뢰하지 않는다.<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-gradle-build는-ide를-전혀-신뢰하지-않는다" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>클래스파일도 IDE가 만든 것을 쓰지 않음.<br/>
+모두 gradle이 다시 컴파일한다.</p>
+<hr/>
+<h1 id="-4-실행-주체가-다름-가장-중요한-차이">⭐ 4. 실행 주체가 다름 (가장 중요한 차이)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-4-실행-주체가-다름-가장-중요한-차이" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>실행 방식</th><th>컴파일 주체</th><th>실행 대상</th><th>Gradle 개입 여부</th></tr></thead><tbody><tr><td>IDE Run</td><td>IDE compiler</td><td>IDE가 만든 .class 파일</td><td>❌ 거의 없음</td></tr><tr><td>Gradle bootRun</td><td>Gradle compiler</td><td>Gradle classpath</td><td>⭕ Gradle 개입</td></tr><tr><td>java -jar</td><td>Gradle이 만든 JAR</td><td>JAR 내부 classpath</td><td>❌ (실행 시점)</td></tr></tbody></table></div>
+<hr/>
+<h1 id="-5-예시로-보면-아주-명확해짐">⭐ 5. 예시로 보면 아주 명확해짐<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-5-예시로-보면-아주-명확해짐" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h3 id="-ide-run-시">✔ IDE Run 시<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-ide-run-시" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>IntelliJ → Incremental compile → target/classes → main() 실행</code></p>
+<h3 id="-gradle-bootrun-시">✔ Gradle bootRun 시<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-gradle-bootrun-시" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>./gradlew bootRun → Gradle compile → Gradle classpath 실행</code></p>
+<h3 id="-jar-실행-시">✔ JAR 실행 시<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-jar-실행-시" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>./gradlew build → build/libs/app.jar → java -jar app.jar</code></p>
+<p>아예 경로도 다르고 classpath도 다름.</p>
+<hr/>
+<h1 id="-6-그래서-실무에서는-왜-중요하냐">⭐ 6. 그래서 실무에서는 왜 중요하냐?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-6-그래서-실무에서는-왜-중요하냐" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>너는 Kubernetes·Docker 기반 운영 환경에서 개발하니까 특히 중요해.</p>
+<p>IDE Run에서는 문제 없는데<br/>
+Docker 이미지에서 에러 발생하는 이유:</p>
+<ul>
+<li>
+<p>IDE classpath와 JAR classpath가 다름</p>
+</li>
+<li>
+<p>Annotation Processor 동작 차이</p>
+</li>
+<li>
+<p>Resource 경로 다름</p>
+</li>
+<li>
+<p>Lombok 처리 차이</p>
+</li>
+<li>
+<p>Spring Boot Repackage가 IDE 실행에는 없음</p>
+</li>
+</ul>
+<p>그래서 <em><strong>절대 IDE 실행을 실제 동작 기준으로 삼으면 안 됨.</strong></em></p>
+<hr/>
+<h1 id="-결론-딱-한-줄">⭐ 결론 딱 한 줄<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-결론-딱-한-줄" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h1 id="-ide-run-은-gradle이-관여하지-않는-실행">👉 IDE Run 은 Gradle이 “관여하지 않는 실행”<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-ide-run-은-gradle이-관여하지-않는-실행" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h1 id="-buildbootrun-은-gradle이-직접-컴파일하고-실행하는-실행">👉 Build/bootRun 은 Gradle이 “직접 컴파일하고 실행하는 실행”<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-buildbootrun-은-gradle이-직접-컴파일하고-실행하는-실행" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<hr/>
+<h1 id="-ide가-buildgradle을-분석한다는-게-실제로-무슨-의미냐">✅ <strong>IDE가 build.gradle을 분석한다는 게 실제로 무슨 의미냐?</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-ide가-buildgradle을-분석한다는-게-실제로-무슨-의미냐" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="-결론적으로-ide는-_빌드-스크립트를-직접-실행_해서">👉 결론적으로, IDE는 _빌드 스크립트를 직접 실행_해서<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-결론적으로-ide는-_빌드-스크립트를-직접-실행_해서" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>**의존성들(JAR 파일 목록)**을 “계산”한다.</p>
+<p>즉, 단순히 텍스트를 읽는 게 아니라:</p>
+<ul>
+<li>
+<p>Gradle 스크립트를 파싱하고</p>
+</li>
+<li>
+<p>Gradle 자체 엔진을 이용해</p>
+</li>
+<li>
+<p>의존성 그래프를 만들어낸다</p>
+</li>
+</ul>
+<p>아주 구체적으로 단계별로 보여줄게.</p>
+<hr/>
+<h1 id="-1-buildgradle에-적힌-의존성-선언-예시">⭐ 1. build.gradle에 적힌 의존성 선언 예시<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-1-buildgradle에-적힌-의존성-선언-예시" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="yaml" data-theme="github-light github-dark"><code data-language="yaml" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">dependencies {</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">     </span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">	implementation 'org.springframework.boot:spring-boot-starter-web'</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">     </span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">	compileOnly 'org.projectlombok:lombok'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">     </span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">	runtimeOnly 'com.h2database:h2'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">     </span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">	testImplementation 'org.springframework.boot:spring-boot-starter-test'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> </span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">	}</span></span></code></pre></figure>
+<hr/>
+<h1 id="-2-ide는-이걸-문자열로-읽는-게-아니라">⭐ 2. IDE는 이걸 “문자열”로 읽는 게 아니라<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-2-ide는-이걸-문자열로-읽는-게-아니라" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="gradle에게-실행을-요청한다"><strong>Gradle에게 실행을 요청</strong>한다<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gradle에게-실행을-요청한다" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>IntelliJ가 다음처럼 말한다고 생각해봐:</p>
+<blockquote>
+<p>“Gradle아, 너 빌드 스크립트 읽고 의존성 좀 계산해줘!”</p>
+</blockquote>
+<p>그래서 IDE가 Gradle에 다음 명령을 요청한다:</p>
+<p><code>gradlew dependencies</code></p>
+<p>이걸 실제로 실행해보면, 이런 그래프가 나온다:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="yaml" data-theme="github-light github-dark"><code data-language="yaml" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">implementation - Implementation only dependencies ... +--- org.springframework.boot:spring-boot-starter-web:3.2.2 |    +--- org.springframework:spring-web:6.1.3 |    +--- org.springframework.boot:spring-boot-starter-json:3.2.2 |    \--- ... +--- org.springframework.boot:spring-boot-starter-data-jpa:3.2.2 |    +--- org.hibernate.orm:hibernate-core:6.4.1 |    \--- ...</span></span></code></pre></figure>
+<p>이거 그대로 IDE가 받아서 classpath에 추가하는 거야.</p>
+<hr/>
+<h1 id="-3-ide가-buildgradle을-통해-어떤-jar이-필요한지-파악해야-하는-이유">⭐ 3. IDE가 build.gradle을 통해 “어떤 JAR이 필요한지” 파악해야 하는 이유<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-3-ide가-buildgradle을-통해-어떤-jar이-필요한지-파악해야-하는-이유" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>Java 프로젝트는 <strong>라이브러리가 없으면 컴파일 자체가 안 됨.</strong></p>
+<p>예를 들어 IDE 실행 중 아래 코드가 있다면:</p>
+<p><code>@RestController public class HelloController {}</code></p>
+<p>IDE는 이런 걸 해야 한다:</p>
+<ul>
+<li>
+<p>@RestController가 어디에 있는지 찾기</p>
+</li>
+<li>
+<p>spring-web 라이브러리에서 찾기</p>
+</li>
+<li>
+<p>해당 JAR을 classpath에 추가하기</p>
+</li>
+<li>
+<p>그래야 컴파일러가 에러를 안 냄</p>
+</li>
+<li>
+<p>자동완성(IntelliSense)도 가능해짐</p>
+</li>
+<li>
+<p>import 정리도 가능</p>
+</li>
+</ul>
+<p>즉, IDE가 build.gradle을 분석하는 이유는:</p>
+<h3 id="-프로젝트를-이해하고-컴파일하기-위해-필요한-모든-라이브러리jar를-계산하기-위해서">👉 “프로젝트를 이해하고 컴파일하기 위해 필요한 모든 라이브러리(JAR)를 계산하기 위해서”<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-프로젝트를-이해하고-컴파일하기-위해-필요한-모든-라이브러리jar를-계산하기-위해서" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<hr/>
+<h1 id="-4-ide는-실제로-이렇게-동작한다">⭐ 4. IDE는 실제로 이렇게 동작한다<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-4-ide는-실제로-이렇게-동작한다" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h3 id="-intellij-동작-흐름">✔ IntelliJ 동작 흐름<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-intellij-동작-흐름" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li>
+<p>build.gradle 읽음</p>
+</li>
+<li>
+<p>Gradle Tooling API를 이용해 Gradle을 백그라운드로 실행</p>
+</li>
+<li>
+<p>Gradle이 의존성 트리를 계산</p>
+</li>
+<li>
+<p>그 결과(JAR 목록)를 IntelliJ에 전달</p>
+</li>
+<li>
+<p>IntelliJ는 캐시에 저장</p>
+</li>
+<li>
+<p>import 처리, 자동완성, 컴파일러 설정에 반영</p>
+</li>
+<li>
+<p>IDE에서는 JVM으로 빠르게 실행</p>
+</li>
+</ol>
+<p>즉 IDE는:</p>
+<p><code>[Gradle 실행] → 의존성 계산 → JAR 다운로드 → IDE classpath 구성</code></p>
+<p>여기까지가 **“build.gradle 분석”**이라는 말의 실제 의미야.</p>
+<h1 id="-6-최종-요약">⭐ 6. 최종 요약<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#-6-최종-요약" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>IDE가 build.gradle을 분석한다는 건:</p>
+<blockquote>
+<p><strong>Gradle에게 build.gradle을 “실행하게 해서”<br/>
+의존성 그래프를 계산하고 필요한 JAR 파일을 다운받아 IDE classpath에 넣는다는 뜻</strong></p>
+</blockquote>
+<p>즉, IDE는 Gradle을 “빌드 도구”가 아니라<br/>
+“의존성 계산기”로 사용한다.</p>
+<p>실행(run)은 IDE가 직접 한다.</p></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-1" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-1" class="toc-content overflow"><li class="depth-0"><a href="#-ide로-실행하는-것은-gradle이-직접-관여하지-않는다" data-for="-ide로-실행하는-것은-gradle이-직접-관여하지-않는다">✅ IDE로 실행하는 것은 “Gradle이 직접 관여하지 않는다.”</a></li><li class="depth-0"><a href="#-1-ide-실행은-gradle-의존성을-한-번만-가져오고-끝" data-for="-1-ide-실행은-gradle-의존성을-한-번만-가져오고-끝">⭐ 1. IDE 실행은 “Gradle 의존성을 한 번만 가져오고 끝”</a></li><li class="depth-2"><a href="#-gradle이-아니라-ide-자체의-빌드-시스템이-컴파일--실행함" data-for="-gradle이-아니라-ide-자체의-빌드-시스템이-컴파일--실행함">👉 Gradle이 아니라 IDE 자체의 빌드 시스템이 컴파일 &amp; 실행함.</a></li><li class="depth-0"><a href="#-2-ide-실행-시에는-gradle이-동작하지-않는다" data-for="-2-ide-실행-시에는-gradle이-동작하지-않는다">⭐ 2. IDE 실행 시에는 Gradle이 동작하지 않는다</a></li><li class="depth-2"><a href="#-소스-코드-컴파일" data-for="-소스-코드-컴파일">✔ 소스 코드 컴파일</a></li><li class="depth-2"><a href="#-spring-boot-실행" data-for="-spring-boot-실행">✔ Spring Boot 실행</a></li><li class="depth-2"><a href="#-실행-경로는-ide--jvm" data-for="-실행-경로는-ide--jvm">👉 실행 경로는 IDE → JVM</a></li><li class="depth-0"><a href="#-3-buildgradle-build는-완전히-독립된-프로세스" data-for="-3-buildgradle-build는-완전히-독립된-프로세스">⭐ 3. Build(gradle build)는 완전히 독립된 프로세스</a></li><li class="depth-2"><a href="#-gradle-build는-ide를-전혀-신뢰하지-않는다" data-for="-gradle-build는-ide를-전혀-신뢰하지-않는다">👉 Gradle Build는 IDE를 전혀 신뢰하지 않는다.</a></li><li class="depth-0"><a href="#-4-실행-주체가-다름-가장-중요한-차이" data-for="-4-실행-주체가-다름-가장-중요한-차이">⭐ 4. 실행 주체가 다름 (가장 중요한 차이)</a></li><li class="depth-0"><a href="#-5-예시로-보면-아주-명확해짐" data-for="-5-예시로-보면-아주-명확해짐">⭐ 5. 예시로 보면 아주 명확해짐</a></li><li class="depth-2"><a href="#-ide-run-시" data-for="-ide-run-시">✔ IDE Run 시</a></li><li class="depth-2"><a href="#-gradle-bootrun-시" data-for="-gradle-bootrun-시">✔ Gradle bootRun 시</a></li><li class="depth-2"><a href="#-jar-실행-시" data-for="-jar-실행-시">✔ JAR 실행 시</a></li><li class="depth-0"><a href="#-6-그래서-실무에서는-왜-중요하냐" data-for="-6-그래서-실무에서는-왜-중요하냐">⭐ 6. 그래서 실무에서는 왜 중요하냐?</a></li><li class="depth-0"><a href="#-결론-딱-한-줄" data-for="-결론-딱-한-줄">⭐ 결론 딱 한 줄</a></li><li class="depth-0"><a href="#-ide-run-은-gradle이-관여하지-않는-실행" data-for="-ide-run-은-gradle이-관여하지-않는-실행">👉 IDE Run 은 Gradle이 “관여하지 않는 실행”</a></li><li class="depth-0"><a href="#-buildbootrun-은-gradle이-직접-컴파일하고-실행하는-실행" data-for="-buildbootrun-은-gradle이-직접-컴파일하고-실행하는-실행">👉 Build/bootRun 은 Gradle이 “직접 컴파일하고 실행하는 실행”</a></li><li class="depth-0"><a href="#-ide가-buildgradle을-분석한다는-게-실제로-무슨-의미냐" data-for="-ide가-buildgradle을-분석한다는-게-실제로-무슨-의미냐">✅ IDE가 build.gradle을 분석한다는 게 실제로 무슨 의미냐?</a></li><li class="depth-1"><a href="#-결론적으로-ide는-_빌드-스크립트를-직접-실행_해서" data-for="-결론적으로-ide는-_빌드-스크립트를-직접-실행_해서">👉 결론적으로, IDE는 _빌드 스크립트를 직접 실행_해서</a></li><li class="depth-0"><a href="#-1-buildgradle에-적힌-의존성-선언-예시" data-for="-1-buildgradle에-적힌-의존성-선언-예시">⭐ 1. build.gradle에 적힌 의존성 선언 예시</a></li><li class="depth-0"><a href="#-2-ide는-이걸-문자열로-읽는-게-아니라" data-for="-2-ide는-이걸-문자열로-읽는-게-아니라">⭐ 2. IDE는 이걸 “문자열”로 읽는 게 아니라</a></li><li class="depth-1"><a href="#gradle에게-실행을-요청한다" data-for="gradle에게-실행을-요청한다">Gradle에게 실행을 요청한다</a></li><li class="depth-0"><a href="#-3-ide가-buildgradle을-통해-어떤-jar이-필요한지-파악해야-하는-이유" data-for="-3-ide가-buildgradle을-통해-어떤-jar이-필요한지-파악해야-하는-이유">⭐ 3. IDE가 build.gradle을 통해 “어떤 JAR이 필요한지” 파악해야 하는 이유</a></li><li class="depth-2"><a href="#-프로젝트를-이해하고-컴파일하기-위해-필요한-모든-라이브러리jar를-계산하기-위해서" data-for="-프로젝트를-이해하고-컴파일하기-위해-필요한-모든-라이브러리jar를-계산하기-위해서">👉 “프로젝트를 이해하고 컴파일하기 위해 필요한 모든 라이브러리(JAR)를 계산하기 위해서”</a></li><li class="depth-0"><a href="#-4-ide는-실제로-이렇게-동작한다" data-for="-4-ide는-실제로-이렇게-동작한다">⭐ 4. IDE는 실제로 이렇게 동작한다</a></li><li class="depth-2"><a href="#-intellij-동작-흐름" data-for="-intellij-동작-흐름">✔ IntelliJ 동작 흐름</a></li><li class="depth-0"><a href="#-6-최종-요약" data-for="-6-최종-요약">⭐ 6. 최종 요약</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript.js" type="module" data-persist="true"></script></html>

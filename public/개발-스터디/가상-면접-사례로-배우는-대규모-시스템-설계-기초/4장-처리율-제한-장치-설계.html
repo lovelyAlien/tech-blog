@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>4장 처리율 제한 장치 설계</title><meta charset="utf-8"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="Quartz 4"/><meta property="og:title" content="4장 처리율 제한 장치 설계"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="4장 처리율 제한 장치 설계"/><meta name="twitter:description" content="대규모 시스템을 설계할 때 처리율 제한(Rate Limiting) 은 선택이 아니라 필수에 가깝다. 단순히 “요청을 막는다” 수준의 기능이 아니라, 시스템 안정성, 보안, 비용 절감과 직결되는 핵심 설계 요소이기 때문이다."/><meta property="og:description" content="대규모 시스템을 설계할 때 처리율 제한(Rate Limiting) 은 선택이 아니라 필수에 가깝다. 단순히 “요청을 막는다” 수준의 기능이 아니라, 시스템 안정성, 보안, 비용 절감과 직결되는 핵심 설계 요소이기 때문이다."/><meta property="og:image:alt" content="대규모 시스템을 설계할 때 처리율 제한(Rate Limiting) 은 선택이 아니라 필수에 가깝다. 단순히 “요청을 막는다” 수준의 기능이 아니라, 시스템 안정성, 보안, 비용 절감과 직결되는 핵심 설계 요소이기 때문이다."/><meta property="twitter:domain" content="quartz.jzhao.xyz"/><meta property="og:url" content="https://quartz.jzhao.xyz/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/4장-처리율-제한-장치-설계"/><meta property="twitter:url" content="https://quartz.jzhao.xyz/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/4장-처리율-제한-장치-설계"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="대규모 시스템을 설계할 때 처리율 제한(Rate Limiting) 은 선택이 아니라 필수에 가깝다. 단순히 “요청을 막는다” 수준의 기능이 아니라, 시스템 안정성, 보안, 비용 절감과 직결되는 핵심 설계 요소이기 때문이다."/><meta name="generator" content="Quartz"/><link href="../../index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL1VzZXJzL2xvdmVseWFsaWVuL0RvY3VtZW50cy93b3Jrc3BhY2UvT2JzaWRpYW4vdGVjaC1ibG9nL3F1YXJ0ei9jb21wb25lbnRzL3N0eWxlcyIsInNvdXJjZXMiOlsibWVybWFpZC5pbmxpbmUuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTs7O0FBS0Y7RUFDRTtFQUNBOzs7QUFJSjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDRTs7QUFHRjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFOztBQUdGO0VBQ0U7O0FBSUY7RUFDRTtFQUNBO0VBQ0EiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhwYW5kLWJ1dHRvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBwYWRkaW5nOiAwLjRyZW07XG4gIG1hcmdpbjogMC4zcmVtO1xuICByaWdodDogMDsgLy8gTk9URTogcmlnaHQgd2lsbCBiZSBzZXQgaW4gbWVybWFpZC5pbmxpbmUudHNcbiAgY29sb3I6IHZhcigtLWdyYXkpO1xuICBib3JkZXItY29sb3I6IHZhcigtLWRhcmspO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1saWdodCk7XG4gIGJvcmRlcjogMXB4IHNvbGlkO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIG9wYWNpdHk6IDA7XG4gIHRyYW5zaXRpb246IDAuMnM7XG5cbiAgJiA+IHN2ZyB7XG4gICAgZmlsbDogdmFyKC0tbGlnaHQpO1xuICAgIGZpbHRlcjogY29udHJhc3QoMC4zKTtcbiAgfVxuXG4gICY6aG92ZXIge1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBib3JkZXItY29sb3I6IHZhcigtLXNlY29uZGFyeSk7XG4gIH1cblxuICAmOmZvY3VzIHtcbiAgICBvdXRsaW5lOiAwO1xuICB9XG59XG5cbnByZSB7XG4gICY6aG92ZXIgPiAuZXhwYW5kLWJ1dHRvbiB7XG4gICAgb3BhY2l0eTogMTtcbiAgICB0cmFuc2l0aW9uOiAwLjJzO1xuICB9XG59XG5cbiNtZXJtYWlkLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgY29udGFpbjogbGF5b3V0O1xuICB6LWluZGV4OiA5OTk7XG4gIGxlZnQ6IDA7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDEwMHZ3O1xuICBoZWlnaHQ6IDEwMHZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBkaXNwbGF5OiBub25lO1xuICBiYWNrZHJvcC1maWx0ZXI6IGJsdXIoNHB4KTtcbiAgYmFja2dyb3VuZDogcmdiYSgwLCAwLCAwLCAwLjUpO1xuXG4gICYuYWN0aXZlIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIH1cblxuICAmID4gI21lcm1haWQtc3BhY2Uge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgdG9wOiA1MCU7XG4gICAgbGVmdDogNTAlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xuICAgIGhlaWdodDogODB2aDtcbiAgICB3aWR0aDogODB2dztcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRlbnQge1xuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgdHJhbnNmb3JtLW9yaWdpbjogMCAwO1xuICAgICAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDAuMXMgZWFzZTtcbiAgICAgIG92ZXJmbG93OiB2aXNpYmxlO1xuICAgICAgbWluLWhlaWdodDogMjAwcHg7XG4gICAgICBtaW4td2lkdGg6IDIwMHB4O1xuXG4gICAgICBwcmUge1xuICAgICAgICBtYXJnaW46IDA7XG4gICAgICAgIGJvcmRlcjogbm9uZTtcbiAgICAgIH1cblxuICAgICAgc3ZnIHtcbiAgICAgICAgbWF4LXdpZHRoOiBub25lO1xuICAgICAgICBoZWlnaHQ6IGF1dG87XG4gICAgICB9XG4gICAgfVxuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRyb2xzIHtcbiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgIGJvdHRvbTogMjBweDtcbiAgICAgIHJpZ2h0OiAyMHB4O1xuICAgICAgZGlzcGxheTogZmxleDtcbiAgICAgIGdhcDogOHB4O1xuICAgICAgcGFkZGluZzogOHB4O1xuICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgIGJvcmRlci1yYWRpdXM6IDZweDtcbiAgICAgIGJveC1zaGFkb3c6IDAgMnB4IDRweCByZ2JhKDAsIDAsIDAsIDAuMSk7XG4gICAgICB6LWluZGV4OiAyO1xuXG4gICAgICAubWVybWFpZC1jb250cm9sLWJ1dHRvbiB7XG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgICAgICB3aWR0aDogMzJweDtcbiAgICAgICAgaGVpZ2h0OiAzMnB4O1xuICAgICAgICBwYWRkaW5nOiAwO1xuICAgICAgICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1saWdodGdyYXkpO1xuICAgICAgICBiYWNrZ3JvdW5kOiB2YXIoLS1saWdodCk7XG4gICAgICAgIGNvbG9yOiB2YXIoLS1kYXJrKTtcbiAgICAgICAgYm9yZGVyLXJhZGl1czogNHB4O1xuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICAgICAgZm9udC1mYW1pbHk6IHZhcigtLWJvZHlGb250KTtcbiAgICAgICAgdHJhbnNpdGlvbjogYWxsIDAuMnMgZWFzZTtcblxuICAgICAgICAmOmhvdmVyIHtcbiAgICAgICAgICBiYWNrZ3JvdW5kOiB2YXIoLS1saWdodGdyYXkpO1xuICAgICAgICB9XG5cbiAgICAgICAgJjphY3RpdmUge1xuICAgICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgxcHgpO1xuICAgICAgICB9XG5cbiAgICAgICAgLy8gU3R5bGUgdGhlIHJlc2V0IGJ1dHRvbiBkaWZmZXJlbnRseVxuICAgICAgICAmOm50aC1jaGlsZCgyKSB7XG4gICAgICAgICAgd2lkdGg6IGF1dG87XG4gICAgICAgICAgcGFkZGluZzogMCAxMnB4O1xuICAgICAgICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgfVxufVxuIl19 */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://quartz.jzhao.xyz/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://quartz.jzhao.xyz/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/4장-처리율-제한-장치-설계-og-image.webp"/><meta property="og:image:url" content="https://quartz.jzhao.xyz/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/4장-처리율-제한-장치-설계-og-image.webp"/><meta name="twitter:image" content="https://quartz.jzhao.xyz/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/4장-처리율-제한-장치-설계-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/4장-처리율-제한-장치-설계"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">Quartz 4</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slugSegment!==\&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-35"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-35" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../개발-스터디/">개발 스터디</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/">가상 면접 사례로 배우는 대규모 시스템 설계 기초</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>4장 처리율 제한 장치 설계</a></div></nav><h1 class="article-title">4장 처리율 제한 장치 설계</h1><p show-comma="true" class="content-meta"><time datetime="2026-02-02T12:11:58.000Z">Feb 02, 2026</time><span>14 min read</span></p></div></div><article class="popover-hint"><p>대규모 시스템을 설계할 때 <strong>처리율 제한(Rate Limiting)</strong> 은 선택이 아니라 필수에 가깝다.<br/>
+단순히 “요청을 막는다” 수준의 기능이 아니라, <strong>시스템 안정성, 보안, 비용 절감</strong>과 직결되는 핵심 설계 요소이기 때문이다.</p>
+<p>이 글에서는 처리율 제한을</p>
+<ul>
+<li>
+<p>왜 사용하는지</p>
+</li>
+<li>
+<p>어디에 구현하는지</p>
+</li>
+<li>
+<p>어떤 알고리즘들이 있고 각각의 특성이 무엇인지</p>
+</li>
+</ul>
+<p>를 중심으로 정리한다.</p>
+<hr/>
+<h2 id="처리율-제한이란">처리율 제한이란?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#처리율-제한이란" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>처리율 제한은 <strong>클라이언트 또는 서비스가 보내는 트래픽의 처리 속도(rate)를 제어하는 기법</strong>이다.</p>
+<p>예를 들면 다음과 같은 정책들이 있다.</p>
+<ul>
+<li>
+<p>초당 2회 이상 새 글 업로드 금지</p>
+</li>
+<li>
+<p>동일 IP에서 하루 10개 이상 계정 생성 금지</p>
+</li>
+<li>
+<p>동일 디바이스에서 주당 5회 이상 리워드 요청 금지</p>
+</li>
+</ul>
+<p>이러한 제한은 악의적인 공격뿐 아니라,<br/>
+<strong>정상 사용자로 인한 트래픽 폭증</strong>에서도 시스템을 보호하는 역할을 한다.</p>
+<hr/>
+<h2 id="처리율-제한의-장점">처리율 제한의 장점<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#처리율-제한의-장점" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="1-dos--ddos-공격-방지">1. DoS / DDoS 공격 방지<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-dos--ddos-공격-방지" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>무차별 요청으로 인한 CPU, 메모리, DB 커넥션 등의 <strong>자원 고갈을 방지</strong>할 수 있다.<br/>
+처리율 제한은 공격 트래픽을 <strong>애플리케이션 로직에 도달하기 전에 차단</strong>하는 1차 방어선 역할을 한다.</p>
+<h3 id="2-비용-절감">2. 비용 절감<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-비용-절감" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>불필요한 요청을 조기에 차단함으로써</p>
+<ul>
+<li>
+<p>DB 접근</p>
+</li>
+<li>
+<p>외부 API 호출</p>
+</li>
+<li>
+<p>네트워크 트래픽<br/>
+을 줄일 수 있고, 이는 곧 <strong>운영 비용 절감</strong>으로 이어진다.</p>
+</li>
+</ul>
+<h3 id="3-서버-과부하-방지">3. 서버 과부하 방지<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-서버-과부하-방지" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>순간적인 트래픽 스파이크가 발생해도 시스템이 감당 가능한 수준으로 요청을 제한하여<br/>
+<strong>예측 가능한 성능과 안정적인 응답 시간</strong>을 유지할 수 있다.</p>
+<hr/>
+<h2 id="처리율-제한-장치는-어디에-둘-것인가">처리율 제한 장치는 어디에 둘 것인가?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#처리율-제한-장치는-어디에-둘-것인가" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>실무에서는 처리율 제한을 보통 <strong>API Gateway 계층</strong>에 구현한다.</p>
+<h3 id="api-gateway에-두는-이유">API Gateway에 두는 이유<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#api-gateway에-두는-이유" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>모든 요청이 반드시 통과하는 단일 진입 지점</p>
+</li>
+<li>
+<p>애플리케이션 서버보다 앞단에서 차단 가능</p>
+</li>
+<li>
+<p>서비스 로직과 관심사 분리</p>
+</li>
+</ul>
+<p>API Gateway는 처리율 제한 외에도 다음 기능을 함께 제공하는 경우가 많다.</p>
+<ul>
+<li>
+<p>SSL 종료(termination)</p>
+</li>
+<li>
+<p>인증/인가</p>
+</li>
+<li>
+<p>IP 허용 목록 관리</p>
+</li>
+<li>
+<p>로깅 및 모니터링</p>
+</li>
+</ul>
+<p>이 때문에 직접 구현하기보다는 <strong>위탁 관리형(Managed) 서비스</strong>를 사용하는 경우가 많다.</p>
+<h3 id="위탁-관리형-서비스-예시">위탁 관리형 서비스 예시<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#위탁-관리형-서비스-예시" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>AWS API Gateway (Throttle, Usage Plan)</p>
+</li>
+<li>
+<p>AWS WAF Rate-based Rule</p>
+</li>
+<li>
+<p>Google Cloud API Gateway</p>
+</li>
+<li>
+<p>Cloudflare Rate Limiting</p>
+</li>
+<li>
+<p>Kong, Apigee 등 API Gateway 솔루션</p>
+</li>
+</ul>
+<p>운영 부담을 줄이고, 고가용성과 확장성을 확보할 수 있다는 점이 가장 큰 장점이다.<br/>
+<img src="../../attachments/가상-면접-사례로-배우는-대규모-시스템-설계-기초/4장-처리율-제한-장치-설계-20260202-211011.png" width="auto" height="auto" alt/></p>
+<hr/>
+<h2 id="처리율-제한-알고리즘">처리율 제한 알고리즘<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#처리율-제한-알고리즘" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>처리율 제한 알고리즘의 기본 아이디어는 단순하다.</p>
+<blockquote>
+<p>“특정 대상(IP, 사용자, 토큰 등)에 대해<br/>
+일정 시간 동안 허용된 요청 수를 초과하면 요청을 거부한다.”</p>
+</blockquote>
+<p>이를 구현하는 방식에 따라 여러 알고리즘이 존재한다.</p>
+<hr/>
+<h2 id="1-토큰-버킷token-bucket-알고리즘">1. 토큰 버킷(Token Bucket) 알고리즘<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-토큰-버킷token-bucket-알고리즘" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="동작-방식">동작 방식<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#동작-방식" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>버킷에 토큰이 <strong>주기적으로</strong> 채워진다.</p>
+</li>
+<li>
+<p>요청 1건당 토큰 1개를 소비한다.</p>
+</li>
+<li>
+<p>토큰이 없으면 요청은 거부된다.</p>
+</li>
+</ul>
+<h3 id="주요-파라미터">주요 파라미터<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#주요-파라미터" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p><strong>버킷 크기 (capacity)</strong></p>
+</li>
+<li>
+<p><strong>토큰 공급률 (refill rate)</strong></p>
+</li>
+</ul>
+<p>일반적으로 API 엔드포인트 또는 사용자 단위로 버킷을 구성한다.</p>
+<h3 id="장점">장점<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#장점" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>구현이 비교적 단순</p>
+</li>
+<li>
+<p>메모리 효율이 좋음</p>
+</li>
+<li>
+<p><strong>짧은 시간에 몰리는 트래픽(Burst)을 허용</strong>할 수 있음</p>
+</li>
+</ul>
+<h4 id="왜-메모리-효율이-좋은가">왜 메모리 효율이 좋은가?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#왜-메모리-효율이-좋은가" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>토큰 버킷은 요청의 히스토리를 저장하지 않는다.<br/>
+필요한 정보는 다음 두 가지뿐이다.</p>
+<ul>
+<li>
+<p>현재 토큰 개수</p>
+</li>
+<li>
+<p>마지막 토큰 보충 시각</p>
+</li>
+</ul>
+<p>즉, 요청 수에 비례해 메모리를 사용하지 않고 <strong>상수 크기의 상태만 유지</strong>한다.</p>
+<h3 id="단점">단점<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#단점" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>버킷 크기와 토큰 공급률 튜닝이 까다로움</p>
+</li>
+<li>
+<p>설정에 따라 과도한 burst 허용 또는 정상 트래픽 차단 가능<br/>
+<img src="../../attachments/가상-면접-사례로-배우는-대규모-시스템-설계-기초/4장-처리율-제한-장치-설계-20260202-210714.png" width="auto" height="auto" alt/></p>
+</li>
+</ul>
+<hr/>
+<h2 id="2-누출-버킷leaky-bucket-알고리즘">2. 누출 버킷(Leaky Bucket) 알고리즘<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-누출-버킷leaky-bucket-알고리즘" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="동작-방식-1">동작 방식<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#동작-방식-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>요청을 큐에 저장</p>
+</li>
+<li>
+<p><strong>고정된 속도로 요청을 처리</strong></p>
+</li>
+<li>
+<p>큐가 가득 차면 요청 거부</p>
+</li>
+</ul>
+<h3 id="특징">특징<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#특징" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>누출 버킷은 <strong>항상 일정한 처리율을 유지</strong>한다.<br/>
+따라서 출력이 안정적이어야 하는 환경에 적합하다.</p>
+<h3 id="토큰-버킷과의-차이">토큰 버킷과의 차이<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#토큰-버킷과의-차이" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>누출 버킷: 처리율이 <strong>고정</strong></p>
+</li>
+<li>
+<p>토큰 버킷: 토큰이 쌓여 있다면 한 번에 여러 요청 처리 가능</p>
+</li>
+</ul>
+<p>즉, 토큰 버킷은 0개부터 버킷 크기만큼까지 요청을 처리할 수 있어<br/>
+처리율이 고정되지 않는다.</p>
+<h3 id="단점-1">단점<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#단점-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>burst 트래픽 흡수 불가</p>
+</li>
+<li>
+<p>실시간 API에는 부적합한 경우 많음</p>
+</li>
+<li>
+<p>큐 관리 비용 발생<br/>
+<img src="../../attachments/가상-면접-사례로-배우는-대규모-시스템-설계-기초/4장-처리율-제한-장치-설계-20260202-211037.png" width="auto" height="auto" alt/></p>
+</li>
+</ul>
+<hr/>
+<h2 id="3-고정-윈도-카운터fixed-window-counter">3. 고정 윈도 카운터(Fixed Window Counter)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-고정-윈도-카운터fixed-window-counter" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="동작-방식-2">동작 방식<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#동작-방식-2" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>고정된 시간 윈도(예: 1분)마다 요청 수를 카운트</p>
+</li>
+<li>
+<p>윈도가 끝나면 카운터 초기화</p>
+</li>
+</ul>
+<h3 id="문제점">문제점<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#문제점" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h2 id="윈도-경계-문제가-발생할-수-있다예를-들어-윈도-종료-직전과-직후에-요청이-몰리면의도한-처리율보다-더-많은-요청이-허용될-수-있다"><strong>윈도 경계 문제</strong>가 발생할 수 있다.<br/>
+예를 들어, 윈도 종료 직전과 직후에 요청이 몰리면<br/>
+의도한 처리율보다 더 많은 요청이 허용될 수 있다.<br/>
+<img src="../../attachments/가상-면접-사례로-배우는-대규모-시스템-설계-기초/4장-처리율-제한-장치-설계-20260202-211103.png" width="auto" height="auto" alt/><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#윈도-경계-문제가-발생할-수-있다예를-들어-윈도-종료-직전과-직후에-요청이-몰리면의도한-처리율보다-더-많은-요청이-허용될-수-있다" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h2 id="4-이동-윈도-로깅sliding-window-log">4. 이동 윈도 로깅(Sliding Window Log)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-이동-윈도-로깅sliding-window-log" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="동작-방식-3">동작 방식<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#동작-방식-3" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>각 요청의 타임스탬프를 기록</p>
+</li>
+<li>
+<p>최근 N초 동안의 요청 개수를 계산</p>
+</li>
+<li>
+<p>Redis Sorted Set 같은 자료구조 활용</p>
+</li>
+</ul>
+<h3 id="장점-1">장점<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#장점-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>가장 정확한 처리율 제한</p>
+</li>
+<li>
+<p>윈도 경계 문제 없음</p>
+</li>
+</ul>
+<h3 id="단점-2">단점<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#단점-2" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>요청 수만큼 로그를 저장해야 하므로 메모리 사용량 큼<br/>
+<img src="../../attachments/가상-면접-사례로-배우는-대규모-시스템-설계-기초/4장-처리율-제한-장치-설계-20260202-211114.png" width="auto" height="auto" alt/></li>
+</ul>
+<hr/>
+<h2 id="5-이동-윈도-카운터sliding-window-counter">5. 이동 윈도 카운터(Sliding Window Counter)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-이동-윈도-카운터sliding-window-counter" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="개념">개념<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#개념" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>고정 윈도 카운터와 이동 윈도 로깅의 절충안</p>
+</li>
+<li>
+<p>이전 윈도의 일부 요청을 가중치로 반영해 현재 윈도 상태 계산</p>
+</li>
+</ul>
+<h3 id="장점-2">장점<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#장점-2" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>윈도 경계 문제 완화</p>
+</li>
+<li>
+<p>로그 저장 없이도 비교적 정확</p>
+</li>
+<li>
+<p>메모리 효율적</p>
+</li>
+</ul>
+<h3 id="단점-3">단점<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#단점-3" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>요청이 시간 내에 균등하게 분포되었다는 가정</p>
+</li>
+<li>
+<p>엄밀한 정확성은 다소 떨어짐</p>
+</li>
+</ul>
+<hr/>
+<h2 id="개략적인-아키텍처">개략적인 아키텍처<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#개략적인-아키텍처" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>처리율 제한 시스템의 기본 구조는 다음과 같다.</p>
+<ol>
+<li>
+<p>제한 대상(IP, 사용자, 토큰 등) 결정</p>
+</li>
+<li>
+<p>대상별 카운터 또는 상태 저장</p>
+</li>
+<li>
+<p>임계값 초과 여부 판단</p>
+</li>
+<li>
+<p>초과 시 HTTP 429(Too Many Requests) 응답</p>
+</li>
+</ol>
+<p>분산 환경에서는 Redis 같은 인메모리 저장소가<br/>
+<strong>사실상의 표준 구성 요소</strong>로 사용된다.</p>
+<hr/>
+<h2 id="정리">정리<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#정리" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>처리율 제한은 단순한 보호 장치가 아니라<br/>
+<strong>대규모 시스템을 안정적으로 운영하기 위한 핵심 설계 요소</strong>다.</p>
+<p>중요한 것은 “어떤 알고리즘이 최고인가”가 아니라,</p>
+<ul>
+<li>
+<p>어떤 트래픽 특성을 가지는가</p>
+</li>
+<li>
+<p>정확성이 중요한가, 안정성이 중요한가</p>
+</li>
+<li>
+<p>비용과 운영 부담은 어느 정도 감수할 수 있는가</p>
+</li>
+</ul>
+<p>에 따라 <strong>적절한 알고리즘을 선택하는 것</strong>이다.</p>
+<p>이러한 트레이드오프를 설명할 수 있다면<br/>
+시스템 설계 면접에서도 충분히 설득력 있는 답변이 된다.</p>
+<h2 id="궁금했던-포인트-정리">궁금했던 포인트 정리<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#궁금했던-포인트-정리" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="q1-토큰-버킷-알고리즘은-왜-메모리-효율이-좋은가">Q1. 토큰 버킷 알고리즘은 왜 메모리 효율이 좋은가?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#q1-토큰-버킷-알고리즘은-왜-메모리-효율이-좋은가" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>토큰 버킷 알고리즘은 <strong>요청 히스토리를 저장하지 않는다</strong>는 점이 핵심이다.</p>
+<p>필요한 상태 정보는 다음 두 가지뿐이다.</p>
+<ul>
+<li>
+<p>현재 버킷에 남아 있는 토큰 수</p>
+</li>
+<li>
+<p>마지막으로 토큰을 보충한 시각</p>
+</li>
+</ul>
+<p>즉, 요청이 10건이든 10만 건이든<br/>
+<strong>요청 수에 비례해 메모리를 추가로 사용하지 않는다(O(1))</strong>.</p>
+<p>반면 이동 윈도 로깅 알고리즘은:</p>
+<ul>
+<li>
+<p>각 요청의 타임스탬프를 저장해야 하므로</p>
+</li>
+<li>
+<p>트래픽이 많을수록 메모리 사용량이 증가한다</p>
+</li>
+</ul>
+<p>이 차이 때문에 토큰 버킷은<br/>
+<strong>고트래픽 환경에서도 메모리 예측이 쉬운 알고리즘</strong>으로 평가된다.</p>
+<hr/>
+<h3 id="q2-토큰-버킷-알고리즘의-요청-처리율은-왜-고정이-아닌가">Q2. 토큰 버킷 알고리즘의 요청 처리율은 왜 고정이 아닌가?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#q2-토큰-버킷-알고리즘의-요청-처리율은-왜-고정이-아닌가" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>토큰 버킷은 <strong>토큰이 쌓일 수 있기 때문</strong>이다.</p>
+<ul>
+<li>
+<p>토큰은 설정된 속도로 지속적으로 보충된다</p>
+</li>
+<li>
+<p>요청이 없으면 토큰은 버킷에 누적된다</p>
+</li>
+<li>
+<p>이후 요청이 몰리면 누적된 토큰만큼 <strong>한 번에 여러 요청을 처리할 수 있다</strong></p>
+</li>
+</ul>
+<p>즉, 어떤 순간에는:</p>
+<ul>
+<li>
+<p>초당 0건 처리될 수도 있고</p>
+</li>
+<li>
+<p>초당 N건(버킷 크기)까지 처리될 수도 있다</p>
+</li>
+</ul>
+<p>이 때문에 토큰 버킷의 처리율은 <strong>순간적으로 가변적</strong>이며,<br/>
+짧은 burst 트래픽을 허용할 수 있다.</p>
+<p>반대로 누출 버킷은:</p>
+<ul>
+<li>
+<p>큐에 요청을 쌓고</p>
+</li>
+<li>
+<p>항상 일정한 속도로만 요청을 처리하기 때문에<br/>
+처리율이 고정된다.</p>
+</li>
+</ul>
+<hr/>
+<h3 id="q3-토큰-버킷과-누출-버킷의-핵심-차이는-무엇인가">Q3. 토큰 버킷과 누출 버킷의 핵심 차이는 무엇인가?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#q3-토큰-버킷과-누출-버킷의-핵심-차이는-무엇인가" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>두 알고리즘의 차이는 <strong>“입력 안정성 vs 출력 안정성”</strong> 으로 요약할 수 있다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>구분</th><th>토큰 버킷</th><th>누출 버킷</th></tr></thead><tbody><tr><td>처리율</td><td>가변적</td><td>고정</td></tr><tr><td>Burst 허용</td><td>가능</td><td>불가능</td></tr><tr><td>출력 안정성</td><td>낮음</td><td>높음</td></tr><tr><td>적합한 환경</td><td>API, 사용자 요청</td><td>스트리밍, 백엔드 파이프라인</td></tr></tbody></table></div>
+<p>즉,</p>
+<ul>
+<li>
+<p><strong>사용자 경험이 중요한 API</strong> → 토큰 버킷</p>
+</li>
+<li>
+<p><strong>처리 속도가 일정해야 하는 시스템</strong> → 누출 버킷</p>
+</li>
+</ul>
+<p>으로 선택되는 경우가 많다.</p>
+<hr/>
+<h3 id="q5-이동-윈도-로깅은-누출-버킷의-단점을-극복한-것인가">Q5. 이동 윈도 로깅은 누출 버킷의 단점을 극복한 것인가?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#q5-이동-윈도-로깅은-누출-버킷의-단점을-극복한-것인가" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>완전히 극복했다고 보기는 어렵다.<br/>
+두 알고리즘은 <strong>해결하려는 문제가 다르기 때문</strong>이다.</p>
+<ul>
+<li>
+<p>누출 버킷<br/>
+→ 출력 처리율을 일정하게 유지하는 것이 목적</p>
+</li>
+<li>
+<p>이동 윈도 로깅<br/>
+→ 시간 단위 기준으로 요청 수를 정확히 제한하는 것이 목적</p>
+</li>
+</ul>
+<p>즉,</p>
+<ul>
+<li>
+<p>누출 버킷은 <strong>시스템 내부 안정성</strong>에 초점이 있고</p>
+</li>
+<li>
+<p>이동 윈도 로깅은 <strong>정책의 정확성</strong>에 초점이 있다</p>
+</li>
+</ul>
+<hr/>
+<h3 id="q6-이동-윈도-카운터는-왜-느슨한-알고리즘이라고-불릴까">Q6. 이동 윈도 카운터는 왜 ‘느슨한’ 알고리즘이라고 불릴까?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#q6-이동-윈도-카운터는-왜-느슨한-알고리즘이라고-불릴까" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>이동 윈도 카운터는<br/>
+이전 윈도에 들어온 요청이 <strong>균등하게 분포되어 있었다</strong>는 가정을 기반으로 계산한다.</p>
+<p>하지만 실제 트래픽은:</p>
+<ul>
+<li>
+<p>특정 시점에 몰리는 경우가 많고</p>
+</li>
+<li>
+<p>항상 균등하지 않다</p>
+</li>
+</ul>
+<p>이 때문에:</p>
+<ul>
+<li>
+<p>계산 결과는 근사치(추정치)가 되며</p>
+</li>
+<li>
+<p>엄밀한 정확성은 보장하지 않는다</p>
+</li>
+</ul>
+<p>대신:</p>
+<ul>
+<li>
+<p>메모리 효율</p>
+</li>
+<li>
+<p>구현 난이도</p>
+</li>
+<li>
+<p>성능</p>
+</li>
+</ul>
+<p>사이에서 현실적인 타협점을 제공한다.</p></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-11" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-1" class="toc-content overflow"><li class="depth-0"><a href="#처리율-제한이란" data-for="처리율-제한이란">처리율 제한이란?</a></li><li class="depth-0"><a href="#처리율-제한의-장점" data-for="처리율-제한의-장점">처리율 제한의 장점</a></li><li class="depth-1"><a href="#1-dos--ddos-공격-방지" data-for="1-dos--ddos-공격-방지">1. DoS / DDoS 공격 방지</a></li><li class="depth-1"><a href="#2-비용-절감" data-for="2-비용-절감">2. 비용 절감</a></li><li class="depth-1"><a href="#3-서버-과부하-방지" data-for="3-서버-과부하-방지">3. 서버 과부하 방지</a></li><li class="depth-0"><a href="#처리율-제한-장치는-어디에-둘-것인가" data-for="처리율-제한-장치는-어디에-둘-것인가">처리율 제한 장치는 어디에 둘 것인가?</a></li><li class="depth-1"><a href="#api-gateway에-두는-이유" data-for="api-gateway에-두는-이유">API Gateway에 두는 이유</a></li><li class="depth-1"><a href="#위탁-관리형-서비스-예시" data-for="위탁-관리형-서비스-예시">위탁 관리형 서비스 예시</a></li><li class="depth-0"><a href="#처리율-제한-알고리즘" data-for="처리율-제한-알고리즘">처리율 제한 알고리즘</a></li><li class="depth-0"><a href="#1-토큰-버킷token-bucket-알고리즘" data-for="1-토큰-버킷token-bucket-알고리즘">1. 토큰 버킷(Token Bucket) 알고리즘</a></li><li class="depth-1"><a href="#동작-방식" data-for="동작-방식">동작 방식</a></li><li class="depth-1"><a href="#주요-파라미터" data-for="주요-파라미터">주요 파라미터</a></li><li class="depth-1"><a href="#장점" data-for="장점">장점</a></li><li class="depth-1"><a href="#단점" data-for="단점">단점</a></li><li class="depth-0"><a href="#2-누출-버킷leaky-bucket-알고리즘" data-for="2-누출-버킷leaky-bucket-알고리즘">2. 누출 버킷(Leaky Bucket) 알고리즘</a></li><li class="depth-1"><a href="#동작-방식-1" data-for="동작-방식-1">동작 방식</a></li><li class="depth-1"><a href="#특징" data-for="특징">특징</a></li><li class="depth-1"><a href="#토큰-버킷과의-차이" data-for="토큰-버킷과의-차이">토큰 버킷과의 차이</a></li><li class="depth-1"><a href="#단점-1" data-for="단점-1">단점</a></li><li class="depth-0"><a href="#3-고정-윈도-카운터fixed-window-counter" data-for="3-고정-윈도-카운터fixed-window-counter">3. 고정 윈도 카운터(Fixed Window Counter)</a></li><li class="depth-1"><a href="#동작-방식-2" data-for="동작-방식-2">동작 방식</a></li><li class="depth-1"><a href="#문제점" data-for="문제점">문제점</a></li><li class="depth-0"><a href="#윈도-경계-문제가-발생할-수-있다예를-들어-윈도-종료-직전과-직후에-요청이-몰리면의도한-처리율보다-더-많은-요청이-허용될-수-있다" data-for="윈도-경계-문제가-발생할-수-있다예를-들어-윈도-종료-직전과-직후에-요청이-몰리면의도한-처리율보다-더-많은-요청이-허용될-수-있다">윈도 경계 문제가 발생할 수 있다.예를 들어, 윈도 종료 직전과 직후에 요청이 몰리면의도한 처리율보다 더 많은 요청이 허용될 수 있다.</a></li><li class="depth-0"><a href="#4-이동-윈도-로깅sliding-window-log" data-for="4-이동-윈도-로깅sliding-window-log">4. 이동 윈도 로깅(Sliding Window Log)</a></li><li class="depth-1"><a href="#동작-방식-3" data-for="동작-방식-3">동작 방식</a></li><li class="depth-1"><a href="#장점-1" data-for="장점-1">장점</a></li><li class="depth-1"><a href="#단점-2" data-for="단점-2">단점</a></li><li class="depth-0"><a href="#5-이동-윈도-카운터sliding-window-counter" data-for="5-이동-윈도-카운터sliding-window-counter">5. 이동 윈도 카운터(Sliding Window Counter)</a></li><li class="depth-1"><a href="#개념" data-for="개념">개념</a></li><li class="depth-1"><a href="#장점-2" data-for="장점-2">장점</a></li><li class="depth-1"><a href="#단점-3" data-for="단점-3">단점</a></li><li class="depth-0"><a href="#개략적인-아키텍처" data-for="개략적인-아키텍처">개략적인 아키텍처</a></li><li class="depth-0"><a href="#정리" data-for="정리">정리</a></li><li class="depth-0"><a href="#궁금했던-포인트-정리" data-for="궁금했던-포인트-정리">궁금했던 포인트 정리</a></li><li class="depth-1"><a href="#q1-토큰-버킷-알고리즘은-왜-메모리-효율이-좋은가" data-for="q1-토큰-버킷-알고리즘은-왜-메모리-효율이-좋은가">Q1. 토큰 버킷 알고리즘은 왜 메모리 효율이 좋은가?</a></li><li class="depth-1"><a href="#q2-토큰-버킷-알고리즘의-요청-처리율은-왜-고정이-아닌가" data-for="q2-토큰-버킷-알고리즘의-요청-처리율은-왜-고정이-아닌가">Q2. 토큰 버킷 알고리즘의 요청 처리율은 왜 고정이 아닌가?</a></li><li class="depth-1"><a href="#q3-토큰-버킷과-누출-버킷의-핵심-차이는-무엇인가" data-for="q3-토큰-버킷과-누출-버킷의-핵심-차이는-무엇인가">Q3. 토큰 버킷과 누출 버킷의 핵심 차이는 무엇인가?</a></li><li class="depth-1"><a href="#q5-이동-윈도-로깅은-누출-버킷의-단점을-극복한-것인가" data-for="q5-이동-윈도-로깅은-누출-버킷의-단점을-극복한-것인가">Q5. 이동 윈도 로깅은 누출 버킷의 단점을 극복한 것인가?</a></li><li class="depth-1"><a href="#q6-이동-윈도-카운터는-왜-느슨한-알고리즘이라고-불릴까" data-for="q6-이동-윈도-카운터는-왜-느슨한-알고리즘이라고-불릴까">Q6. 이동 윈도 카운터는 왜 ‘느슨한’ 알고리즘이라고 불릴까?</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function E(a,e){if(!a)return;function t(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function n(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}a?.addEventListener("click",t),window.addCleanup(()=>a?.removeEventListener("click",t)),document.addEventListener("keydown",n),window.addCleanup(()=>document.removeEventListener("keydown",n))}function f(a){for(;a.firstChild;)a.removeChild(a.firstChild)}var m=class{constructor(e,t){this.container=e;this.content=t;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),t=this.onMouseMove.bind(this),n=this.onMouseUp.bind(this),o=this.onTouchStart.bind(this),r=this.onTouchMove.bind(this),i=this.onTouchEnd.bind(this),s=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",t),document.addEventListener("mouseup",n),this.container.addEventListener("touchstart",o,{passive:!1}),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",i),window.addEventListener("resize",s),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",t),()=>document.removeEventListener("mouseup",n),()=>this.container.removeEventListener("touchstart",o),()=>document.removeEventListener("touchmove",r),()=>document.removeEventListener("touchend",i),()=>window.removeEventListener("resize",s))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let t=this.createButton("+",()=>this.zoom(.1)),n=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(n),e.appendChild(o),e.appendChild(t),this.container.appendChild(e)}createButton(e,t){let n=document.createElement("button");return n.textContent=e,n.className="mermaid-control-button",n.addEventListener("click",t),window.addCleanup(()=>n.removeEventListener("click",t)),n}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}onTouchStart(e){if(e.touches.length!==1)return;this.isDragging=!0;let t=e.touches[0];this.startPan={x:t.clientX-this.currentPan.x,y:t.clientY-this.currentPan.y}}onTouchMove(e){if(!this.isDragging||e.touches.length!==1)return;e.preventDefault();let t=e.touches[0];this.currentPan={x:t.clientX-this.startPan.x,y:t.clientY-this.startPan.y},this.updateTransform()}onTouchEnd(){this.isDragging=!1}zoom(e){let t=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),n=this.content.getBoundingClientRect(),o=n.width/2,r=n.height/2,i=t-this.scale;this.currentPan.x-=o*i,this.currentPan.y-=r*i,this.scale=t,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){let t=this.content.querySelector("svg").getBoundingClientRect(),n=t.width/this.scale,o=t.height/this.scale;this.scale=1,this.currentPan={x:(this.container.clientWidth-n)/2,y:(this.container.clientHeight-o)/2},this.updateTransform()}},T=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],y;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;y||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let t=y.default,n=new WeakMap;for(let r of e)n.set(r,r.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let c=n.get(s);c&&(s.innerHTML=c)}let r=T.reduce((s,c)=>(s[c]=window.getComputedStyle(document.documentElement).getPropertyValue(c),s),{}),i=document.documentElement.getAttribute("saved-theme")==="dark";t.initialize({startOnLoad:!1,securityLevel:"loose",theme:i?"dark":"base",themeVariables:{fontFamily:r["--codeFont"],primaryColor:r["--light"],primaryTextColor:r["--darkgray"],primaryBorderColor:r["--tertiary"],lineColor:r["--darkgray"],secondaryColor:r["--secondary"],tertiaryColor:r["--tertiary"],clusterBkg:r["--light"],edgeLabelBackground:r["--highlight"]}}),await t.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let r=0;r<e.length;r++){let v=function(){let g=l.querySelector("#mermaid-space"),h=l.querySelector(".mermaid-content");if(!h)return;f(h);let w=i.querySelector("svg").cloneNode(!0);h.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new m(g,h)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},i=e[r],s=i.parentElement,c=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(c),L=c.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),E(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../postscript.js" type="module" data-persist="true"></script></html>

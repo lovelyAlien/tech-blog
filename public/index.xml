@@ -6,29 +6,65 @@
       <description>Last 10 notes on Quartz 4</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
-    <title>Index</title>
-    <link>https://quartz.jzhao.xyz/Spring/Index</link>
-    <guid>https://quartz.jzhao.xyz/Spring/Index</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Wed, 31 Dec 2025 08:20:36 GMT</pubDate>
+    <title>웹이랑 앱 소셜 로그인 차이</title>
+    <link>https://quartz.jzhao.xyz/Spring/%EC%9B%B9%EC%9D%B4%EB%9E%91-%EC%95%B1-%EC%86%8C%EC%85%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%B0%A8%EC%9D%B4</link>
+    <guid>https://quartz.jzhao.xyz/Spring/%EC%9B%B9%EC%9D%B4%EB%9E%91-%EC%95%B1-%EC%86%8C%EC%85%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%B0%A8%EC%9D%B4</guid>
+    <description><![CDATA[ 웹: 서버가 Code를 받음 sequenceDiagram participant U as User participant B as Browser participant S as Runvas Server participant K as Kakao Server U-&gt;&gt;B: 로그인 버튼 클릭 B-&gt;&gt;S: GET /auth/kakao/start S--&gt;&gt;B: 302 Redirect to Kakao authorize URL B-&gt;&gt;K: 카카오 로그인 페이지 이동 U-&gt;&gt;K: 로그인/동의 K--&... ]]></description>
+    <pubDate>Thu, 25 Jun 2026 08:16:42 GMT</pubDate>
   </item><item>
-    <title>Readme</title>
-    <link>https://quartz.jzhao.xyz/Readme</link>
-    <guid>https://quartz.jzhao.xyz/Readme</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Wed, 31 Dec 2025 07:45:20 GMT</pubDate>
+    <title>카카오 소셜 로그인</title>
+    <link>https://quartz.jzhao.xyz/Spring/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EC%86%8C%EC%85%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8</link>
+    <guid>https://quartz.jzhao.xyz/Spring/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EC%86%8C%EC%85%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8</guid>
+    <description><![CDATA[  ① GET 로그인 요청 브라우저가 “카카오 로그인” 버튼을 누르면 백엔드의 로그인 시작 엔드포인트(Spring Security 기본값 기준 /oauth2/authorization/kakao)로 GET 요청을 보내요. ]]></description>
+    <pubDate>Thu, 25 Jun 2026 07:47:02 GMT</pubDate>
   </item><item>
-    <title>Welcome to Quartz</title>
-    <link>https://quartz.jzhao.xyz/</link>
-    <guid>https://quartz.jzhao.xyz/</guid>
-    <description><![CDATA[ This is a blank Quartz installation. See the documentation for how to get started. ]]></description>
-    <pubDate>Wed, 31 Dec 2025 06:48:52 GMT</pubDate>
+    <title>1. kafka</title>
+    <link>https://quartz.jzhao.xyz/kafka/1.-kafka</link>
+    <guid>https://quartz.jzhao.xyz/kafka/1.-kafka</guid>
+    <description><![CDATA[ 카프카란? 분산 스트리밍 플랫폼으로, 대규모 실시간 데이터 스트리밍 처리를 위해 설계 이벤트 기반 아키텍처를 사용하여 대량의 데이터를 처리하고, 여러 시스템 간 데이터 통신을 지원 pub/sub 모델을 기반으로 만들어진 메세징 시스템 메시징 시스템 로그 데이터, 이벤트 메시지 등 API 로 호출할 때 보내는 데이터들을 처리하는 시스템 pub/sub 모델이란 중앙에 메시징 시스템 서버를 두고, 메시지를 보내고(publish), 받는(subscribe) 형태의 통신 N:M으로 연결되는 것이 아니기 때문에 확장성이 용이 디스크에 메시지 ... ]]></description>
+    <pubDate>Sat, 21 Mar 2026 16:17:13 GMT</pubDate>
   </item><item>
-    <title>영속성 컨텍스트 지연 쓰기</title>
-    <link>https://quartz.jzhao.xyz/Spring/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-%EC%A7%80%EC%97%B0-%EC%93%B0%EA%B8%B0</link>
-    <guid>https://quartz.jzhao.xyz/Spring/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-%EC%A7%80%EC%97%B0-%EC%93%B0%EA%B8%B0</guid>
-    <description><![CDATA[ 지연 쓰기(Delayed Write) 메커니즘 변경 감지(Dirty Checking) 영속성 컨텍스트는 엔티티의 최초 상태를 스냅샷으로 저장해둡니다. 트랜잭션 커밋 시점에 현재 엔티티와 스냅샷을 비교하여 변경된 사항을 감지합니다. ]]></description>
-    <pubDate>Tue, 30 Dec 2025 15:00:00 GMT</pubDate>
+    <title>Hibernate</title>
+    <link>https://quartz.jzhao.xyz/Java/Hibernate/Hibernate</link>
+    <guid>https://quartz.jzhao.xyz/Java/Hibernate/Hibernate</guid>
+    <description><![CDATA[ 핵심 철학 개발자는 객체를 다루고 SQL은 Hibernate가 책임진다. ]]></description>
+    <pubDate>Sat, 21 Mar 2026 07:49:01 GMT</pubDate>
+  </item><item>
+    <title>15. 구글 드라이브 설계</title>
+    <link>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/15.-%EA%B5%AC%EA%B8%80-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C-%EC%84%A4%EA%B3%84</link>
+    <guid>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/15.-%EA%B5%AC%EA%B8%80-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C-%EC%84%A4%EA%B3%84</guid>
+    <description><![CDATA[ P 286 동기화 충돌 해결책 그래서 뭐지? 두 파일 합치기 로컬 버전 사용 사용자2 파일로 서버 파일을 덮어쓰기 서버 버전 사용 Google Docs에서 동기화 충돌이 거의 발생하지 않는 이유는 “파일 단위 동기화”가 아니라 “편집 연산(operation) 단위 동기화”를 사용하기 때문 Google Docs는 파일을 통째로 업로드하는 방식이 아니라 사용자의 편집 행동을 실시간으로 서버에 전송 3️⃣ 두 사용자가 동시에 편집 예를 들어 초기 문서 Hello world User1 Hello amazing world User2 Hell... ]]></description>
+    <pubDate>Sun, 15 Mar 2026 12:39:41 GMT</pubDate>
+  </item><item>
+    <title>14장. 유튜브 설계</title>
+    <link>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/14%EC%9E%A5.-%EC%9C%A0%ED%8A%9C%EB%B8%8C-%EC%84%A4%EA%B3%84</link>
+    <guid>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/14%EC%9E%A5.-%EC%9C%A0%ED%8A%9C%EB%B8%8C-%EC%84%A4%EA%B3%84</guid>
+    <description><![CDATA[ 개략적인 설계안 CDN과 BLOB 스토리지는 기존 클라우드 서비스 활용 페이스북 - Akamai CDN 넷플릭스 - AWS 비디오 저장은 BLOB? 비디오 업로드 절차 원본 저장소: 원본 비디오 보관할 대형 이진 파일 저장소(BLOB) 시스템 트랜스코딩 서버: 원본 저장소의 비디오를 인코딩 단말이나 대역폭 요구사항에 맞는 최적 비디오 스트림 제공 목적 트랜스코딩 비디오 저장소: 트랜스코딩이 완료된 비디오 저장하는 BLOB 저장소 CDN: 비디오 캐시하는 역할 사용자가 재생 버튼 누르면 CDN 통해 비디오 스트리밍 BLOB으로 저장하... ]]></description>
+    <pubDate>Sun, 15 Mar 2026 12:05:41 GMT</pubDate>
+  </item><item>
+    <title>채팅 시스템 개발 가이드</title>
+    <link>https://quartz.jzhao.xyz/%EA%B0%9C%EC%9D%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%EC%B1%84%ED%8C%85-%EC%8B%9C%EC%8A%A4%ED%85%9C/%EC%84%A4%EA%B3%84/%EC%B1%84%ED%8C%85-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B0%9C%EB%B0%9C-%EA%B0%80%EC%9D%B4%EB%93%9C</link>
+    <guid>https://quartz.jzhao.xyz/%EA%B0%9C%EC%9D%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%EC%B1%84%ED%8C%85-%EC%8B%9C%EC%8A%A4%ED%85%9C/%EC%84%A4%EA%B3%84/%EC%B1%84%ED%8C%85-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B0%9C%EB%B0%9C-%EA%B0%80%EC%9D%B4%EB%93%9C</guid>
+    <description><![CDATA[ 1. 프로젝트 개요 목적: 실시간 채팅 시스템 구축 개발자 레벨: 2~3년차 백엔드 개발자 핵심 기술: WebSocket + Redis Pub/Sub + QueryDSL 2. ]]></description>
+    <pubDate>Tue, 10 Mar 2026 02:53:39 GMT</pubDate>
+  </item><item>
+    <title>12장. 채팅시스템 설계</title>
+    <link>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/12%EC%9E%A5.-%EC%B1%84%ED%8C%85%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84</link>
+    <guid>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/12%EC%9E%A5.-%EC%B1%84%ED%8C%85%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84</guid>
+    <description><![CDATA[ Page 200 채팅 서비스 접속 key-alive header 동작 방식 Keep-Alive 헤더는 TCP 연결을 계속 유지해서 여러 요청을 같은 연결로 처리하도록 하는 HTTP 연결 관리 메커니즘 HTTP/1.1부터 Persistent Connection(Keep-Alive) TCP 연결 1개 여러 HTTP 요청/응답 처리 keep-alive Header 예시 GET /chat HTTP/1.1 Host: example.com Connection: keep-alive Keep-Alive: timeout=60, max=100 Kee... ]]></description>
+    <pubDate>Mon, 09 Mar 2026 00:45:13 GMT</pubDate>
+  </item><item>
+    <title>13장. 검색어 자동완성 시스템</title>
+    <link>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/13%EC%9E%A5.-%EA%B2%80%EC%83%89%EC%96%B4-%EC%9E%90%EB%8F%99%EC%99%84%EC%84%B1-%EC%8B%9C%EC%8A%A4%ED%85%9C</link>
+    <guid>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/13%EC%9E%A5.-%EA%B2%80%EC%83%89%EC%96%B4-%EC%9E%90%EB%8F%99%EC%99%84%EC%84%B1-%EC%8B%9C%EC%8A%A4%ED%85%9C</guid>
+    <description><![CDATA[ 개략적 설계 데이터 수집 서비스: 사용자가 입력한 질의를 실시간으로 수집하는 서비스 질의문과 사용 빈도를 저장하는 테이블이 있다고 가정 질의 서비스: 인기 검색어를 정렬하는 서비스 트라이 자료구조 문자열들을 간략하게 저장할 수 있는 자료구조 트리 형 루트 노드 빈 문자열 각 노드는 글자 하나 저장, 26개의 자식 노드 가질 수 있다. ]]></description>
+    <pubDate>Sat, 07 Mar 2026 23:54:59 GMT</pubDate>
+  </item><item>
+    <title>9장. 웹 크롤러 설계</title>
+    <link>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/9%EC%9E%A5.-%EC%9B%B9-%ED%81%AC%EB%A1%A4%EB%9F%AC-%EC%84%A4%EA%B3%84</link>
+    <guid>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/9%EC%9E%A5.-%EC%9B%B9-%ED%81%AC%EB%A1%A4%EB%9F%AC-%EC%84%A4%EA%B3%84</guid>
+    <description><![CDATA[ 웹 크롤러 웹에 새로 올라오거나 갱신된 컨텐츠를 찾아냄 검색 엔진에 널리 쓰이는 기술 로봇 또는 스파이더라고도 부름 웹 크롤링 웹은 그래프 구조 웹 페이지 = 노드(Node) 하이퍼링크 = 간선(Edge) 따라서 크롤링은 그래프 탐색 문제 대부분의 크롤러는 BFS(너비 우선 탐색) 기반으로 동작 웹 크롤러 아키텍처 미수집 저장소 웹 크롤러는 다운로드 할 URL, 다운로드된 URL로 나눠서 관리 다운로드할 URL 관리 컴포넌트 = 미수집 URL 저장소 = FIFO 큐 왜 미수집 저장소는 FIFO 큐? 아직 다운로드하지 않은 작업 목록... ]]></description>
+    <pubDate>Sun, 22 Feb 2026 09:12:01 GMT</pubDate>
   </item>
     </channel>
   </rss>
