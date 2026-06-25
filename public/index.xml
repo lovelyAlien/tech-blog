@@ -6,6 +6,12 @@
       <description>Last 10 notes on Quartz 4</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
+    <title>Home</title>
+    <link>https://quartz.jzhao.xyz/</link>
+    <guid>https://quartz.jzhao.xyz/</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Thu, 25 Jun 2026 15:47:51 GMT</pubDate>
+  </item><item>
     <title>웹이랑 앱 소셜 로그인 차이</title>
     <link>https://quartz.jzhao.xyz/Spring/%EC%9B%B9%EC%9D%B4%EB%9E%91-%EC%95%B1-%EC%86%8C%EC%85%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%B0%A8%EC%9D%B4</link>
     <guid>https://quartz.jzhao.xyz/Spring/%EC%9B%B9%EC%9D%B4%EB%9E%91-%EC%95%B1-%EC%86%8C%EC%85%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%B0%A8%EC%9D%B4</guid>
@@ -59,12 +65,6 @@
     <guid>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/13%EC%9E%A5.-%EA%B2%80%EC%83%89%EC%96%B4-%EC%9E%90%EB%8F%99%EC%99%84%EC%84%B1-%EC%8B%9C%EC%8A%A4%ED%85%9C</guid>
     <description><![CDATA[ 개략적 설계 데이터 수집 서비스: 사용자가 입력한 질의를 실시간으로 수집하는 서비스 질의문과 사용 빈도를 저장하는 테이블이 있다고 가정 질의 서비스: 인기 검색어를 정렬하는 서비스 트라이 자료구조 문자열들을 간략하게 저장할 수 있는 자료구조 트리 형 루트 노드 빈 문자열 각 노드는 글자 하나 저장, 26개의 자식 노드 가질 수 있다. ]]></description>
     <pubDate>Sat, 07 Mar 2026 23:54:59 GMT</pubDate>
-  </item><item>
-    <title>9장. 웹 크롤러 설계</title>
-    <link>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/9%EC%9E%A5.-%EC%9B%B9-%ED%81%AC%EB%A1%A4%EB%9F%AC-%EC%84%A4%EA%B3%84</link>
-    <guid>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/9%EC%9E%A5.-%EC%9B%B9-%ED%81%AC%EB%A1%A4%EB%9F%AC-%EC%84%A4%EA%B3%84</guid>
-    <description><![CDATA[ 웹 크롤러 웹에 새로 올라오거나 갱신된 컨텐츠를 찾아냄 검색 엔진에 널리 쓰이는 기술 로봇 또는 스파이더라고도 부름 웹 크롤링 웹은 그래프 구조 웹 페이지 = 노드(Node) 하이퍼링크 = 간선(Edge) 따라서 크롤링은 그래프 탐색 문제 대부분의 크롤러는 BFS(너비 우선 탐색) 기반으로 동작 웹 크롤러 아키텍처 미수집 저장소 웹 크롤러는 다운로드 할 URL, 다운로드된 URL로 나눠서 관리 다운로드할 URL 관리 컴포넌트 = 미수집 URL 저장소 = FIFO 큐 왜 미수집 저장소는 FIFO 큐? 아직 다운로드하지 않은 작업 목록... ]]></description>
-    <pubDate>Sun, 22 Feb 2026 09:12:01 GMT</pubDate>
   </item>
     </channel>
   </rss>

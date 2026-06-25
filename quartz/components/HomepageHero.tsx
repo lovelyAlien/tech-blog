@@ -8,7 +8,11 @@ import style from "./styles/homepageHero.scss"
 const RECENT_LIMIT = 3
 
 function isPublished(f: QuartzPluginData): boolean {
-  return f.frontmatter?.draft !== true && !!f.frontmatter?.title
+  return (
+    f.frontmatter?.draft !== true &&
+    !!f.frontmatter?.title &&
+    f.slug !== "index"
+  )
 }
 
 export default (() => {
