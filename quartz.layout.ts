@@ -56,18 +56,10 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    // 홈페이지에서 Explorer 숨김
-    Component.ConditionalRender({
-      component: Component.Explorer(),
-      condition: notIndex,
-    }),
+    Component.Explorer(),
   ],
   right: [
-    // 홈페이지에서 우측 사이드바 숨김
-    Component.ConditionalRender({
-      component: Component.Graph(),
-      condition: notIndex,
-    }),
+    Component.Graph(),
     Component.ConditionalRender({
       component: Component.DesktopOnly(Component.TableOfContents()),
       condition: notIndex,
