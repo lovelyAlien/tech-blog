@@ -108,6 +108,10 @@ nav,
 /* Sidebar hover animation */
 /* ================================ */
 
+.explorer-ul {
+  overflow-x: hidden;
+}
+
 .sidebar li:not(.overflow-end) {
   transition: transform 0.15s ease;
 }
