@@ -108,11 +108,11 @@ nav,
 /* Sidebar hover animation */
 /* ================================ */
 
-.sidebar li {
+.sidebar li:not(.overflow-end) {
   transition: transform 0.15s ease;
 }
 
-.sidebar li:hover {
+.sidebar li:not(.overflow-end):hover {
   transform: translateX(3px);
 }
 
