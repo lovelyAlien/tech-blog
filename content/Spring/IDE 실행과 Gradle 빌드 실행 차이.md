@@ -4,264 +4,377 @@ lastmod: 2025-12-31
 tags:
 draft: false
 ---
-# ✅ **IDE로 실행하는 것은 “Gradle이 직접 관여하지 않는다.”**
+# IDE에서 실행하면 Gradle은 정말 사용되지 않을까?
 
-하지만 "Gradle이 완전히 빠지는 것"도 아니다.  
-아주 정확한 동작 구조를 단계별로 설명해줄게.
+Spring Boot 프로젝트를 개발하다 보면 이런 말을 자주 듣는다.
 
----
+> "IDE에서 실행하면 Gradle은 사용되지 않는다."
 
-# ⭐ 1. IDE 실행은 “Gradle 의존성을 _한 번만_ 가져오고 끝”
+이 말은 **절반은 맞고 절반은 틀린 표현**이다.
 
-IntelliJ/VSCode/Eclipse는 다음을 한다:
+정확히는 **프로젝트를 가져오는(Import) 과정에서는 Gradle을 사용하지만, 실행(Run) 단계에서는 대부분 IDE가 직접 컴파일하고 실행한다.**
 
-1. Gradle 프로젝트를 처음 import할 때  
-    → build.gradle 기반으로 의존성 다운로드  
-    → 소스 경로 / 리소스 경로 / JDK 설정 읽기
-    
-
-**이때만 Gradle을 사용함.**
-
-그 이후 실행(Run) 시에는:
-
-### 👉 Gradle이 아니라 IDE 자체의 빌드 시스템이 컴파일 & 실행함.
+이번 글에서는 IDE 실행과 Gradle 실행의 차이를 단계별로 알아보자.
 
 ---
 
-# ⭐ 2. IDE 실행 시에는 Gradle이 동작하지 않는다
+# IDE 실행 시 Gradle은 언제 사용될까?
 
-예를 들어 IntelliJ 기준:
+## 프로젝트를 처음 Import할 때
 
-### ✔ 소스 코드 컴파일
+IntelliJ, Eclipse, VS Code와 같은 IDE는 Gradle 프로젝트를 열면 먼저 `build.gradle` 또는 `build.gradle.kts`를 확인한다.
 
-IDE 자체의 내부 빌드 도구(javac 기반 incremental compiler)가 처리  
-→ Gradle의 `compileJava` 안 돌음
+하지만 단순히 파일 내용을 읽는 것이 아니다.
 
-### ✔ Spring Boot 실행
+IDE는 **Gradle 자체를 실행**하여 프로젝트 정보를 가져온다.
 
-IDE가 만든 classpath를 기반으로 `main()`을 직접 실행  
-→ Gradle의 `bootRun` 안 돌음  
-→ Gradle Task 호출도 없음
+대표적으로 다음과 같은 정보를 Gradle을 통해 얻는다.
+
+- 프로젝트 구조
+- Source Set
+- Resource 경로
+- JDK 버전
+- 의존성(JAR)
+- 플러그인 정보
 
 즉,
 
-### 👉 실행 경로는 IDE → JVM
-
-Gradle은 끼지 않는다.
+> **Gradle은 프로젝트를 이해하기 위한 메타데이터를 제공하는 역할을 한다.**
 
 ---
 
-# ⭐ 3. Build(gradle build)는 완전히 독립된 프로세스
+# IDE는 build.gradle을 어떻게 분석할까?
 
-Gradle로 빌드하면:
+예를 들어 다음과 같은 의존성이 있다고 가정하자.
 
-`./gradlew clean build`
+```gradle
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-또는
+    compileOnly 'org.projectlombok:lombok'
 
-`./gradlew bootJar`
+    runtimeOnly 'com.h2database:h2'
 
-이때는 IDE가 아무 역할도 하지 않음.
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+```
 
-Gradle은 전체 코드를:
+IDE는 이 파일을 직접 해석하는 것이 아니라,
 
-- compileJava
-    
-- processResources
-    
-- test
-    
-- bootJar
-    
-- assemble
-    
+Gradle에게 다음과 같은 요청을 한다.
 
-등 모든 task를 실행하며 JAR/WAR을 만든다.
+> "이 프로젝트의 의존성을 계산해줘."
+
+실제로는 Gradle Tooling API를 사용하며, 내부적으로는 다음과 비슷한 작업이 수행된다.
+
+```bash
+./gradlew dependencies
+```
+
+그러면 Gradle은 의존성 그래프를 계산한다.
+
+```
+implementation
++--- spring-boot-starter-web
+|    +--- spring-web
+|    +--- spring-boot-starter-json
+|
++--- spring-boot-starter-data-jpa
+     +--- hibernate-core
+```
+
+IDE는 이 결과를 받아
+
+- 필요한 JAR 다운로드
+- Classpath 구성
+- 자동완성
+- Import
+- 컴파일 설정
+
+등에 활용한다.
+
+---
+
+# IDE 실행(Run) 시에는 어떻게 동작할까?
+
+프로젝트 Import가 끝난 이후에는 상황이 달라진다.
+
+Run 버튼을 누르면 일반적으로 다음 순서로 동작한다.
+
+```
+IDE
+    ↓
+Incremental Compiler
+    ↓
+.class 생성
+    ↓
+main() 실행
+```
+
+여기서는 Gradle이 개입하지 않는다.
 
 즉,
 
-### 👉 Gradle Build는 IDE를 전혀 신뢰하지 않는다.
+- `compileJava`
+- `bootRun`
+- `processResources`
 
-클래스파일도 IDE가 만든 것을 쓰지 않음.  
-모두 gradle이 다시 컴파일한다.
+같은 Gradle Task는 실행되지 않는다.
 
----
-
-# ⭐ 4. 실행 주체가 다름 (가장 중요한 차이)
-
-|실행 방식|컴파일 주체|실행 대상|Gradle 개입 여부|
-|---|---|---|---|
-|IDE Run|IDE compiler|IDE가 만든 .class 파일|❌ 거의 없음|
-|Gradle bootRun|Gradle compiler|Gradle classpath|⭕ Gradle 개입|
-|java -jar|Gradle이 만든 JAR|JAR 내부 classpath|❌ (실행 시점)|
+IDE 내부 컴파일러(IntelliJ Compiler)가 변경된 파일만 빠르게 컴파일한 뒤 JVM에서 `main()`을 직접 실행한다.
 
 ---
 
-# ⭐ 5. 예시로 보면 아주 명확해짐
+# IDE 실행과 Gradle 실행의 차이
 
-### ✔ IDE Run 시
+IDE 실행은 다음과 같다.
 
-`IntelliJ → Incremental compile → target/classes → main() 실행`
+```
+IDE
+    ↓
+Incremental Compile
+    ↓
+main()
+```
 
-### ✔ Gradle bootRun 시
+반면 Gradle의 `bootRun`은
 
-`./gradlew bootRun → Gradle compile → Gradle classpath 실행`
+```
+Gradle
+    ↓
+compileJava
+    ↓
+processResources
+    ↓
+bootRun
+    ↓
+main()
+```
 
-### ✔ JAR 실행 시
-
-`./gradlew build → build/libs/app.jar → java -jar app.jar`
-
-아예 경로도 다르고 classpath도 다름.
-
----
-
-# ⭐ 6. 그래서 실무에서는 왜 중요하냐?
-
-너는 Kubernetes·Docker 기반 운영 환경에서 개발하니까 특히 중요해.
-
-IDE Run에서는 문제 없는데  
-Docker 이미지에서 에러 발생하는 이유:
-
-- IDE classpath와 JAR classpath가 다름
-    
-- Annotation Processor 동작 차이
-    
-- Resource 경로 다름
-    
-- Lombok 처리 차이
-    
-- Spring Boot Repackage가 IDE 실행에는 없음
-    
-
-그래서 _**절대 IDE 실행을 실제 동작 기준으로 삼으면 안 됨.**_
+처럼 모든 과정을 Gradle이 관리한다.
 
 ---
 
-# ⭐ 결론 딱 한 줄
+# Gradle Build는 완전히 다른 과정이다
 
-# 👉 IDE Run 은 Gradle이 “관여하지 않는 실행”
+다음 명령을 실행하면
 
-# 👉 Build/bootRun 은 Gradle이 “직접 컴파일하고 실행하는 실행”
+```bash
+./gradlew build
+```
 
+Gradle은 IDE를 전혀 사용하지 않는다.
+
+다음 Task들을 직접 수행한다.
+
+```
+clean
+↓
+
+compileJava
+↓
+
+processResources
+↓
+
+test
+↓
+
+bootJar
+↓
+
+build
+```
+
+즉,
+
+> IDE가 생성한 `.class` 파일을 사용하는 것이 아니라,
+> **Gradle이 처음부터 다시 컴파일한다.**
 
 ---
-# ✅ **IDE가 build.gradle을 분석한다는 게 실제로 무슨 의미냐?**
 
-## 👉 결론적으로, IDE는 _빌드 스크립트를 직접 실행_해서
+# 실행 방식별 차이
 
-**의존성들(JAR 파일 목록)**을 "계산"한다.
-
-즉, 단순히 텍스트를 읽는 게 아니라:
-
-- Gradle 스크립트를 파싱하고
-    
-- Gradle 자체 엔진을 이용해
-    
-- 의존성 그래프를 만들어낸다
-    
-
-아주 구체적으로 단계별로 보여줄게.
+| 실행 방식 | 컴파일 주체 | 실행 대상 | Gradle 개입 |
+|------------|------------|------------|-------------|
+| IDE Run | IDE Compiler | IDE가 만든 `.class` | 거의 없음 |
+| `bootRun` | Gradle | Gradle Classpath | 있음 |
+| `java -jar` | 이미 빌드된 JAR | JAR 내부 | 실행 시 없음 |
 
 ---
 
-# ⭐ 1. build.gradle에 적힌 의존성 선언 예시
+# 실제 실행 흐름 비교
 
-```yaml
-dependencies {     
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'     
-	compileOnly 'org.projectlombok:lombok'     
-	runtimeOnly 'com.h2database:h2'     
-	testImplementation 'org.springframework.boot:spring-boot-starter-test' 
-	}
+## IDE 실행
+
+```
+IntelliJ
+
+↓
+
+Incremental Compile
+
+↓
+
+target/classes
+
+↓
+
+main()
 ```
 
 ---
 
-# ⭐ 2. IDE는 이걸 “문자열”로 읽는 게 아니라
+## Gradle bootRun
 
-## **Gradle에게 실행을 요청**한다
+```
+./gradlew bootRun
 
-IntelliJ가 다음처럼 말한다고 생각해봐:
+↓
 
-> "Gradle아, 너 빌드 스크립트 읽고 의존성 좀 계산해줘!"
+compileJava
 
-그래서 IDE가 Gradle에 다음 명령을 요청한다:
+↓
 
-`gradlew dependencies`
+processResources
 
-이걸 실제로 실행해보면, 이런 그래프가 나온다:
+↓
 
-```yaml
-implementation - Implementation only dependencies ... +--- org.springframework.boot:spring-boot-starter-web:3.2.2 |    +--- org.springframework:spring-web:6.1.3 |    +--- org.springframework.boot:spring-boot-starter-json:3.2.2 |    \--- ... +--- org.springframework.boot:spring-boot-starter-data-jpa:3.2.2 |    +--- org.hibernate.orm:hibernate-core:6.4.1 |    \--- ...
+main()
 ```
 
-이거 그대로 IDE가 받아서 classpath에 추가하는 거야.
+---
+
+## JAR 실행
+
+```
+./gradlew build
+
+↓
+
+bootJar
+
+↓
+
+build/libs/app.jar
+
+↓
+
+java -jar app.jar
+```
 
 ---
 
-# ⭐ 3. IDE가 build.gradle을 통해 "어떤 JAR이 필요한지" 파악해야 하는 이유
+# 왜 실무에서 중요할까?
 
-Java 프로젝트는 **라이브러리가 없으면 컴파일 자체가 안 됨.**
+Docker나 Kubernetes 환경에서는 대부분 다음과 같이 배포된다.
 
-예를 들어 IDE 실행 중 아래 코드가 있다면:
+```bash
+./gradlew build
 
-`@RestController public class HelloController {}`
+java -jar app.jar
+```
 
-IDE는 이런 걸 해야 한다:
+즉,
 
-- @RestController가 어디에 있는지 찾기
-    
-- spring-web 라이브러리에서 찾기
-    
-- 해당 JAR을 classpath에 추가하기
-    
-- 그래야 컴파일러가 에러를 안 냄
-    
-- 자동완성(IntelliSense)도 가능해짐
-    
-- import 정리도 가능
-    
+운영 환경은 **IDE 실행이 아니라 Gradle Build 결과물**을 사용한다.
 
-즉, IDE가 build.gradle을 분석하는 이유는:
+그래서 이런 문제가 발생할 수 있다.
 
-### 👉 "프로젝트를 이해하고 컴파일하기 위해 필요한 모든 라이브러리(JAR)를 계산하기 위해서"
+- IDE에서는 정상 실행됨
+- Docker에서는 오류 발생
+
+대표적인 원인은 다음과 같다.
+
+- Classpath 차이
+- Resource 포함 여부
+- Annotation Processor 차이
+- Lombok 처리 방식
+- Spring Boot Repackage 여부
+
+즉,
+
+> **IDE 실행 결과를 운영 환경의 기준으로 생각하면 안 된다.**
+
+운영 환경과 가장 유사한 테스트는
+
+```bash
+./gradlew build
+
+java -jar build/libs/app.jar
+```
+
+으로 확인하는 것이다.
 
 ---
 
-# ⭐ 4. IDE는 실제로 이렇게 동작한다
+# IDE가 Gradle을 사용하는 이유
 
-### ✔ IntelliJ 동작 흐름
+IDE는 Gradle을
 
-1. build.gradle 읽음
-    
-2. Gradle Tooling API를 이용해 Gradle을 백그라운드로 실행
-    
-3. Gradle이 의존성 트리를 계산
-    
-4. 그 결과(JAR 목록)를 IntelliJ에 전달
-    
-5. IntelliJ는 캐시에 저장
-    
-6. import 처리, 자동완성, 컴파일러 설정에 반영
-    
-7. IDE에서는 JVM으로 빠르게 실행
-    
+> **빌드 도구**
 
-즉 IDE는:
+로 사용하는 것이 아니라,
 
-`[Gradle 실행] → 의존성 계산 → JAR 다운로드 → IDE classpath 구성`
+> **프로젝트 정보를 계산하는 도구**
 
-여기까지가 **"build.gradle 분석"**이라는 말의 실제 의미야.
+로 사용한다.
 
-# ⭐ 6. 최종 요약
+정리하면
 
-IDE가 build.gradle을 분석한다는 건:
+```
+IDE 실행 전
 
-> **Gradle에게 build.gradle을 “실행하게 해서”  
-> 의존성 그래프를 계산하고 필요한 JAR 파일을 다운받아 IDE classpath에 넣는다는 뜻**
+↓
 
-즉, IDE는 Gradle을 “빌드 도구”가 아니라  
-“의존성 계산기”로 사용한다.
+Gradle 실행
 
-실행(run)은 IDE가 직접 한다.
+↓
+
+의존성 계산
+
+↓
+
+JAR 다운로드
+
+↓
+
+Classpath 구성
+
+↓
+
+IDE 실행
+```
+
+실제 Run 버튼을 누른 이후에는 IDE가 직접 컴파일하고 JVM을 실행한다.
+
+---
+
+# 정리
+
+IDE와 Gradle은 역할이 명확하게 다르다.
+
+### IDE의 역할
+
+- Gradle을 이용해 프로젝트 정보를 가져온다.
+- 의존성을 계산한다.
+- 자동완성과 컴파일 환경을 구성한다.
+- Incremental Compile을 수행한다.
+- `main()`을 직접 실행한다.
+
+### Gradle의 역할
+
+- 프로젝트 전체를 컴파일한다.
+- Resource를 처리한다.
+- 테스트를 수행한다.
+- 실행 가능한 JAR를 생성한다.
+- `bootRun`을 통해 Gradle 환경에서 실행한다.
+
+---
+
+# 한 줄 결론
+
+> **IDE는 Gradle을 프로젝트 정보를 가져오기 위해 사용하고, 실제 실행은 IDE가 담당한다.**
+>
+> **반면 Gradle Build와 bootRun은 Gradle이 직접 컴파일부터 실행까지 모두 관리한다.**
