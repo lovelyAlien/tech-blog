@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "c6a4e951f0cf3188",
+        "id": "843655d96276e9cd",
         "type": "tabs",
         "children": [
           {
-            "id": "c4e3a5fe957def54",
+            "id": "b9b97424a31aec0e",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "content/Spring/IDE 실행과 Gradle 빌드 실행 차이.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "IDE 실행과 Gradle 빌드 실행 차이"
+              "title": "새 탭"
             }
           }
         ]
@@ -206,8 +202,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c4e3a5fe957def54",
+  "active": "b9b97424a31aec0e",
   "lastOpenFiles": [
+    "content/Spring/IDE 실행과 Gradle 빌드 실행 차이.md",
     "content/Spring/카카오 소셜 로그인.md",
     "content/Spring/웹이랑 앱 소셜 로그인 차이.md",
     "public/개인-프로젝트/채팅-시스템/설계/채팅-시스템-개발-가이드-og-image.webp",
