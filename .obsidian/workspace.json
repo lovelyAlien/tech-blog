@@ -210,6 +210,9 @@
   },
   "active": "73ebcff6301feaca",
   "lastOpenFiles": [
+    "content/Spring/Spring Batch 개념과 Chunk 처리.md",
+    "content/kafka/Group Coordinator와 Controller 차이.md",
+    "content/kafka/파티션 소유권과 리밸런싱의 관계.md",
     "content/MySQL/복합 인덱스와 커서 기반 페이지네이션.md",
     "content/MySQL",
     "content/kafka/Commit Offset과 Current Offset 차이.md",
@@ -253,9 +256,6 @@
     "redis/Redis 싱글 스레드 구조.md",
     "templates/chapter.md",
     "무제.canvas",
-    "README.md",
-    "CODE_OF_CONDUCT.md",
-    "무제.md",
-    "content/workspace/기술 회의 프롬프트 템플릿.md"
+    "README.md"
   ]
 }
