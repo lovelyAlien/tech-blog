@@ -210,6 +210,9 @@
   },
   "active": "73ebcff6301feaca",
   "lastOpenFiles": [
+    "content/MySQL/복합 인덱스와 커서 기반 페이지네이션.md",
+    "content/MySQL",
+    "content/kafka/Commit Offset과 Current Offset 차이.md",
     "content/kafka/파티션 할당 전략 - Range, RoundRobin, Sticky, CooperativeSticky.md",
     "content/kafka/DLQ와 멱등성 처리.md",
     "content/Spring/Redis Cluster를 쓰는 이유 (Scale-up vs Scale-out).md",
@@ -243,7 +246,6 @@
     "public/prescript.js",
     "public/Network/index.html",
     "public/index.css",
-    "public/Java/Java-리소스-누수.html",
     "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/1장. 사용자 수에 따른 규모 확장성.md",
     "content/Java/Hibernate/Hibernate.md",
     "redis/왜 애플리케이션 메모리를 쓰지 않고 Redis를 쓰는가?.md",
@@ -254,8 +256,6 @@
     "README.md",
     "CODE_OF_CONDUCT.md",
     "무제.md",
-    "content/workspace/기술 회의 프롬프트 템플릿.md",
-    "content/redis/Redis와.md",
-    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/15. 구글 드라이브 설계.md"
+    "content/workspace/기술 회의 프롬프트 템플릿.md"
   ]
 }
