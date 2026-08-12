@@ -210,6 +210,10 @@
   },
   "active": "73ebcff6301feaca",
   "lastOpenFiles": [
+    "content/kafka/파티션 할당 전략 - Range, RoundRobin, Sticky, CooperativeSticky.md",
+    "content/kafka/DLQ와 멱등성 처리.md",
+    "content/Spring/Redis Cluster를 쓰는 이유 (Scale-up vs Scale-out).md",
+    "content/kafka/session.timeout.ms와 max.poll.interval.ms 차이.md",
     "content/kafka/아웃박스 패턴 심화 - 재시도, 순서 보장, Dual Write 문제.md",
     "content/Spring/트랜잭션 self-invocation 프록시 우회.md",
     "content/Tech/올리브영/레거시 알림톡 시스템 → Kafka 기반 이벤트 아키텍처 전환.md",
@@ -252,10 +256,6 @@
     "무제.md",
     "content/workspace/기술 회의 프롬프트 템플릿.md",
     "content/redis/Redis와.md",
-    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/15. 구글 드라이브 설계.md",
-    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/14장. 유튜브 설계.md",
-    "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
-    "quartz/styles/themes/README.md",
-    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/9장. 웹 크롤러 설계.md"
+    "content/개발 스터디/가상 면접 사례로 배우는 대규모 시스템 설계 기초/15. 구글 드라이브 설계.md"
   ]
 }
