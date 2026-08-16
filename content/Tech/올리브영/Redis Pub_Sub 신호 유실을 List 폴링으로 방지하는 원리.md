@@ -2,6 +2,11 @@
 date: 2026-08-16
 lastmod: 2026-08-16
 tags:
+  - Redis
+  - Pub/Sub
+  - 비동기처리
+  - 메시지유실방지
+  - 올리브영
 draft: false
 ---
 참고:
