@@ -292,6 +292,17 @@ executor.setWaitForTasksToCompleteOnShutdown(true);
 executor.setAwaitTerminationSeconds(10);
 ```
 
+**`setWaitForTasksToCompleteOnShutdown(true)`**: `ThreadPoolTaskExecutor`의 기본 종료 방식은 `shutdownNow()`에 가까운 즉시 종료다. 이 옵션을 켜면 "새로운 작업은 더 이상 받지 않지만, 이미 큐에 들어가 있거나 실행 중인 작업은 끝까지 처리하고 나서 종료해라"로 바뀐다(`ExecutorService.shutdown()` 방식). 실행 중인 스레드를 인터럽트하지 않고, 큐에 남은 작업도 계속 꺼내서 처리한다.
+
+**`setAwaitTerminationSeconds(10)`**: 위 옵션만으로는 부족하다 — "작업들을 처리하도록 지시"만 할 뿐, 그 처리가 끝날 때까지 종료 절차 자체를 기다려주지는 않기 때문이다. 이 값을 지정해야, 스프링이 `executor.destroy()`를 호출할 때 내부적으로 `ExecutorService.awaitTermination(10, TimeUnit.SECONDS)`를 호출해서 최대 10초 동안 블로킹하며 남은 작업이 실제로 끝나기를 기다린다. 이 값이 없으면 `shutdown()` 호출 직후 바로 리턴해버리고, `ApplicationContext.close()`도 곧장 끝나버려서 작업이 다 끝났는지 확인도 안 한 채로 JVM 종료 절차가 이어진다.
+
+| 설정 | 역할 | 이것만 있을 때 문제 |
+|---|---|---|
+| `setWaitForTasksToCompleteOnShutdown(true)` | 종료 시 큐에 남은 작업을 계속 처리하도록 지시 | 처리할 시간을 안 주면 무의미 — JVM이 먼저 죽어버릴 수 있음 |
+| `setAwaitTerminationSeconds(N)` | 그 처리가 끝날 때까지 최대 N초간 종료 절차를 블로킹 | 이것만 있고 위 설정이 `false`면 애초에 남은 작업을 처리하려고도 안 함 |
+
+즉 첫 번째 옵션이 "떠나기 전에 하던 일을 마저 끝내라"는 지시라면, 두 번째 옵션은 "그 일이 끝날 때까지 문 앞에서 실제로 기다려주겠다"는 보장이다. 두 개가 같이 있어야 "큐에 있던 카프카 전송 작업이 pod 종료 전에 실제로 완료된다"는 게 보장되고, 하나라도 빠지면 rolling 배포 시 큐에 남은 작업이 유실될 여지가 남는다.
+
 이 설정이 빠지면, 서비스 배포처럼 정상적인 상황에서도 pod가 rolling될 때마다 큐에 남아있던 카프카 전송 작업이 통째로 유실되고, outbox 테이블에는 오랫동안 `init` 상태로 남는 이벤트가 배포 직후마다 쌓이게 된다.
 
 #### 왜 하필 "배포 직후"에만 몰려서 발생하는가
@@ -315,6 +326,28 @@ executor.setAwaitTerminationSeconds(10);
 이 값이 없으면 `destroy()`는 `shutdown()`만 호출하고 기다리지 않고 바로 리턴한다. 그러면 `ApplicationContext.close()`도 곧바로 끝나버리고, JVM 프로세스 자체가 그대로 종료 절차를 마쳐버린다. 이 시점에 카프카 전송 큐에 아직 안 돌아간 작업이 남아있었다면, 프로세스가 끝나버리는 순간 그 작업도 실행 중이었든 큐에서 대기 중이었든 상관없이 함께 통째로 사라진다.
 
 정리하면: 배포로 인한 pod 재기동(rolling)이 프로세스를 강제 종료시키는 유일한 상황이고, 그 종료 시점에 `awaitTerminationSeconds` 설정이 없어서 큐에 남은 카프카 전송 작업을 기다려주지 않았기 때문에, "배포 직후"라는 시점에 정확히 몰려서 `init` 상태 유실이 발생한다.
+
+#### graceful shutdown은 "비정상 종료"에는 애초에 무력하다
+
+여기서 짚어야 할 한계가 있다 — 지금까지의 graceful shutdown은 전부 **`SIGTERM`을 받았을 때만** 동작하는 메커니즘이다. `SIGTERM`은 JVM에게 "정리할 시간을 줄게"라고 알려주는 신호라서, shutdown hook이 실행되고 그 안에서 `ApplicationContext.close()` → 각 빈의 `destroy()` → `ThreadPoolTaskExecutor.awaitTermination()`까지 코드가 실행될 기회를 얻는다.
+
+반면 `SIGKILL`(`kill -9`), 커널 OOM killer, 호스트 자체가 죽는 상황(하드웨어 장애, 노드 크래시, 전원 문제) 같은 **비정상 종료**는 운영체제가 프로세스를 그 자리에서 즉시 강제 종료시켜버린다. 이 경우 JVM은 shutdown hook을 실행할 기회 자체를 얻지 못한다 — `destroy()` 메서드 한 줄도 실행되지 않고 프로세스가 사라진다.
+
+| 종료 방식 | shutdown hook 실행됨? | graceful shutdown 설정이 도움되나 |
+|---|---|---|
+| `SIGTERM` (정상 배포, `kubectl delete pod`, rolling update) | ✅ 실행됨 | ✅ 도움됨 |
+| `SIGKILL` (grace period 초과 후 강제 종료) | ❌ 실행 안 됨 | ❌ 무의미 |
+| OOM killer, 노드 크래시, 전원 장애 | ❌ 실행 안 됨 | ❌ 무의미 |
+
+즉 `setWaitForTasksToCompleteOnShutdown`/`setAwaitTerminationSeconds`는 "배포처럼 예측 가능하고 협조적인 종료" 상황의 유실만 막아줄 뿐, 진짜 비정상 종료 앞에서는 무력하다.
+
+#### 그래서 outbox 패턴의 재시도 배치가 진짜 안전망이다
+
+이 지점이 outbox 패턴 전체 설계에서 graceful shutdown 설정이 갖는 위치를 정확히 보여준다. graceful shutdown은 **"이 문제가 발생하는 빈도를 줄여주는 최적화"**일 뿐이고, 원인이 무엇이든(설정 누락이든, 정상 배포든, `SIGKILL`이든, 노드가 통째로 죽든) 이벤트가 카프카로 못 나간 채 `init`/`send_fail`로 남을 가능성 자체는 절대 0으로 만들 수 없다.
+
+그래서 이 아키텍처의 최종 안전망은 항상 **outbox 테이블을 주기적으로 스캔하는 배치(재시도 폴러)**다. 그 배치 입장에서는 "왜 이 이벤트가 아직 발행되지 않았는지" 이유를 전혀 몰라도 상관없다 — graceful shutdown 실패든, 진짜 서버가 죽었든, `created_at`이 오래됐는데 아직 `send_success`가 아닌 row는 다 다시 시도 대상이 된다. 이게 바로 "eventually consistency"(결국 언젠가는 모든 서비스 간의 데이터 정합성이 맞춰진다)라는 표현이 가리키는 것이다.
+
+즉 graceful shutdown 설정은 재시도 배치가 처리해야 할 유실 건수를 줄여주는 개선이지, 그 자체로 유실을 원천 차단하는 해결책은 아니다 — 원천 차단은 애초에 불가능하고, 그래서 outbox 패턴에 재시도 메커니즘이 필수로 딸려 있다.
 
 ## 한 줄 정리
 
