@@ -51,11 +51,9 @@ export default (() => {
                       {tags.slice(0, 2).map((tag) => (
                         <span class="card-tag">{tag}</span>
                       ))}
-                    </div>
-                    <h3 class="card-title">
-                      {title}
                       {isNew(cfg, page) && <span class="new-badge">NEW</span>}
-                    </h3>
+                    </div>
+                    <h3 class="card-title">{title}</h3>
                     {description && <p class="card-desc">{description}</p>}
                   </div>
                   <div class="card-footer">
