@@ -180,6 +180,19 @@
   transition: color 0.12s ease;
 }
 
+.new-badge {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--secondary);
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+}
+
 @media (max-width: 600px) {
   .all-item-link {
     flex-direction: column;

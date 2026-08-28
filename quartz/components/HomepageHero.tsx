@@ -1,11 +1,12 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import { FullSlug, resolveRelative } from "../util/path"
+import { resolveRelative } from "../util/path"
 import { byDateAndAlphabetical } from "./PageList"
 import { Date, getDate } from "./Date"
 import { QuartzPluginData } from "../plugins/vfile"
 import style from "./styles/homepageHero.scss"
 
 const RECENT_LIMIT = 3
+const NEW_BADGE_DAYS = 7
 
 function isPublished(f: QuartzPluginData): boolean {
   return (
@@ -13,6 +14,14 @@ function isPublished(f: QuartzPluginData): boolean {
     !!f.frontmatter?.title &&
     f.slug !== "index"
   )
+}
+
+function isNew(cfg: QuartzComponentProps["cfg"], page: QuartzPluginData): boolean {
+  if (!page.dates) return false
+  const date = getDate(cfg, page)
+  if (!date) return false
+  const diffDays = (globalThis.Date.now() - date.getTime()) / (1000 * 60 * 60 * 24)
+  return diffDays <= NEW_BADGE_DAYS
 }
 
 export default (() => {
@@ -83,7 +92,10 @@ export default (() => {
                         <span class="all-item-tag">{tag}</span>
                       ))}
                     </div>
-                    <span class="all-item-title">{title}</span>
+                    <span class="all-item-title">
+                      {title}
+                      {isNew(cfg, page) && <span class="new-badge">NEW</span>}
+                    </span>
                   </a>
                 </li>
               )
