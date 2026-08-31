@@ -1,0 +1,7 @@
+{
+  "autoLockOnBackground": true,
+  "autoLockIdleMinutes": 0,
+  "autoLockWarningSeconds": 60,
+  "debugLogging": false,
+  "maxPasswordAttempts": 5
+}
