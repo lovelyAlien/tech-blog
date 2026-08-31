@@ -28,6 +28,24 @@ jobs:
         run: npm ci
       - name: Build Quartz
         run: npx quartz build
+      - name: Remove protected notes from search index, RSS, and sitemap
+        run: node scripts/redact-protected.mjs
+      - name: Password-protect interview answer notes
+        env:
+          STATICRYPT_PASSWORD: ${{ secrets.NOTE_PASSWORD }}
+        run: |
+          if [ -z "$STATICRYPT_PASSWORD" ]; then
+            echo "::error::NOTE_PASSWORD secret is not set — refusing to publish interview answer notes unprotected."
+            exit 1
+          fi
+          npx staticrypt "public/Tech/면접답변" \
+            -r \
+            -c false \
+            -d "public/Tech" \
+            --short \
+            --remember 7 \
+            --template-title "비공개 노트" \
+            --template-instructions "비밀번호를 입력하세요."
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
