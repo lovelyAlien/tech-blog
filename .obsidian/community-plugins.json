@@ -9,5 +9,7 @@
   "obsidian-plugin-prettier",
   "obsidian-minimal-settings",
   "calendar",
-  "obsidian-image-toolkit"
+  "obsidian-image-toolkit",
+  "meld-encrypt",
+  "encrypted-folders"
 ]

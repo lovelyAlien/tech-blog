@@ -11,14 +11,14 @@
             "id": "73ebcff6301feaca",
             "type": "leaf",
             "state": {
-              "type": "meld-encrypted-view",
+              "type": "markdown",
               "state": {
-                "file": "Untitled 20260831 051649.mdenc",
+                "file": "content/Tech/면접답변/kafka/장애 대응 경험/모범 답안.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Untitled 20260831 051649"
+              "title": "모범 답안"
             }
           },
           {
@@ -229,10 +229,10 @@
   },
   "active": "73ebcff6301feaca",
   "lastOpenFiles": [
+    "Untitled 20260831 051649.mdenc",
     "content/Tech/면접답변/kafka/장애 대응 경험/모범 답안.md",
     "content/Tech/올리브영/올영세일 선착순 쿠폰, 미발급 0%를 향한 여정.md",
     "content/Tech/올리브영/레거시 알림톡 시스템 → Kafka 기반 이벤트 아키텍처 전환.md",
-    "Untitled 20260831 051649.mdenc",
     "content/Tech/면접답변/kafka/토픽 설계/모범 답안.md",
     "content/Tech/면접답변/kafka/인프라 장애 시나리오/모범 답안.md",
     "무제.canvas",
