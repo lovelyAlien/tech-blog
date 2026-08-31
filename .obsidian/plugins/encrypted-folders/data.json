@@ -1,5 +1,5 @@
 {
-  "autoLockOnBackground": true,
+  "autoLockOnBackground": false,
   "autoLockIdleMinutes": 0,
   "autoLockWarningSeconds": 60,
   "debugLogging": false,
