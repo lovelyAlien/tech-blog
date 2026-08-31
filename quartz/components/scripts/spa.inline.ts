@@ -24,6 +24,22 @@ const isSamePage = (url: URL): boolean => {
   return sameOrigin && samePath
 }
 
+// StatiCrypt-protected pages (see .github/workflows/deploy.yml) have a completely
+// different HTML structure (their own <html> class + inline password-gate script)
+// than a normal Quartz page. Quartz's SPA router only morphs `document.body`, so
+// navigating into (or out of) one of these pages via the client-side router leaves
+// the page half-initialized (blank/broken) instead of showing the password prompt
+// or the decrypted content. Force a real full-page navigation whenever either side
+// of the transition is a protected page so the browser loads it fresh instead.
+const PROTECTED_PATH_SEGMENT = "Tech/면접답변"
+const isProtectedUrl = (url: URL): boolean => {
+  let pathname = url.pathname
+  try {
+    pathname = decodeURIComponent(pathname)
+  } catch (e) {}
+  return pathname.includes(`/${PROTECTED_PATH_SEGMENT}/`) || pathname.includes(`/${PROTECTED_PATH_SEGMENT}`)
+}
+
 const getOpts = ({ target }: Event): { url: URL; scroll?: boolean } | undefined => {
   if (!isElement(target)) return
   if (target.attributes.getNamedItem("target")?.value === "_blank") return
@@ -32,7 +48,9 @@ const getOpts = ({ target }: Event): { url: URL; scroll?: boolean } | undefined 
   if ("routerIgnore" in a.dataset) return
   const { href } = a
   if (!isLocalUrl(href)) return
-  return { url: new URL(href), scroll: "routerNoscroll" in a.dataset ? false : undefined }
+  const url = new URL(href)
+  if (isProtectedUrl(url) || isProtectedUrl(new URL(window.location.toString()))) return
+  return { url, scroll: "routerNoscroll" in a.dataset ? false : undefined }
 }
 
 function notifyNav(url: FullSlug) {
@@ -166,7 +184,12 @@ function createRouter() {
     window.addEventListener("popstate", (event) => {
       const { url } = getOpts(event) ?? {}
       if (window.location.hash && window.location.pathname === url?.pathname) return
-      navigate(new URL(window.location.toString()), true)
+      const dest = new URL(window.location.toString())
+      if (isProtectedUrl(dest)) {
+        window.location.reload()
+        return
+      }
+      navigate(dest, true)
       return
     })
   }
