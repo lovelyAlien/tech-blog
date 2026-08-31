@@ -6,65 +6,65 @@
       <description>Last 10 notes on Quartz 4</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
-    <title>Home</title>
-    <link>https://quartz.jzhao.xyz/</link>
-    <guid>https://quartz.jzhao.xyz/</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Thu, 25 Jun 2026 15:47:51 GMT</pubDate>
+    <title>모범 답안</title>
+    <link>https://quartz.jzhao.xyz/Tech/%EB%A9%B4%EC%A0%91%EB%8B%B5%EB%B3%80/kafka/%EC%9D%B8%ED%94%84%EB%9D%BC-%EC%9E%A5%EC%95%A0-%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4/%EB%AA%A8%EB%B2%94-%EB%8B%B5%EC%95%88</link>
+    <guid>https://quartz.jzhao.xyz/Tech/%EB%A9%B4%EC%A0%91%EB%8B%B5%EB%B3%80/kafka/%EC%9D%B8%ED%94%84%EB%9D%BC-%EC%9E%A5%EC%95%A0-%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4/%EB%AA%A8%EB%B2%94-%EB%8B%B5%EC%95%88</guid>
+    <description><![CDATA[ 인프라 장애 시나리오 — 모범 답안 (템플릿) 개인 면접 준비용 답안. Quartz 퍼블리시 대상에서 제외(draft: true)했지만, 저장소 자체는 공개 GitHub 저장소라 완전한 비공개는 아니다. ]]></description>
+    <pubDate>Sun, 30 Aug 2026 15:00:00 GMT</pubDate>
   </item><item>
-    <title>웹이랑 앱 소셜 로그인 차이</title>
-    <link>https://quartz.jzhao.xyz/Spring/%EC%9B%B9%EC%9D%B4%EB%9E%91-%EC%95%B1-%EC%86%8C%EC%85%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%B0%A8%EC%9D%B4</link>
-    <guid>https://quartz.jzhao.xyz/Spring/%EC%9B%B9%EC%9D%B4%EB%9E%91-%EC%95%B1-%EC%86%8C%EC%85%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%B0%A8%EC%9D%B4</guid>
-    <description><![CDATA[ 웹: 서버가 Code를 받음 sequenceDiagram participant U as User participant B as Browser participant S as Runvas Server participant K as Kakao Server U-&gt;&gt;B: 로그인 버튼 클릭 B-&gt;&gt;S: GET /auth/kakao/start S--&gt;&gt;B: 302 Redirect to Kakao authorize URL B-&gt;&gt;K: 카카오 로그인 페이지 이동 U-&gt;&gt;K: 로그인/동의 K--&... ]]></description>
-    <pubDate>Thu, 25 Jun 2026 08:16:42 GMT</pubDate>
+    <title>모범 답안</title>
+    <link>https://quartz.jzhao.xyz/Tech/%EB%A9%B4%EC%A0%91%EB%8B%B5%EB%B3%80/kafka/%EC%9E%A5%EC%95%A0-%EB%8C%80%EC%9D%91-%EA%B2%BD%ED%97%98/%EB%AA%A8%EB%B2%94-%EB%8B%B5%EC%95%88</link>
+    <guid>https://quartz.jzhao.xyz/Tech/%EB%A9%B4%EC%A0%91%EB%8B%B5%EB%B3%80/kafka/%EC%9E%A5%EC%95%A0-%EB%8C%80%EC%9D%91-%EA%B2%BD%ED%97%98/%EB%AA%A8%EB%B2%94-%EB%8B%B5%EC%95%88</guid>
+    <description><![CDATA[ 장애 대응 경험 — 모범 답안 개인 면접 준비용 답안. Quartz 퍼블리시 대상에서 제외(draft: true)했지만, 저장소 자체는 공개 GitHub 저장소라 완전한 비공개는 아니다. ]]></description>
+    <pubDate>Sun, 30 Aug 2026 15:00:00 GMT</pubDate>
   </item><item>
-    <title>카카오 소셜 로그인</title>
-    <link>https://quartz.jzhao.xyz/Spring/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EC%86%8C%EC%85%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8</link>
-    <guid>https://quartz.jzhao.xyz/Spring/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EC%86%8C%EC%85%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8</guid>
-    <description><![CDATA[  ① GET 로그인 요청 브라우저가 “카카오 로그인” 버튼을 누르면 백엔드의 로그인 시작 엔드포인트(Spring Security 기본값 기준 /oauth2/authorization/kakao)로 GET 요청을 보내요. ]]></description>
-    <pubDate>Thu, 25 Jun 2026 07:47:02 GMT</pubDate>
+    <title>모범 답안</title>
+    <link>https://quartz.jzhao.xyz/Tech/%EB%A9%B4%EC%A0%91%EB%8B%B5%EB%B3%80/kafka/%ED%86%A0%ED%94%BD-%EC%84%A4%EA%B3%84/%EB%AA%A8%EB%B2%94-%EB%8B%B5%EC%95%88</link>
+    <guid>https://quartz.jzhao.xyz/Tech/%EB%A9%B4%EC%A0%91%EB%8B%B5%EB%B3%80/kafka/%ED%86%A0%ED%94%BD-%EC%84%A4%EA%B3%84/%EB%AA%A8%EB%B2%94-%EB%8B%B5%EC%95%88</guid>
+    <description><![CDATA[ 토픽 설계 — 모범 답안 개인 면접 준비용 답안. Quartz 퍼블리시 대상에서 제외(draft: true)했지만, 저장소 자체는 공개 GitHub 저장소라 완전한 비공개는 아니다. ]]></description>
+    <pubDate>Sun, 30 Aug 2026 15:00:00 GMT</pubDate>
+  </item><item>
+    <title>모범 답안</title>
+    <link>https://quartz.jzhao.xyz/Tech/%EB%A9%B4%EC%A0%91%EB%8B%B5%EB%B3%80/kafka/%ED%8C%8C%ED%8B%B0%EC%85%98-%EC%88%98%EC%99%80-%EB%B3%B5%EC%A0%9C-%EC%84%A4%EC%A0%95/%EB%AA%A8%EB%B2%94-%EB%8B%B5%EC%95%88</link>
+    <guid>https://quartz.jzhao.xyz/Tech/%EB%A9%B4%EC%A0%91%EB%8B%B5%EB%B3%80/kafka/%ED%8C%8C%ED%8B%B0%EC%85%98-%EC%88%98%EC%99%80-%EB%B3%B5%EC%A0%9C-%EC%84%A4%EC%A0%95/%EB%AA%A8%EB%B2%94-%EB%8B%B5%EC%95%88</guid>
+    <description><![CDATA[ 파티션 수와 복제 설정 — 모범 답안 개인 면접 준비용 답안. Quartz 퍼블리시 대상에서 제외(draft: true)했지만, 저장소 자체는 공개 GitHub 저장소라 완전한 비공개는 아니다. ]]></description>
+    <pubDate>Sun, 30 Aug 2026 15:00:00 GMT</pubDate>
   </item><item>
     <title>1. kafka</title>
     <link>https://quartz.jzhao.xyz/kafka/1.-kafka</link>
     <guid>https://quartz.jzhao.xyz/kafka/1.-kafka</guid>
     <description><![CDATA[ 카프카란? 분산 스트리밍 플랫폼으로, 대규모 실시간 데이터 스트리밍 처리를 위해 설계 이벤트 기반 아키텍처를 사용하여 대량의 데이터를 처리하고, 여러 시스템 간 데이터 통신을 지원 pub/sub 모델을 기반으로 만들어진 메세징 시스템 메시징 시스템 로그 데이터, 이벤트 메시지 등 API 로 호출할 때 보내는 데이터들을 처리하는 시스템 pub/sub 모델이란 중앙에 메시징 시스템 서버를 두고, 메시지를 보내고(publish), 받는(subscribe) 형태의 통신 N:M으로 연결되는 것이 아니기 때문에 확장성이 용이 디스크에 메시지 ... ]]></description>
-    <pubDate>Sat, 21 Mar 2026 16:17:13 GMT</pubDate>
+    <pubDate>Sun, 30 Aug 2026 15:00:00 GMT</pubDate>
   </item><item>
-    <title>Hibernate</title>
-    <link>https://quartz.jzhao.xyz/Java/Hibernate/Hibernate</link>
-    <guid>https://quartz.jzhao.xyz/Java/Hibernate/Hibernate</guid>
-    <description><![CDATA[ 핵심 철학 개발자는 객체를 다루고 SQL은 Hibernate가 책임진다. ]]></description>
-    <pubDate>Sat, 21 Mar 2026 07:49:01 GMT</pubDate>
+    <title>Static Membership으로 배포 시 리밸런싱을 생략하는 법</title>
+    <link>https://quartz.jzhao.xyz/kafka/Static-Membership%EC%9C%BC%EB%A1%9C-%EB%B0%B0%ED%8F%AC-%EC%8B%9C-%EB%A6%AC%EB%B0%B8%EB%9F%B0%EC%8B%B1%EC%9D%84-%EC%83%9D%EB%9E%B5%ED%95%98%EB%8A%94-%EB%B2%95</link>
+    <guid>https://quartz.jzhao.xyz/kafka/Static-Membership%EC%9C%BC%EB%A1%9C-%EB%B0%B0%ED%8F%AC-%EC%8B%9C-%EB%A6%AC%EB%B0%B8%EB%9F%B0%EC%8B%B1%EC%9D%84-%EC%83%9D%EB%9E%B5%ED%95%98%EB%8A%94-%EB%B2%95</guid>
+    <description><![CDATA[ Static Membership으로 배포 시 리밸런싱을 생략하는 법 파티션 할당 전략 - Range, RoundRobin, Sticky, CooperativeSticky에서 정리한 CooperativeStickyAssignor는 리밸런싱이 “일어났을 때” 영향 범위를 줄이는 개선이다. ]]></description>
+    <pubDate>Sun, 30 Aug 2026 15:00:00 GMT</pubDate>
   </item><item>
-    <title>15. 구글 드라이브 설계</title>
-    <link>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/15.-%EA%B5%AC%EA%B8%80-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C-%EC%84%A4%EA%B3%84</link>
-    <guid>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/15.-%EA%B5%AC%EA%B8%80-%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C-%EC%84%A4%EA%B3%84</guid>
-    <description><![CDATA[ P 286 동기화 충돌 해결책 그래서 뭐지? 두 파일 합치기 로컬 버전 사용 사용자2 파일로 서버 파일을 덮어쓰기 서버 버전 사용 Google Docs에서 동기화 충돌이 거의 발생하지 않는 이유는 “파일 단위 동기화”가 아니라 “편집 연산(operation) 단위 동기화”를 사용하기 때문 Google Docs는 파일을 통째로 업로드하는 방식이 아니라 사용자의 편집 행동을 실시간으로 서버에 전송 3️⃣ 두 사용자가 동시에 편집 예를 들어 초기 문서 Hello world User1 Hello amazing world User2 Hell... ]]></description>
-    <pubDate>Sun, 15 Mar 2026 12:39:41 GMT</pubDate>
+    <title>replication factor, min.insync.replicas, acks 조합으로 내구성-지연 트레이드오프 잡기</title>
+    <link>https://quartz.jzhao.xyz/kafka/replication-factor,-min.insync.replicas,-acks-%EC%A1%B0%ED%95%A9%EC%9C%BC%EB%A1%9C-%EB%82%B4%EA%B5%AC%EC%84%B1-%EC%A7%80%EC%97%B0-%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%93%9C%EC%98%A4%ED%94%84-%EC%9E%A1%EA%B8%B0</link>
+    <guid>https://quartz.jzhao.xyz/kafka/replication-factor,-min.insync.replicas,-acks-%EC%A1%B0%ED%95%A9%EC%9C%BC%EB%A1%9C-%EB%82%B4%EA%B5%AC%EC%84%B1-%EC%A7%80%EC%97%B0-%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%93%9C%EC%98%A4%ED%94%84-%EC%9E%A1%EA%B8%B0</guid>
+    <description><![CDATA[ replication factor, min.insync.replicas, acks 조합으로 내구성-지연 트레이드오프 잡기 이 세 설정은 따로 노는 값이 아니라, “어느 정도의 장애까지 버틸 것인가”와 “그 대가로 얼마의 지연을 감수할 것인가”를 함께 결정하는 하나의 세트다. ]]></description>
+    <pubDate>Sun, 30 Aug 2026 15:00:00 GMT</pubDate>
   </item><item>
-    <title>14장. 유튜브 설계</title>
-    <link>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/14%EC%9E%A5.-%EC%9C%A0%ED%8A%9C%EB%B8%8C-%EC%84%A4%EA%B3%84</link>
-    <guid>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/14%EC%9E%A5.-%EC%9C%A0%ED%8A%9C%EB%B8%8C-%EC%84%A4%EA%B3%84</guid>
-    <description><![CDATA[ 개략적인 설계안 CDN과 BLOB 스토리지는 기존 클라우드 서비스 활용 페이스북 - Akamai CDN 넷플릭스 - AWS 비디오 저장은 BLOB? 비디오 업로드 절차 원본 저장소: 원본 비디오 보관할 대형 이진 파일 저장소(BLOB) 시스템 트랜스코딩 서버: 원본 저장소의 비디오를 인코딩 단말이나 대역폭 요구사항에 맞는 최적 비디오 스트림 제공 목적 트랜스코딩 비디오 저장소: 트랜스코딩이 완료된 비디오 저장하는 BLOB 저장소 CDN: 비디오 캐시하는 역할 사용자가 재생 버튼 누르면 CDN 통해 비디오 스트리밍 BLOB으로 저장하... ]]></description>
-    <pubDate>Sun, 15 Mar 2026 12:05:41 GMT</pubDate>
+    <title>멱등 처리가 제한적인 이유</title>
+    <link>https://quartz.jzhao.xyz/kafka/%EB%A9%B1%EB%93%B1-%EC%B2%98%EB%A6%AC%EA%B0%80-%EC%A0%9C%ED%95%9C%EC%A0%81%EC%9D%B8-%EC%9D%B4%EC%9C%A0</link>
+    <guid>https://quartz.jzhao.xyz/kafka/%EB%A9%B1%EB%93%B1-%EC%B2%98%EB%A6%AC%EA%B0%80-%EC%A0%9C%ED%95%9C%EC%A0%81%EC%9D%B8-%EC%9D%B4%EC%9C%A0</guid>
+    <description><![CDATA[ 멱등 처리가 제한적인 이유 DLQ와 멱등성 처리에서 정리한 “메시지 ID + 유니크 인덱스 + 트랜잭션” 방식이 왜 필요한지는, 애초에 “그냥 멱등하게 만들면 되지 않나”라는 질문에 왜 “제한적으로만 가능하다”고 답해야 하는지를 먼저 짚어야 설득력이 생긴다. ]]></description>
+    <pubDate>Sun, 30 Aug 2026 15:00:00 GMT</pubDate>
   </item><item>
-    <title>채팅 시스템 개발 가이드</title>
-    <link>https://quartz.jzhao.xyz/%EA%B0%9C%EC%9D%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%EC%B1%84%ED%8C%85-%EC%8B%9C%EC%8A%A4%ED%85%9C/%EC%84%A4%EA%B3%84/%EC%B1%84%ED%8C%85-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B0%9C%EB%B0%9C-%EA%B0%80%EC%9D%B4%EB%93%9C</link>
-    <guid>https://quartz.jzhao.xyz/%EA%B0%9C%EC%9D%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%EC%B1%84%ED%8C%85-%EC%8B%9C%EC%8A%A4%ED%85%9C/%EC%84%A4%EA%B3%84/%EC%B1%84%ED%8C%85-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B0%9C%EB%B0%9C-%EA%B0%80%EC%9D%B4%EB%93%9C</guid>
-    <description><![CDATA[ 1. 프로젝트 개요 목적: 실시간 채팅 시스템 구축 개발자 레벨: 2~3년차 백엔드 개발자 핵심 기술: WebSocket + Redis Pub/Sub + QueryDSL 2. ]]></description>
-    <pubDate>Tue, 10 Mar 2026 02:53:39 GMT</pubDate>
+    <title>아웃박스 패턴 재사용 예시 (결제 완료-취소 순서 보장)</title>
+    <link>https://quartz.jzhao.xyz/kafka/%EC%95%84%EC%9B%83%EB%B0%95%EC%8A%A4-%ED%8C%A8%ED%84%B4-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EC%98%88%EC%8B%9C-(%EA%B2%B0%EC%A0%9C-%EC%99%84%EB%A3%8C-%EC%B7%A8%EC%86%8C-%EC%88%9C%EC%84%9C-%EB%B3%B4%EC%9E%A5)</link>
+    <guid>https://quartz.jzhao.xyz/kafka/%EC%95%84%EC%9B%83%EB%B0%95%EC%8A%A4-%ED%8C%A8%ED%84%B4-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EC%98%88%EC%8B%9C-(%EA%B2%B0%EC%A0%9C-%EC%99%84%EB%A3%8C-%EC%B7%A8%EC%86%8C-%EC%88%9C%EC%84%9C-%EB%B3%B4%EC%9E%A5)</guid>
+    <description><![CDATA[ 아웃박스 패턴 재사용 예시 (결제 완료·취소 순서 보장) 아웃박스 테이블 스키마와 아웃박스 패턴 심화 - 재시도, 순서 보장, Dual Write 문제에서 정리한 개념(dual write 문제, PENDING/FAILED 상태, aggregate_id 키)을 그대로 “결제 완료 → 취소” 시나리오에 적용하면 이런 모양이 된다. ]]></description>
+    <pubDate>Sun, 30 Aug 2026 15:00:00 GMT</pubDate>
   </item><item>
-    <title>12장. 채팅시스템 설계</title>
-    <link>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/12%EC%9E%A5.-%EC%B1%84%ED%8C%85%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84</link>
-    <guid>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/12%EC%9E%A5.-%EC%B1%84%ED%8C%85%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84</guid>
-    <description><![CDATA[ Page 200 채팅 서비스 접속 key-alive header 동작 방식 Keep-Alive 헤더는 TCP 연결을 계속 유지해서 여러 요청을 같은 연결로 처리하도록 하는 HTTP 연결 관리 메커니즘 HTTP/1.1부터 Persistent Connection(Keep-Alive) TCP 연결 1개 여러 HTTP 요청/응답 처리 keep-alive Header 예시 GET /chat HTTP/1.1 Host: example.com Connection: keep-alive Keep-Alive: timeout=60, max=100 Kee... ]]></description>
-    <pubDate>Mon, 09 Mar 2026 00:45:13 GMT</pubDate>
-  </item><item>
-    <title>13장. 검색어 자동완성 시스템</title>
-    <link>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/13%EC%9E%A5.-%EA%B2%80%EC%83%89%EC%96%B4-%EC%9E%90%EB%8F%99%EC%99%84%EC%84%B1-%EC%8B%9C%EC%8A%A4%ED%85%9C</link>
-    <guid>https://quartz.jzhao.xyz/%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%84%B0%EB%94%94/%EA%B0%80%EC%83%81-%EB%A9%B4%EC%A0%91-%EC%82%AC%EB%A1%80%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%8C%80%EA%B7%9C%EB%AA%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84-%EA%B8%B0%EC%B4%88/13%EC%9E%A5.-%EA%B2%80%EC%83%89%EC%96%B4-%EC%9E%90%EB%8F%99%EC%99%84%EC%84%B1-%EC%8B%9C%EC%8A%A4%ED%85%9C</guid>
-    <description><![CDATA[ 개략적 설계 데이터 수집 서비스: 사용자가 입력한 질의를 실시간으로 수집하는 서비스 질의문과 사용 빈도를 저장하는 테이블이 있다고 가정 질의 서비스: 인기 검색어를 정렬하는 서비스 트라이 자료구조 문자열들을 간략하게 저장할 수 있는 자료구조 트리 형 루트 노드 빈 문자열 각 노드는 글자 하나 저장, 26개의 자식 노드 가질 수 있다. ]]></description>
-    <pubDate>Sat, 07 Mar 2026 23:54:59 GMT</pubDate>
+    <title>토픽은 이벤트 종류가 아니라 엔티티 단위로 나눠야 하는 이유</title>
+    <link>https://quartz.jzhao.xyz/kafka/%ED%86%A0%ED%94%BD%EC%9D%80-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%A2%85%EB%A5%98%EA%B0%80-%EC%95%84%EB%8B%88%EB%9D%BC-%EC%97%94%ED%8B%B0%ED%8B%B0-%EB%8B%A8%EC%9C%84%EB%A1%9C-%EB%82%98%EB%88%A0%EC%95%BC-%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0</link>
+    <guid>https://quartz.jzhao.xyz/kafka/%ED%86%A0%ED%94%BD%EC%9D%80-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%A2%85%EB%A5%98%EA%B0%80-%EC%95%84%EB%8B%88%EB%9D%BC-%EC%97%94%ED%8B%B0%ED%8B%B0-%EB%8B%A8%EC%9C%84%EB%A1%9C-%EB%82%98%EB%88%A0%EC%95%BC-%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0</guid>
+    <description><![CDATA[ 토픽은 이벤트 종류가 아니라 엔티티 단위로 나눠야 하는 이유 “결제완료는 pay_completed, 결제취소는 pay_refunded”처럼 이벤트별로 토픽을 나누는 건 이벤트 기반 사고로는 맞는 방향인데, 여기서 바로 문제가 하나 튀어나온다 — 완료와 취소의 순서는 어떻게 보장하지? 충돌 지점 토픽 네이밍 원칙: 이벤트는 사실 기반 과거형으로 짓고, 종류별로 토픽을 나눈다. ]]></description>
+    <pubDate>Sun, 30 Aug 2026 15:00:00 GMT</pubDate>
   </item>
     </channel>
   </rss>

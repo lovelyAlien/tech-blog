@@ -8,17 +8,38 @@
     <loc>https://quartz.jzhao.xyz/Java/Java-%EB%A6%AC%EC%86%8C%EC%8A%A4-%EB%88%84%EC%88%98</loc>
     <lastmod>2025-12-30T15:00:00.000Z</lastmod>
   </url><url>
+    <loc>https://quartz.jzhao.xyz/Mobile/Expo-EAS-%EB%AA%A8%EB%B0%94%EC%9D%BC-%EB%B9%8C%EB%93%9C%C2%B7%EC%8B%A4%ED%96%89%C2%B7%EC%A0%9C%EC%B6%9C-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8</loc>
+    <lastmod>2026-08-13T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/MySQL/%EB%B3%B5%ED%95%A9-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EC%99%80-%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98</loc>
+    <lastmod>2026-08-11T15:00:00.000Z</lastmod>
+  </url><url>
     <loc>https://quartz.jzhao.xyz/Network/Index</loc>
     <lastmod>2025-12-31T08:48:16.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Readme</loc>
     <lastmod>2025-12-31T07:45:20.000Z</lastmod>
   </url><url>
+    <loc>https://quartz.jzhao.xyz/Spring/ApplicationEventPublisher%EC%99%80-TransactionalEventListener</loc>
+    <lastmod>2026-08-23T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Spring/Graceful-Shutdown%EA%B3%BC-SIGTERM-vs-SIGKILL</loc>
+    <lastmod>2026-08-23T15:00:00.000Z</lastmod>
+  </url><url>
     <loc>https://quartz.jzhao.xyz/Spring/IDE-%EC%8B%A4%ED%96%89%EA%B3%BC-Gradle-%EB%B9%8C%EB%93%9C-%EC%8B%A4%ED%96%89-%EC%B0%A8%EC%9D%B4</loc>
     <lastmod>2025-12-30T15:00:00.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Spring/Index</loc>
     <lastmod>2025-12-31T08:22:09.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Spring/Mutex-Lock</loc>
+    <lastmod>2026-08-12T05:49:38.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Spring/Redis-Cluster%EB%A5%BC-%EC%93%B0%EB%8A%94-%EC%9D%B4%EC%9C%A0-(Scale-up-vs-Scale-out)</loc>
+    <lastmod>2026-08-11T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Spring/Spring-Batch-%EA%B0%9C%EB%85%90%EA%B3%BC-Chunk-%EC%B2%98%EB%A6%AC</loc>
+    <lastmod>2026-08-11T15:00:00.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/Spring/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-%EC%A7%80%EC%97%B0-%EC%93%B0%EA%B8%B0</loc>
     <lastmod>2025-12-30T15:00:00.000Z</lastmod>
@@ -29,6 +50,30 @@
     <loc>https://quartz.jzhao.xyz/Spring/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EC%86%8C%EC%85%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8</loc>
     <lastmod>2026-06-25T07:47:02.000Z</lastmod>
   </url><url>
+    <loc>https://quartz.jzhao.xyz/Spring/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-self-invocation-%ED%94%84%EB%A1%9D%EC%8B%9C-%EC%9A%B0%ED%9A%8C</loc>
+    <lastmod>2026-08-09T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Tech/%EB%A9%B4%EC%A0%91%EB%8B%B5%EB%B3%80/kafka/%EC%9D%B8%ED%94%84%EB%9D%BC-%EC%9E%A5%EC%95%A0-%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4/%EB%AA%A8%EB%B2%94-%EB%8B%B5%EC%95%88</loc>
+    <lastmod>2026-08-30T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Tech/%EB%A9%B4%EC%A0%91%EB%8B%B5%EB%B3%80/kafka/%EC%9E%A5%EC%95%A0-%EB%8C%80%EC%9D%91-%EA%B2%BD%ED%97%98/%EB%AA%A8%EB%B2%94-%EB%8B%B5%EC%95%88</loc>
+    <lastmod>2026-08-30T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Tech/%EB%A9%B4%EC%A0%91%EB%8B%B5%EB%B3%80/kafka/%ED%86%A0%ED%94%BD-%EC%84%A4%EA%B3%84/%EB%AA%A8%EB%B2%94-%EB%8B%B5%EC%95%88</loc>
+    <lastmod>2026-08-30T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Tech/%EB%A9%B4%EC%A0%91%EB%8B%B5%EB%B3%80/kafka/%ED%8C%8C%ED%8B%B0%EC%85%98-%EC%88%98%EC%99%80-%EB%B3%B5%EC%A0%9C-%EC%84%A4%EC%A0%95/%EB%AA%A8%EB%B2%94-%EB%8B%B5%EC%95%88</loc>
+    <lastmod>2026-08-30T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Tech/%EC%98%AC%EB%A6%AC%EB%B8%8C%EC%98%81/Redis-Pub_Sub-%EC%8B%A0%ED%98%B8-%EC%9C%A0%EC%8B%A4%EC%9D%84-List-%ED%8F%B4%EB%A7%81%EC%9C%BC%EB%A1%9C-%EB%B0%A9%EC%A7%80%ED%95%98%EB%8A%94-%EC%9B%90%EB%A6%AC</loc>
+    <lastmod>2026-08-15T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Tech/%EC%98%AC%EB%A6%AC%EB%B8%8C%EC%98%81/%EB%A0%88%EA%B1%B0%EC%8B%9C-%EC%95%8C%EB%A6%BC%ED%86%A1-%EC%8B%9C%EC%8A%A4%ED%85%9C-%E2%86%92-Kafka-%EA%B8%B0%EB%B0%98-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EC%A0%84%ED%99%98</loc>
+    <lastmod>2026-07-26T05:02:36.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/Tech/%EC%98%AC%EB%A6%AC%EB%B8%8C%EC%98%81/%EC%98%AC%EC%98%81%EC%84%B8%EC%9D%BC-%EC%84%A0%EC%B0%A9%EC%88%9C-%EC%BF%A0%ED%8F%B0,-%EB%AF%B8%EB%B0%9C%EA%B8%89-0-percent%EB%A5%BC-%ED%96%A5%ED%95%9C-%EC%97%AC%EC%A0%95</loc>
+    <lastmod>2026-08-10T14:11:41.000Z</lastmod>
+  </url><url>
     <loc>https://quartz.jzhao.xyz/docker/docker-compose-%EC%B5%9C%EC%83%81%EC%9C%84-volumes-%EC%84%B9%EC%85%98</loc>
     <lastmod>2026-01-06T16:09:20.000Z</lastmod>
   </url><url>
@@ -36,7 +81,58 @@
     <lastmod>2026-06-25T15:47:51.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/kafka/1.-kafka</loc>
-    <lastmod>2026-03-21T16:17:13.000Z</lastmod>
+    <lastmod>2026-08-30T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/29CM-%EC%95%84%EC%9B%83%EB%B0%95%EC%8A%A4-%ED%8C%A8%ED%84%B4-%EB%A6%AC%ED%8C%A9%ED%84%B0%EB%A7%81-%EC%82%AC%EB%A1%80---BEFORE_COMMIT%EA%B3%BC-AFTER_COMMIT</loc>
+    <lastmod>2026-08-23T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/Commit-Offset%EA%B3%BC-Current-Offset-%EC%B0%A8%EC%9D%B4</loc>
+    <lastmod>2026-08-11T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/DLQ%EC%99%80-%EB%A9%B1%EB%93%B1%EC%84%B1-%EC%B2%98%EB%A6%AC</loc>
+    <lastmod>2026-08-11T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/Group-Coordinator%EC%99%80-Controller-%EC%B0%A8%EC%9D%B4</loc>
+    <lastmod>2026-08-11T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/Static-Membership%EC%9C%BC%EB%A1%9C-%EB%B0%B0%ED%8F%AC-%EC%8B%9C-%EB%A6%AC%EB%B0%B8%EB%9F%B0%EC%8B%B1%EC%9D%84-%EC%83%9D%EB%9E%B5%ED%95%98%EB%8A%94-%EB%B2%95</loc>
+    <lastmod>2026-08-30T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/replication-factor,-min.insync.replicas,-acks-%EC%A1%B0%ED%95%A9%EC%9C%BC%EB%A1%9C-%EB%82%B4%EA%B5%AC%EC%84%B1-%EC%A7%80%EC%97%B0-%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%93%9C%EC%98%A4%ED%94%84-%EC%9E%A1%EA%B8%B0</loc>
+    <lastmod>2026-08-30T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/session.timeout.ms%EC%99%80-max.poll.interval.ms-%EC%B0%A8%EC%9D%B4</loc>
+    <lastmod>2026-08-11T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/%EB%A9%B1%EB%93%B1-%EC%B2%98%EB%A6%AC%EA%B0%80-%EC%A0%9C%ED%95%9C%EC%A0%81%EC%9D%B8-%EC%9D%B4%EC%9C%A0</loc>
+    <lastmod>2026-08-30T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/%EC%95%84%EC%9B%83%EB%B0%95%EC%8A%A4-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%8A%A4%ED%82%A4%EB%A7%88</loc>
+    <lastmod>2026-08-23T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/%EC%95%84%EC%9B%83%EB%B0%95%EC%8A%A4-%ED%8C%A8%ED%84%B4-%EC%8B%AC%ED%99%94---%EC%9E%AC%EC%8B%9C%EB%8F%84,-%EC%88%9C%EC%84%9C-%EB%B3%B4%EC%9E%A5,-Dual-Write-%EB%AC%B8%EC%A0%9C</loc>
+    <lastmod>2026-08-23T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/%EC%95%84%EC%9B%83%EB%B0%95%EC%8A%A4-%ED%8C%A8%ED%84%B4-%EC%9E%AC%EC%82%AC%EC%9A%A9-%EC%98%88%EC%8B%9C-(%EA%B2%B0%EC%A0%9C-%EC%99%84%EB%A3%8C-%EC%B7%A8%EC%86%8C-%EC%88%9C%EC%84%9C-%EB%B3%B4%EC%9E%A5)</loc>
+    <lastmod>2026-08-30T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/%EC%95%84%EC%9B%83%EB%B0%95%EC%8A%A4-%ED%8C%A8%ED%84%B4%EC%97%90%EC%84%9C-%ED%94%84%EB%A1%9C%EB%93%80%EC%84%9C%EC%99%80-%EC%BB%A8%EC%8A%88%EB%A8%B8%EB%A5%BC-%EB%B6%84%EB%A6%AC%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0</loc>
+    <lastmod>2026-08-23T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/%EC%95%84%EC%9B%83%EB%B0%95%EC%8A%A4-%ED%8C%A8%ED%84%B4%EC%9D%84-%ED%94%84%EB%A1%A0%ED%8A%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%97%90%EA%B2%8C-%EC%84%A4%EB%AA%85%ED%95%98%EB%8A%94-%EB%B2%95</loc>
+    <lastmod>2026-08-23T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/%ED%86%A0%ED%94%BD%EC%9D%80-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%A2%85%EB%A5%98%EA%B0%80-%EC%95%84%EB%8B%88%EB%9D%BC-%EC%97%94%ED%8B%B0%ED%8B%B0-%EB%8B%A8%EC%9C%84%EB%A1%9C-%EB%82%98%EB%88%A0%EC%95%BC-%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0</loc>
+    <lastmod>2026-08-30T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/%ED%8C%8C%ED%8B%B0%EC%85%98-%EC%86%8C%EC%9C%A0%EA%B6%8C%EA%B3%BC-%EB%A6%AC%EB%B0%B8%EB%9F%B0%EC%8B%B1%EC%9D%98-%EA%B4%80%EA%B3%84</loc>
+    <lastmod>2026-08-11T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/%ED%8C%8C%ED%8B%B0%EC%85%98-%EC%88%98%EB%8A%94-%EC%99%9C-%EC%8B%A0%EC%A4%91%ED%95%98%EA%B2%8C-%EC%A0%95%ED%95%B4%EC%95%BC-%ED%95%98%EB%82%98</loc>
+    <lastmod>2026-08-30T15:00:00.000Z</lastmod>
+  </url><url>
+    <loc>https://quartz.jzhao.xyz/kafka/%ED%8C%8C%ED%8B%B0%EC%85%98-%ED%95%A0%EB%8B%B9-%EC%A0%84%EB%9E%B5---Range,-RoundRobin,-Sticky,-CooperativeSticky</loc>
+    <lastmod>2026-08-11T15:00:00.000Z</lastmod>
   </url><url>
     <loc>https://quartz.jzhao.xyz/workspace/%EA%B8%B0%EC%88%A0-%ED%9A%8C%EC%9D%98-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%ED%85%9C%ED%94%8C%EB%A6%BF</loc>
     <lastmod>2026-02-22T08:30:24.000Z</lastmod>
