@@ -1,9 +1,16 @@
-// Strips password-protected pages out of Quartz's public search index, RSS feed,
-// and sitemap. These are generated separately from the HTML pages and are not
-// covered by the post-build StatiCrypt password gate, so without this step the
-// full plaintext of a "protected" note leaks through /static/contentIndex.json
-// (search + graph view data) and /index.xml (RSS) even though the .html page
-// itself is encrypted.
+// Strips the body text of password-protected pages out of Quartz's public search
+// index, and removes them entirely from the RSS feed and sitemap. These are
+// generated separately from the HTML pages and are not covered by the post-build
+// StatiCrypt password gate, so without this step the full plaintext of a
+// "protected" note leaks through /static/contentIndex.json (search + graph view
+// + explorer sidebar data) and /index.xml (RSS) even though the .html page itself
+// is encrypted.
+//
+// contentIndex.json entries are kept (not deleted) so the Explorer sidebar, graph
+// view, and folder listings still show that these notes exist — only the
+// searchable/leakable text fields (content, richContent, description) are blanked.
+// Deleting the entries outright would make the whole "Tech/면접답변" folder
+// disappear from navigation, not just its content.
 import fs from "node:fs"
 import path from "node:path"
 
@@ -14,15 +21,17 @@ function redactContentIndex() {
   const file = path.join(publicDir, "static", "contentIndex.json")
   if (!fs.existsSync(file)) return
   const data = JSON.parse(fs.readFileSync(file, "utf-8"))
-  let removed = 0
+  let redacted = 0
   for (const slug of Object.keys(data)) {
     if (slug === protectedPrefix || slug.startsWith(`${protectedPrefix}/`)) {
-      delete data[slug]
-      removed++
+      data[slug].content = ""
+      data[slug].richContent = ""
+      delete data[slug].description
+      redacted++
     }
   }
   fs.writeFileSync(file, JSON.stringify(data))
-  console.log(`contentIndex.json: removed ${removed} protected entries`)
+  console.log(`contentIndex.json: redacted body text of ${redacted} protected entries`)
 }
 
 function redactXmlBlocks(fileName, blockTag) {
