@@ -59,6 +59,18 @@
 }
 
 /* ================================ */
+/* Selectable note content          */
+/* ================================ */
+/* AnuPpuccin's Quartz port sets user-select: none on plain paragraphs
+   (body p) — it's a leftover from Obsidian's own editor styling, not
+   something a published blog wants. Force note body text back to
+   selectable so readers can copy it. */
+article,
+article * {
+  user-select: text !important;
+}
+
+/* ================================ */
 /* Site Title */
 /* ================================ */
 
