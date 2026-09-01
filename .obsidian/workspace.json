@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/Tech/올리브영/올영세일 선착순 쿠폰, 미발급 0%를 향한 여정.md",
-                "mode": "source",
+                "file": "content/개인 프로젝트/콘서트 예약 시스템/동시성 제어와 Kafka, MSA에서 실제로 어떻게 짜여있나.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "올영세일 선착순 쿠폰, 미발급 0%를 향한 여정"
+              "title": "동시성 제어와 Kafka, MSA에서 실제로 어떻게 짜여있나"
             }
           }
         ]
@@ -213,8 +213,15 @@
       "meld-encrypt:Decrypt at Cursor": false
     }
   },
-  "active": "615a5c2d72e7ff76",
+  "active": "944a2c1e725e0b25",
   "lastOpenFiles": [
+    "content/개인 프로젝트/콘서트 예약 시스템/대기열 시스템은 실제로 어떻게 설계되고 동작하나.md",
+    "content/개인 프로젝트/콘서트 예약 시스템/동시성 제어와 Kafka, MSA에서 실제로 어떻게 짜여있나.md",
+    "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
+    "content/Tech/올리브영/올영세일 선착순 쿠폰, 미발급 0%를 향한 여정.md",
+    "content/Spring/대기열 시스템은 어떻게 설계되고 동작하는가.md",
+    "content/Spring/좌석 예약 동시성 제어 5가지 비교.md",
+    "content/개인 프로젝트/콘서트 예약 시스템",
     "public/개인-프로젝트/채팅-시스템/설계/채팅-시스템-개발-가이드-og-image.webp",
     "public/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/9장.-웹-크롤러-설계-og-image.webp",
     "public/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/7장.-분산-시스템을-위한-유일-ID-생성기-설계-og-image.webp",
@@ -225,7 +232,6 @@
     "public/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/2장.-개략적인-규모-추정-og-image.webp",
     "public/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/1장.-사용자-수에-따른-규모-확장성-og-image.webp",
     "public/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/15.-구글-드라이브-설계-og-image.webp",
-    "public/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/14장.-유튜브-설계-og-image.webp",
     "public/index.html",
     "public/attachments/올리브영",
     "public/개인-프로젝트/채팅-시스템/설계/index.html",
@@ -235,7 +241,6 @@
     "public/개인-프로젝트/채팅-시스템",
     "public/개인-프로젝트/index.html",
     "public/개인-프로젝트",
-    "public/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/index.html",
     "node_modules/staticrypt/node_modules/yargs-parser/README.md",
     "node_modules/staticrypt/node_modules/yargs-parser/CHANGELOG.md",
     "node_modules/staticrypt/node_modules/yargs/README.md",
@@ -256,11 +261,6 @@
     "node_modules/color-convert/CHANGELOG.md",
     "node_modules/is-fullwidth-code-point/readme.md",
     "content/Tech/면접답변/kafka/인프라 장애 시나리오/모범 답안.md",
-    "content/Tech/면접답변/kafka/장애 대응 경험/모범 답안.md",
-    "content/Tech/면접답변/kafka/토픽 설계/모범 답안.md",
-    "content/Tech/면접답변/kafka/파티션 수와 복제 설정/모범 답안.md",
-    "content/Tech/면접답변/README_ENCRYPTED.md",
-    "content/Tech/올리브영/올영세일 선착순 쿠폰, 미발급 0%를 향한 여정.md",
     "무제.canvas"
   ]
 }
