@@ -93,7 +93,8 @@
    theme. */
 .graph > h3,
 .backlinks > h3,
-button.toc-header h3 {
+button.toc-header h3,
+button.desktop-explorer h2 {
   font-size: 1rem !important;
   margin: 0 !important;
 }
@@ -212,13 +213,18 @@ nav,
 /* Sidebar */
 /* ================================ */
 
+/* Explorer folder/file links (.folder-title etc.) are matched by the
+   theme's own hardcoded, non-variable literal colors (baked in at
+   capture time, e.g. rgb(118,112,96)) at higher specificity than this
+   rule — so they never adapt to theme at all, light or dark. Force our
+   theme-reactive gray back in with !important. */
 .sidebar a {
-  color: var(--gray);
+  color: var(--gray) !important;
   transition: color 0.2s ease;
 }
 
 .sidebar a:hover {
-  color: var(--secondary);
+  color: var(--secondary) !important;
 }
 
 /* ================================ */
