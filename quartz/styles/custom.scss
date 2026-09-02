@@ -61,18 +61,26 @@
 /* ================================ */
 /* Heading size consistency         */
 /* ================================ */
-/* Quartz's own ArticleTitle (.page article > h1) and Graph heading
-   (.graph > h3) selectors tie/beat the theme's dark-mode selector in
-   specificity, so in light mode they fall back to Quartz's own size
-   (2rem / 1rem) instead of the theme scale above — while dark mode
-   picks up --h1-size/--h3-size. Force both modes onto the theme scale
-   so the title and graph heading don't change size when toggling theme. */
+/* Quartz's own ArticleTitle (.page article > h1) selector ties/beats the
+   theme's dark-mode selector in specificity, so in light mode it falls
+   back to Quartz's own size (2rem) instead of the theme scale above —
+   while dark mode picks up --h1-size. Force both modes onto the theme
+   scale so the title doesn't change size when toggling theme. */
 .page article > h1 {
   font-size: var(--h1-size) !important;
 }
 
-.graph > h3 {
-  font-size: var(--h3-size) !important;
+/* Sidebar widget headings (Graph, Backlinks, TOC) are small compact
+   labels by design — the same dark-mode specificity tie above lets the
+   theme's large content-heading scale and 16px margin leak in during
+   dark mode only. Pin them back to Quartz's original compact size in
+   both themes so the widgets don't gain lopsided spacing when toggling
+   theme. */
+.graph > h3,
+.backlinks > h3,
+button.toc-header h3 {
+  font-size: 1rem !important;
+  margin: 0 !important;
 }
 
 /* ================================ */
