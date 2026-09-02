@@ -211,6 +211,7 @@
   },
   "active": "9139ef429d980e1c",
   "lastOpenFiles": [
+    "content/kafka/롱 폴링이란 무엇인가 - 주기적 폴링·WebSocket과 헷갈리지 않기.md",
     "content/개인 프로젝트/콘서트 예약 시스템/동시성 제어와 Kafka, MSA에서 실제로 어떻게 짜여있나.md",
     "content/개인 프로젝트/콘서트 예약 시스템/대기열 시스템은 실제로 어떻게 설계되고 동작하나.md",
     "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
@@ -256,7 +257,6 @@
     "node_modules/color-convert/README.md",
     "node_modules/color-convert/CHANGELOG.md",
     "node_modules/is-fullwidth-code-point/readme.md",
-    "content/Tech/면접답변/kafka/인프라 장애 시나리오/모범 답안.md",
     "무제.canvas"
   ]
 }
