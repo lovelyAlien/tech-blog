@@ -61,13 +61,28 @@
 /* ================================ */
 /* Heading size consistency         */
 /* ================================ */
-/* Quartz's own ArticleTitle (.page article > h1) selector ties/beats the
-   theme's dark-mode selector in specificity, so in light mode it falls
-   back to Quartz's own size (2rem) instead of the theme scale above —
-   while dark mode picks up --h1-size. Force both modes onto the theme
-   scale so the title doesn't change size when toggling theme. */
+/* Quartz's own base.scss styles an h1 that lands directly inside
+   <article> (.page article > h1) — this only fires on the handful of
+   notes whose body happens to start with a heading matching the title.
+   That selector ties/beats the theme's dark-mode selector in
+   specificity, so in light mode it falls back to Quartz's own size
+   (2rem) instead of the theme scale above, while dark mode picks up
+   --h1-size. Force both modes onto the theme scale so it doesn't change
+   size when toggling theme. */
 .page article > h1 {
   font-size: var(--h1-size) !important;
+}
+
+/* The REAL page title is ArticleTitle's `.article-title` (rendered
+   above <article>, not inside it — see ArticleTitle.tsx). Its own CSS
+   only sets margin (2rem 0 0 0), which ties with the theme's dark-mode
+   selector the same way: light mode keeps Quartz's 32px top / 0 bottom
+   margin, dark mode falls back to the theme's 16px/16px. That shows up
+   as the title sitting at a different height under the breadcrumb, and
+   a different gap above the date, depending on theme. Pin Quartz's own
+   margin in both modes. */
+.article-title {
+  margin: 2rem 0 0 0 !important;
 }
 
 /* Sidebar widget headings (Graph, Backlinks, TOC) are small compact
@@ -81,6 +96,17 @@
 button.toc-header h3 {
   font-size: 1rem !important;
   margin: 0 !important;
+}
+
+/* Homepage "recent post" cards (.card-title, an h3) are our own
+   compact card design — same dark-only leak: theme's larger font,
+   heavier weight, accent color, and bigger margin sneak in under dark
+   mode only. Pin the card's own intended look in both modes. */
+.card-title {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: var(--dark) !important;
+  margin: 0 0 0.5rem !important;
 }
 
 /* ================================ */
