@@ -190,10 +190,10 @@ nav,
 /* Code */
 /* ================================ */
 
-code {
-  background-color: var(--highlight);
+:not(pre) > code {
+  background-color: var(--highlight) !important;
   padding: 2px 6px;
-  border-radius: 4px;
+  border-radius: 4px !important;
 }
 
 /* ================================ */
@@ -238,6 +238,18 @@ pre:has(> code) {
 
 pre > code {
   overflow-x: auto !important;
+}
+
+/* ================================ */
+/* Table */
+/* ================================ */
+
+tr {
+  border-bottom: 1px solid var(--lightgray) !important;
+}
+
+tr:last-child {
+  border-bottom: none !important;
 }
 
 /* ================================ */
