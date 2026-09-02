@@ -59,6 +59,23 @@
 }
 
 /* ================================ */
+/* Heading size consistency         */
+/* ================================ */
+/* Quartz's own ArticleTitle (.page article > h1) and Graph heading
+   (.graph > h3) selectors tie/beat the theme's dark-mode selector in
+   specificity, so in light mode they fall back to Quartz's own size
+   (2rem / 1rem) instead of the theme scale above — while dark mode
+   picks up --h1-size/--h3-size. Force both modes onto the theme scale
+   so the title and graph heading don't change size when toggling theme. */
+.page article > h1 {
+  font-size: var(--h1-size) !important;
+}
+
+.graph > h3 {
+  font-size: var(--h3-size) !important;
+}
+
+/* ================================ */
 /* Selectable note content          */
 /* ================================ */
 /* AnuPpuccin's Quartz port sets user-select: none on plain paragraphs
