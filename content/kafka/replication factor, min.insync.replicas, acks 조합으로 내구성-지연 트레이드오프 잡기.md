@@ -4,8 +4,6 @@ lastmod: 2026-08-31
 tags:
 draft: false
 ---
-# replication factor, min.insync.replicas, acks 조합으로 내구성-지연 트레이드오프 잡기
-
 이 세 설정은 따로 노는 값이 아니라, "어느 정도의 장애까지 버틸 것인가"와 "그 대가로 얼마의 지연을 감수할 것인가"를 함께 결정하는 하나의 세트다.
 
 ## 각 설정의 역할

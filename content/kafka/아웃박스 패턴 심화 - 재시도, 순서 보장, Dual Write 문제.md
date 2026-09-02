@@ -4,8 +4,6 @@ lastmod: 2026-08-24
 tags:
 draft: false
 ---
-# 아웃박스 패턴 심화 - 재시도, 순서 보장, Dual Write 문제
-
 관련: [[레거시 알림톡 시스템 → Kafka 기반 이벤트 아키텍처 전환]] — 거기서 정리한 outbox 기본 개념(Sender/outbox 테이블/Message relay)을 전제로, 실무에서 이걸 어떻게 더 단단하게 만드는지를 정리한다.
 
 ## Dual Write 문제부터 다시 짚기

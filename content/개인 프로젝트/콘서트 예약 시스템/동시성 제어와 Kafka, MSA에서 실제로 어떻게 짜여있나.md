@@ -4,8 +4,6 @@ lastmod: 2026-09-01
 tags:
 draft: false
 ---
-# 동시성 제어와 Kafka, MSA에서 실제로 어떻게 짜여있나
-
 `hhplus-concert-reservation-system` — 8개 Spring Boot 서비스(Eureka/Gateway/대기열/예약/결제/알림/오케스트레이션/Redis 전담)로 쪼갠 콘서트 예약 MSA를 로컬에서 직접 띄우고, 코드를 파고들면서 확인한 내용. 스터디에서 "실제 코드가 어떻게 짜여있는지" 사례로 발표하기 좋을 것 같아 정리했다. 좋은 패턴과 허점을 같이 담았다 — 둘 다 배울 게 있어서다.
 
 ## 좌석 중복 예약 방지 — DB 비관적 락

@@ -4,8 +4,6 @@ lastmod: 2026-08-31
 tags:
 draft: false
 ---
-# Static Membership으로 배포 시 리밸런싱을 생략하는 법
-
 [[파티션 할당 전략 - Range, RoundRobin, Sticky, CooperativeSticky]]에서 정리한 CooperativeStickyAssignor는 리밸런싱이 "일어났을 때" 영향 범위를 줄이는 개선이다. Static Membership(KIP-345)은 한 걸음 더 나아가서, 배포로 인한 짧은 재시작이라면 **리밸런싱 자체를 생략**시켜버리는 접근이다.
 
 ## stop-the-world가 반복되는 이유
