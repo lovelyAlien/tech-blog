@@ -1,6 +1,6 @@
 ---
 date: 2026-08-12
-lastmod: 2026-08-12
+lastmod: 2026-09-04
 tags:
 draft: false
 ---
@@ -24,7 +24,7 @@ draft: false
 담당 업무:
 - 하트비트/세션 타임아웃 감지 ([[session.timeout.ms와 max.poll.interval.ms 차이]])
 - JoinGroup·SyncGroup 리밸런싱 진행 관리
-- 오프셋 저장 ([[Commit Offset과 Current Offset 차이]])
+- 오프셋 저장 ([[Commit Offset과 Current Offset 차이]]) — OffsetCommit 요청이 실제로 도착하는 곳이 바로 여기다 ([[수동 커밋 시 Fetch 요청과 Commit 요청은 어떻게 동작하는가]] 참고)
 - 커밋 시 generation 검증 (파티션 소유권 강제)
 
 계산 자체는 코디네이터가 하지 않는다 — 실제 파티션 할당 계산은 그룹 리더 컨슈머가 클라이언트 사이드에서 수행하고([[파티션 할당 전략 - Range, RoundRobin, Sticky, CooperativeSticky]]), 코디네이터는 그 결과를 관리·중계·저장할 뿐이다.
