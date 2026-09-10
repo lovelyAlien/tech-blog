@@ -215,6 +215,7 @@
   },
   "active": "9139ef429d980e1c",
   "lastOpenFiles": [
+    "content/kafka/아웃박스 테이블 스키마.md",
     "content/kafka/수동 커밋 시 Fetch 요청과 Commit 요청은 어떻게 동작하는가.md",
     "content/kafka/카프카가 대량 데이터 처리와 실시간 전송에 강한 이유.md",
     "content/kafka/롱 폴링이란 무엇인가 - 주기적 폴링·WebSocket과 헷갈리지 않기.md",
@@ -260,7 +261,6 @@
     "node_modules/dotenv/README.md",
     "node_modules/dotenv/README-es.md",
     "node_modules/dotenv/CHANGELOG.md",
-    "node_modules/color-convert/README.md",
     "무제.canvas"
   ]
 }
