@@ -215,6 +215,7 @@
   },
   "active": "9139ef429d980e1c",
   "lastOpenFiles": [
+    "content/kafka/카프카를 이벤트 버스로 써서 서버군 인메모리 값 동기화하기.md",
     "content/kafka/아웃박스 테이블을 식별자로 샤딩해서 커넥터 처리량 늘리기.md",
     "content/kafka/Transaction Log Tailing 패턴 - Outbox를 CDC로 발행하는 흐름.md",
     "content/kafka/키 기반 파티션 배정으로 이벤트 순서 보장하는 법 - 구체 예시.md",
@@ -260,7 +261,6 @@
     "node_modules/staticrypt/node_modules/ansi-regex/readme.md",
     "node_modules/staticrypt/node_modules/ansi-styles/readme.md",
     "node_modules/staticrypt/README.md",
-    "node_modules/dotenv/SECURITY.md",
     "무제.canvas"
   ]
 }
