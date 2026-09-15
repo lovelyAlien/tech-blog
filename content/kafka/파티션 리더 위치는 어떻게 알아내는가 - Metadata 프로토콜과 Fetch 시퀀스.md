@@ -77,5 +77,7 @@ sequenceDiagram
 - [Apache Kafka 공식 Protocol Guide](https://kafka.apache.org/protocol.html) — Fetch/Metadata/JoinGroup/SyncGroup 요청·응답의 실제 필드 스펙 (1차 자료)
 - [Adobe Tech Blog — Exploring Kafka Consumer's Internals](https://blog.developer.adobe.com/exploring-kafka-consumers-internals-b0b9becaa106) — 컨슈머 클라이언트 내부(프리페치 등) 관점의 설명
 
+관련: 카프카를 이벤트 버스(브로드캐스트)로 쓰는 사례는 [[카프카를 이벤트 버스로 써서 서버군 인메모리 값 동기화하기]] 참고.
+
 ## 한 줄 정리
 > 파티션 소유권(JoinGroup/SyncGroup)과 파티션 위치(Metadata 요청)는 서로 다른 프로토콜이며, 컨슈머는 이 둘을 합쳐서 리더 브로커에 Fetch 요청을 보낸다. fetch.min.bytes/fetch.max.wait.ms 같은 설정은 컨슈머가 정하지만, 그 값을 근거로 응답을 지연시키거나 즉시 보내는 실행은 브로커 쪽에서 일어난다.

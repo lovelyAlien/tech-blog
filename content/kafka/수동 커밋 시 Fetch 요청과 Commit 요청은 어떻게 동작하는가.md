@@ -85,5 +85,7 @@ sequenceDiagram
 
 Fetch/Commit이 메인 스레드에서 순차적으로 돌아가는 동안에도, 하트비트는 별도의 백그라운드 스레드가 독립적으로 계속 보낸다. 그래서 `commitSync()`가 오래 블로킹돼도(코디네이터 응답이 늦어져도) 그 자체로는 `session.timeout.ms`를 건드리지 않는다. 다만 비즈니스 로직 처리 자체가 오래 걸려서 다음 `poll()` 호출이 늦어지면 `max.poll.interval.ms`가 발동할 수 있다 ([[session.timeout.ms와 max.poll.interval.ms 차이]] 참고).
 
+관련: 서버마다 컨슈머 그룹을 분리해 전원이 독립적으로 Fetch/Commit을 수행하게 만드는 사례는 [[카프카를 이벤트 버스로 써서 서버군 인메모리 값 동기화하기]] 참고.
+
 ## 한 줄 정리
 > Fetch와 OffsetCommit은 프로토콜상 독립된 별개 요청(대상 브로커도 다를 수 있음)이지만, `commitSync()`를 쓰는 단일 스레드 동기 루프에서는 블로킹 호출 때문에 "커밋 응답을 받아야 다음 Fetch가 나간다"는 순서로 보인다 — 이건 Kafka가 강제하는 게 아니라 코드 실행 순서의 결과다. `commitAsync()`를 쓰면 이 순차성이 깨진다.
