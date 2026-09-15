@@ -215,6 +215,7 @@
   },
   "active": "9139ef429d980e1c",
   "lastOpenFiles": [
+    "content/kafka/키 기반 파티션 배정으로 이벤트 순서 보장하는 법 - 구체 예시.md",
     "content/kafka/아웃박스 테이블 스키마.md",
     "content/kafka/수동 커밋 시 Fetch 요청과 Commit 요청은 어떻게 동작하는가.md",
     "content/kafka/카프카가 대량 데이터 처리와 실시간 전송에 강한 이유.md",
@@ -260,7 +261,6 @@
     "node_modules/dotenv/SECURITY.md",
     "node_modules/dotenv/README.md",
     "node_modules/dotenv/README-es.md",
-    "node_modules/dotenv/CHANGELOG.md",
     "무제.canvas"
   ]
 }
