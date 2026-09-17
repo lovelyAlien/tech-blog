@@ -1,5 +1,4 @@
 {
-  "language": "en",
   "attachPath": {
     "attachmentRoot": "content",
     "saveAttE": "inFolderBelow",
@@ -24,5 +23,6 @@
   "excludeSubpaths": false,
   "originalNameStorage": [],
   "overridePath": {},
-  "disableNotification": false
+  "disableNotification": false,
+  "language": "en"
 }
