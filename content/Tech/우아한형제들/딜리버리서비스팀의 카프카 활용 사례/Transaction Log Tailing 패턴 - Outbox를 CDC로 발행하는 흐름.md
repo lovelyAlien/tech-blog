@@ -8,6 +8,8 @@ draft: false
 
 아웃박스 패턴을 구현하는 두 방식(Polling Publisher / Transaction Log Tailing) 중 후자를 microservices.io 다이어그램 기준으로 컴포넌트별 흐름을 뜯어본 노트.
 
+출처: https://techblog.woowahan.com/17386/
+
 ## 그림으로 보기
 
 ```mermaid
