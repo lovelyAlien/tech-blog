@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coin Change 단계별 보기</title>
+<style>
+:root{--text-primary:#1f1e1d;--text-secondary:#5f5e5a;--text-muted:#888780;--border:rgba(0,0,0,.15);--surface-2:#fff;--bg:#f7f6f2;--bg-success:#eaf3de;--font-mono:ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root{--text-primary:#f1efe8;--text-secondary:#b4b2a9;--text-muted:#888780;--border:rgba(255,255,255,.18);--surface-2:#2a2a28;--bg:#1c1c1b;--bg-success:#27500a}}
+body{margin:0;padding:16px;background:var(--bg);color:var(--text-primary);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif}
+.wrap{max-width:680px;margin:0 auto}
+.cn{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;color:#fff;font-weight:500;margin:1px}
+.bx{border:0.5px solid var(--border);border-radius:12px;padding:10px 6px;min-height:200px;background:var(--surface-2);text-align:center}
+.tgt{border:2px solid #1D9E75}
+.src{border:2px dashed #BA7517}
+.row{margin:4px 0;padding:2px 0;border-radius:6px}
+.nw{background:var(--bg-success)}
+.dr{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 14px;border-radius:12px;border:0.5px solid var(--border)}
+button{font:inherit;font-size:14px;padding:6px 14px;border-radius:8px;border:0.5px solid var(--text-muted);background:transparent;color:var(--text-primary);cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div style="display:flex;gap:12px;justify-content:center;align-items:center;margin-bottom:1rem">
+<span style="font-size:14px;color:var(--text-secondary)">서랍</span>
+<div id="drawers" style="display:flex;gap:10px"></div>
+</div>
+<div id="boxes" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px"></div>
+<div id="cap" style="text-align:center;font-size:17px;margin:1.25rem 0 .5rem;min-height:30px"></div>
+<div id="code" style="text-align:center;font-family:var(--font-mono);font-size:14px;color:var(--text-secondary);min-height:22px"></div>
+<div style="display:flex;gap:8px;justify-content:center;align-items:center;margin-top:1rem">
+<button id="b0">처음</button>
+<button id="bp">이전</button>
+<span id="cnt" style="font-size:14px;color:var(--text-secondary);min-width:56px;text-align:center"></span>
+<button id="bn">다음 →</button>
+</div>
+</div>
+<script>
+const C={1:'#888780',2:'#1D9E75',3:'#7F77DD'};
+const coins=[1,2,3],n=4;
+const cl=d=>d.map(b=>b.map(c=>c.slice()));
+let dp=[[[]],[],[],[],[]];
+const S=[{coin:null,i:0,src:null,dp:cl(dp),from:0}];
+for(const coin of coins){for(let i=coin;i<=n;i++){const add=dp[i-coin].map(c=>[...c,coin]);const before=dp[i].length;dp[i]=dp[i].concat(add);S.push({coin,i,src:i-coin,dp:cl(dp),from:before,srcLen:dp[i-coin].length})}}
+const coin=(v,s=24)=>`<span class="cn" style="background:${C[v]};width:${s}px;height:${s}px;font-size:${s>30?16:12}px">${v}</span>`;
+let k=0;
+function draw(){
+const s=S[k];
+document.getElementById('drawers').innerHTML=coins.map(c=>{
+const on=s.coin===c, done=s.coin!==null&&c<s.coin;
+const st=on?'border:2px solid #1D9E75':'';
+const op=(!on&&!done)?'opacity:.35':'';
+return `<div class="dr" style="${st};${op}">${coin(c,40)}<span style="font-size:12px;color:var(--text-secondary)">${on?'여는 중':done?'닫음':'대기'}</span></div>`}).join('');
+document.getElementById('boxes').innerHTML=s.dp.map((b,i)=>{
+const cls=i===s.i&&s.coin?'tgt':i===s.src?'src':'';
+const rows=b.map((c,j)=>{const nw=i===s.i&&s.coin&&j>=s.from;return `<div class="row ${nw?'nw':''}">${c.length?c.map(v=>coin(v)).join(''):'<span style="font-size:12px;color:var(--text-muted)">빈손</span>'}</div>`}).join('');
+return `<div class="bx ${cls}"><div style="font-size:14px;color:var(--text-secondary)">${i}원</div><div style="font-size:28px;font-weight:500;margin:2px 0 6px">${b.length}</div>${rows}</div>`}).join('');
+const cap=document.getElementById('cap'),cd=document.getElementById('code');
+if(!s.coin){cap.innerHTML='0원 = 아무것도 안 내기 → 1가지';cd.textContent='dp[0] = 1'}
+else{cap.innerHTML=`<span style="color:#BA7517">${s.src}원 칸</span>의 방법마다 ${coin(s.coin)} 하나 붙이기 → <span style="color:#1D9E75">${s.i}원 칸</span>`;
+cd.textContent=`dp[${s.i}] += dp[${s.src}]   →   ${s.from} + ${s.srcLen} = ${s.from+s.srcLen}`}
+document.getElementById('cnt').textContent=`${k+1} / ${S.length}`;
+}
+document.getElementById('bn').onclick=()=>{if(k<S.length-1){k++;draw()}};
+document.getElementById('bp').onclick=()=>{if(k>0){k--;draw()}};
+document.getElementById('b0').onclick=()=>{k=0;draw()};
+draw();
+</script>
+</body>
+</html>
