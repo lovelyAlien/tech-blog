@@ -38,12 +38,16 @@ jobs:
             echo "::error::NOTE_PASSWORD secret is not set — refusing to publish interview answer notes unprotected."
             exit 1
           fi
+          # --salt is fixed (not secret) so the hashed password kept in the session
+          # cookie by scripts/staticrypt-template.html stays valid across deploys.
           npx staticrypt "public/Tech/면접답변" \
             -r \
             -c false \
             -d "public/Tech" \
+            -t scripts/staticrypt-template.html \
+            --salt 05b4315423257cc877cea587918af336 \
             --short \
-            --remember 7 \
+            --remember false \
             --template-title "비공개 노트" \
             --template-instructions "비밀번호를 입력하세요."
       - name: Upload artifact
