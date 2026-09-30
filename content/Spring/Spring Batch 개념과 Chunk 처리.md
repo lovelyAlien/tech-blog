@@ -1,6 +1,6 @@
 ---
 date: 2026-08-12
-lastmod: 2026-08-12
+lastmod: 2026-09-29
 tags:
 draft: false
 ---
@@ -111,9 +111,17 @@ Spring Batch는 비즈니스 테이블(`documents` 같은)과는 별도로, **�
 
 **같은 DB에 둬야 하나**: 꼭 그럴 필요는 없지만(별도 DB 분리도 가능), 보통은 배치가 도는 같은 DB 안에 별도 테이블로 둔다.
 
-## 알려진 한계 — JdbcPagingItemReader의 오프셋 성능
+## 알려진 한계 — OFFSET 페이징 Reader의 성능
 
-페이지 번호(오프셋)가 커질수록 조회 성능이 떨어질 수 있다는 게 알려진 한계다. 대용량 마이그레이션에서 이 문제를 실제로 겪었다면, 커서 기반 페이징(마지막으로 읽은 id를 기준으로 `WHERE id > ?`)으로 바꾸는 식의 대응이 필요하다.
+페이지 번호(오프셋)가 커질수록 조회가 느려지는 건 `JpaPagingItemReader`처럼 `LIMIT ... OFFSET ...`으로 페이징하는 Reader의 한계다. OFFSET이 크면 DB가 앞쪽 행을 전부 읽고 버려야 하기 때문이다.
+
+반면 위 예시의 `JdbcPagingItemReader`는 첫 페이지 이후부터 sortKey 기준으로 `WHERE id > :마지막으로 읽은 id` 형태의 쿼리를 만드는 keyset 방식이라 이 문제가 없다. 대신 **sortKey는 반드시 유니크해야** 한다 — 중복 값이 있으면 페이지 경계에서 데이터가 누락되거나 중복될 수 있다.
+
+그래서 대용량 처리에서는 OFFSET 기반 Reader 대신 `JdbcPagingItemReader`(keyset)나 `JdbcCursorItemReader`(커서 스트리밍)를 쓰는 게 일반적인 대응이다.
 
 ## 한 줄 정리
 > Spring Batch는 대용량 데이터를 Chunk 단위로 나눠 메모리 안전하게 처리하고, 자체 메타데이터 테이블에 진행 상태를 기록해서 실패해도 처음부터 다시 돌지 않고 이어서 재처리할 수 있게 해준다.
+
+## 관련 노트
+- [[Spring Batch 핵심 정리]] — Spring Batch를 왜 쓰는지, @Scheduled와의 차이
+- [[Spring Batch 구성 요소]] — Job/Step/Reader/Processor/Writer/Chunk 각각의 동작
