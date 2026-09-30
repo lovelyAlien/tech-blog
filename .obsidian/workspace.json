@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "207d571585a9f699",
+        "id": "c20c0a2faa472d0c",
         "type": "tabs",
         "children": [
           {
-            "id": "9139ef429d980e1c",
+            "id": "fc3957894b78c787",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/kafka/1. kafka.md",
+                "file": "content/Tech/면접답변/kafka/파티션 수와 복제 설정/모범 답안.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1. kafka"
+              "title": "모범 답안"
             }
           }
         ]
@@ -90,7 +90,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 352.9838218688965
+    "width": 325.9578514099121
   },
   "right": {
     "id": "f80c50e336deeb93",
@@ -213,27 +213,46 @@
       "meld-encrypt:Decrypt at Cursor": false
     }
   },
-  "active": "9139ef429d980e1c",
+  "active": "615a5c2d72e7ff76",
   "lastOpenFiles": [
-    "content/kafka/카프카 스트림즈로 배달 상태별 건수 실시간 집계하기.md",
+    "content/알고리즘/HackerRank/Alternating Characters.md",
+    "content/알고리즘/HackerRank/Common Child.md",
+    "content/알고리즘/HackerRank/ASCII Encoded Strings.md",
+    "content/알고리즘/HackerRank/Two Strings.md",
+    "content/알고리즘/HackerRank/Strings - Making Anagrams.md",
+    "content/알고리즘/HackerRank/Hash Tables - Ransom Note.md",
+    "content/Spring/Spring Batch 구성 요소.md",
+    "content/Spring/Spring Batch 핵심 정리.md",
+    "content/알고리즘/HackerRank/Frequency Queries.md",
+    "scripts/staticrypt-template.html",
+    "content/Tech/면접답변/kafka/토픽 설계/모범 답안.md",
+    "content/Tech/면접답변/kafka/장애 대응 경험/모범 답안.md",
+    "content/Tech/면접답변/kafka/인프라 장애 시나리오/모범 답안.md",
+    "content/알고리즘/LeetCode/46. Permutations.md",
+    "content/알고리즘/LeetCode/78. Subsets.md",
+    "content/알고리즘/HackerRank/Luck Balance.md",
+    "content/알고리즘/트라이(Trie).md",
+    "content/알고리즘/LeetCode/739. Daily Temperatures.md",
+    "content/알고리즘/LeetCode/98. Validate Binary Search Tree.md",
+    "content/알고리즘/LeetCode/56. Merge Intervals.md",
+    "content/알고리즘/LeetCode/34. Find First and Last Position of Element in Sorted Array.md",
+    "content/알고리즘/HackerRank/The Coin Change Problem.md",
+    "content/알고리즘/HackerRank/Array Manipulation.md",
+    "content/attachments/알고리즘/coin-change-stepper.html",
+    "content/attachments/알고리즘",
+    "content/알고리즘/HackerRank/Contacts.md",
+    "content/알고리즘/HackerRank/Connected Cells in a Grid.md",
+    "content/알고리즘/HackerRank/Balanced Brackets.md",
+    "content/알고리즘/HackerRank/Jesse and Cookies.md",
+    "content/알고리즘/HackerRank",
+    "content/attachments/우아한형제들/딜리버리서비스팀의 카프카 활용 사례/카프카 스트림즈로 배달 상태별 건수 실시간 집계하기-20260917-163919.png",
+    "content/attachments/우아한형제들/딜리버리서비스팀의 카프카 활용 사례",
+    "content/Tech/우아한형제들/딜리버리서비스팀의 카프카 활용 사례",
+    "content/attachments/우아한형제들/카프카 스트림즈로 배달 상태별 건수 실시간 집계하기-20260917-163919.png",
+    "content/attachments/우아한형제들",
+    "content/Tech/우아한형제들",
     "content/attachments/kafka/1. kafka-20260917-170653.png",
-    "content/kafka/배달 분석 파이프라인에서 가공과 집계는 다른 단계다.md",
     "content/attachments/kafka/카프카 스트림즈로 배달 상태별 건수 실시간 집계하기-20260917-163919.png",
-    "content/kafka/수동 커밋 시 Fetch 요청과 Commit 요청은 어떻게 동작하는가.md",
-    "content/kafka/배달 이벤트를 분석용으로 가공해 S3·Athena로 영구 저장하기.md",
-    "content/kafka/카프카를 이벤트 버스로 써서 서버군 인메모리 값 동기화하기.md",
-    "content/kafka/아웃박스 테이블을 식별자로 샤딩해서 커넥터 처리량 늘리기.md",
-    "content/kafka/Transaction Log Tailing 패턴 - Outbox를 CDC로 발행하는 흐름.md",
-    "content/kafka/키 기반 파티션 배정으로 이벤트 순서 보장하는 법 - 구체 예시.md",
-    "content/kafka/아웃박스 테이블 스키마.md",
-    "content/kafka/카프카가 대량 데이터 처리와 실시간 전송에 강한 이유.md",
-    "content/kafka/롱 폴링이란 무엇인가 - 주기적 폴링·WebSocket과 헷갈리지 않기.md",
-    "content/개인 프로젝트/콘서트 예약 시스템/동시성 제어와 Kafka, MSA에서 실제로 어떻게 짜여있나.md",
-    "content/개인 프로젝트/콘서트 예약 시스템/대기열 시스템은 실제로 어떻게 설계되고 동작하나.md",
-    "content/개인 프로젝트/채팅 시스템/설계/채팅 시스템 개발 가이드.md",
-    "content/Tech/올리브영/올영세일 선착순 쿠폰, 미발급 0%를 향한 여정.md",
-    "content/Spring/대기열 시스템은 어떻게 설계되고 동작하는가.md",
-    "content/Spring/좌석 예약 동시성 제어 5가지 비교.md",
     "content/개인 프로젝트/콘서트 예약 시스템",
     "public/개인-프로젝트/채팅-시스템/설계/채팅-시스템-개발-가이드-og-image.webp",
     "public/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/9장.-웹-크롤러-설계-og-image.webp",
@@ -241,25 +260,7 @@
     "public/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/6장.-키-값-저장소-설계-og-image.webp",
     "public/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/5장-안정-해시-설계-og-image.webp",
     "public/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/4장-처리율-제한-장치-설계-og-image.webp",
-    "public/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/3장.-시스템-설계-면접-공략법-og-image.webp",
-    "public/개발-스터디/가상-면접-사례로-배우는-대규모-시스템-설계-기초/2장.-개략적인-규모-추정-og-image.webp",
     "public/index.html",
-    "public/attachments/올리브영",
-    "public/개인-프로젝트/채팅-시스템/설계/index.html",
-    "public/개인-프로젝트/채팅-시스템/설계/채팅-시스템-개발-가이드.html",
-    "public/개인-프로젝트/채팅-시스템/설계",
-    "public/개인-프로젝트/채팅-시스템/index.html",
-    "public/개인-프로젝트/채팅-시스템",
-    "public/개인-프로젝트/index.html",
-    "public/개인-프로젝트",
-    "node_modules/staticrypt/node_modules/yargs-parser/README.md",
-    "node_modules/staticrypt/node_modules/yargs-parser/CHANGELOG.md",
-    "node_modules/staticrypt/node_modules/yargs/README.md",
-    "node_modules/staticrypt/node_modules/wrap-ansi/readme.md",
-    "node_modules/staticrypt/node_modules/strip-ansi/readme.md",
-    "node_modules/staticrypt/node_modules/string-width/readme.md",
-    "node_modules/staticrypt/node_modules/emoji-regex/README.md",
-    "node_modules/staticrypt/node_modules/cliui/README.md",
     "무제.canvas"
   ]
 }
