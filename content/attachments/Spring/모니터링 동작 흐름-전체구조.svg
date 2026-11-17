@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="660" viewBox="0 0 820 660">
+<style>text{font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR",sans-serif}.tt{font-size:16px;font-weight:700}.th{font-size:14px;font-weight:600}.ts{font-size:12px}.tx{font-size:11px}</style>
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<rect width="820" height="660" fill="#FFFFFF"/>
+<text x="30" y="28" class="tt" fill="#2C2C2A">Prometheus · Grafana · AlertManager 모니터링 동작 흐름</text>
+
+<!-- 수집 대상 -->
+<rect x="20" y="48" width="240" height="372" rx="14" fill="none" stroke="#5F5E5A" stroke-width="0.8" stroke-dasharray="4 4"/>
+<text x="34" y="66" class="ts" fill="#5F5E5A" dominant-baseline="central">Kubernetes 클러스터 · 지표를 내보내는 쪽</text>
+
+<rect x="30" y="82" width="220" height="92" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="140" y="104" text-anchor="middle" dominant-baseline="central" class="th" fill="#2C2C2A">Spring Boot 서비스 Pod ×N</text>
+<text x="140" y="128" text-anchor="middle" dominant-baseline="central" class="ts" fill="#5F5E5A">Actuator + Micrometer</text>
+<text x="140" y="148" text-anchor="middle" dominant-baseline="central" class="ts" fill="#5F5E5A">/actuator/prometheus</text>
+<text x="140" y="164" text-anchor="middle" dominant-baseline="central" class="tx" fill="#888780">힙·GC · HTTP 에러·지연 · 처리 시간</text>
+
+<rect x="30" y="190" width="220" height="76" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="140" y="212" text-anchor="middle" dominant-baseline="central" class="th" fill="#2C2C2A">kafka-exporter</text>
+<text x="140" y="236" text-anchor="middle" dominant-baseline="central" class="ts" fill="#5F5E5A">브로커에서 조회한</text>
+<text x="140" y="254" text-anchor="middle" dominant-baseline="central" class="ts" fill="#5F5E5A">컨슈머 그룹·파티션별 Lag</text>
+
+<rect x="30" y="282" width="220" height="76" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="140" y="304" text-anchor="middle" dominant-baseline="central" class="th" fill="#2C2C2A">kube-state-metrics · cAdvisor</text>
+<text x="140" y="328" text-anchor="middle" dominant-baseline="central" class="ts" fill="#5F5E5A">Pod 재시작 · OOMKilled</text>
+<text x="140" y="346" text-anchor="middle" dominant-baseline="central" class="ts" fill="#5F5E5A">컨테이너 CPU·메모리</text>
+
+<text x="140" y="384" text-anchor="middle" dominant-baseline="central" class="tx" fill="#5F5E5A">앱은 지표를 "보내지" 않고 주소만 열어 둠</text>
+<text x="140" y="402" text-anchor="middle" dominant-baseline="central" class="tx" fill="#5F5E5A">→ Prometheus가 주기적으로 가져감 (Pull)</text>
+
+<!-- 수집 화살표 -->
+<line x1="250" y1="128" x2="318" y2="180" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#ar)"/>
+<line x1="250" y1="228" x2="318" y2="228" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#ar)"/>
+<line x1="250" y1="320" x2="318" y2="276" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="285" y="214" text-anchor="middle" class="tx" fill="#534AB7">② scrape</text>
+
+<!-- Prometheus -->
+<rect x="320" y="130" width="200" height="196" rx="12" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.8"/>
+<text x="420" y="154" text-anchor="middle" dominant-baseline="central" class="th" fill="#3C3489">Prometheus</text>
+<text x="336" y="186" dominant-baseline="central" class="ts" fill="#3C3489">① 대상 자동 탐색 (K8s)</text>
+<text x="336" y="212" dominant-baseline="central" class="ts" fill="#3C3489">② 주기적으로 가져감</text>
+<text x="336" y="238" dominant-baseline="central" class="ts" fill="#3C3489">③ 시계열 DB(TSDB)에 저장</text>
+<text x="336" y="264" dominant-baseline="central" class="ts" fill="#3C3489">④ 알림 규칙 평가</text>
+<text x="352" y="284" dominant-baseline="central" class="tx" fill="#534AB7">조건(expr)이 지속 시간(for)</text>
+<text x="352" y="300" dominant-baseline="central" class="tx" fill="#534AB7">동안 계속 참이면 firing</text>
+
+<!-- Grafana -->
+<rect x="590" y="60" width="190" height="104" rx="12" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text x="685" y="84" text-anchor="middle" dominant-baseline="central" class="th" fill="#085041">Grafana</text>
+<text x="685" y="110" text-anchor="middle" dominant-baseline="central" class="ts" fill="#0F6E56">⑤ PromQL로 조회</text>
+<text x="685" y="130" text-anchor="middle" dominant-baseline="central" class="ts" fill="#0F6E56">→ 대시보드로 그리기</text>
+<text x="685" y="150" text-anchor="middle" dominant-baseline="central" class="tx" fill="#0F6E56">JVM · HTTP · Kafka · Pod 한 화면</text>
+<line x1="588" y1="120" x2="522" y2="168" stroke="#0F6E56" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="556" y="128" text-anchor="middle" class="tx" fill="#0F6E56">⑤ 조회</text>
+
+<!-- AlertManager -->
+<rect x="590" y="214" width="190" height="124" rx="12" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="685" y="238" text-anchor="middle" dominant-baseline="central" class="th" fill="#633806">AlertManager</text>
+<text x="606" y="266" dominant-baseline="central" class="ts" fill="#854F0B">⑥ 같은 알림 묶기</text>
+<text x="606" y="288" dominant-baseline="central" class="ts" fill="#854F0B">· 중복 제거 · 하위 알림 억제</text>
+<text x="606" y="310" dominant-baseline="central" class="ts" fill="#854F0B">· 보낼 곳 결정 · 재알림 간격</text>
+<line x1="520" y1="270" x2="588" y2="270" stroke="#854F0B" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="554" y="260" text-anchor="middle" class="tx" fill="#854F0B">④ firing</text>
+
+<!-- 알림 채널 -->
+<rect x="590" y="372" width="190" height="56" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+<text x="685" y="392" text-anchor="middle" dominant-baseline="central" class="th" fill="#0C447C">Slack · 메일</text>
+<text x="685" y="414" text-anchor="middle" dominant-baseline="central" class="ts" fill="#185FA5">⑦ 담당자에게 알림</text>
+<line x1="685" y1="338" x2="685" y2="370" stroke="#854F0B" stroke-width="1.2" marker-end="url(#ar)"/>
+
+<!-- 대응 루프 -->
+<path d="M780 400 H802 V112 H784" fill="none" stroke="#185FA5" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+<text x="780" y="450" text-anchor="end" class="tx" fill="#185FA5">⑧ 알림 속 대시보드 링크로 Grafana를 열어</text>
+<text x="780" y="466" text-anchor="end" class="tx" fill="#185FA5">같은 시간대 지표를 겹쳐 보며 원인을 좁힘</text>
+
+<!-- 알림 상태 흐름 -->
+<line x1="20" y1="490" x2="800" y2="490" stroke="#D3D1C7" stroke-width="0.8"/>
+<text x="30" y="512" class="th" fill="#2C2C2A">알림 하나의 상태 변화 (④ 알림 규칙)</text>
+
+<rect x="30" y="528" width="170" height="48" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="115" y="552" text-anchor="middle" dominant-baseline="central" class="th" fill="#2C2C2A">inactive</text>
+<rect x="230" y="528" width="170" height="48" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.8"/>
+<text x="315" y="552" text-anchor="middle" dominant-baseline="central" class="th" fill="#3C3489">pending</text>
+<rect x="430" y="528" width="170" height="48" rx="10" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="515" y="552" text-anchor="middle" dominant-baseline="central" class="th" fill="#633806">firing</text>
+<rect x="630" y="528" width="170" height="48" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text x="715" y="552" text-anchor="middle" dominant-baseline="central" class="th" fill="#085041">resolved</text>
+<line x1="200" y1="552" x2="228" y2="552" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#ar)"/>
+<line x1="400" y1="552" x2="428" y2="552" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#ar)"/>
+<line x1="600" y1="552" x2="628" y2="552" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#ar)"/>
+
+<text x="115" y="594" text-anchor="middle" class="tx" fill="#5F5E5A">조건이 거짓</text>
+<text x="315" y="594" text-anchor="middle" class="tx" fill="#5F5E5A">조건이 참, for 시간만큼 지켜보는 중</text>
+<text x="315" y="610" text-anchor="middle" class="tx" fill="#5F5E5A">(중간에 거짓이 되면 다시 inactive)</text>
+<text x="515" y="594" text-anchor="middle" class="tx" fill="#5F5E5A">for 동안 계속 참</text>
+<text x="515" y="610" text-anchor="middle" class="tx" fill="#5F5E5A">→ AlertManager로 전송</text>
+<text x="715" y="594" text-anchor="middle" class="tx" fill="#5F5E5A">조건 해소</text>
+<text x="715" y="610" text-anchor="middle" class="tx" fill="#5F5E5A">→ 해결 알림</text>
+
+<text x="30" y="642" class="ts" fill="#2C2C2A">예) JVM 힙 사용률 &gt; 90% 가 5분 계속되면 firing — 순간 튀는 값은 pending에서 걸러짐 (숫자는 예시)</text>
+</svg>

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="680" viewBox="0 0 820 680">
+<style>text{font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR",sans-serif}.tt{font-size:16px;font-weight:700}.th{font-size:14px;font-weight:600}.ts{font-size:12px}.tx{font-size:11px}.mono{font-family:"SF Mono","Menlo","Consolas",monospace;font-size:11px}</style>
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<rect width="820" height="680" fill="#FFFFFF"/>
+<text x="30" y="28" class="tt" fill="#2C2C2A">Micrometer 동작 흐름 — 한 번 기록하고, 형식은 Registry가 바꾼다</text>
+
+<!-- ① 지표 출처 -->
+<text x="30" y="56" class="ts" fill="#5F5E5A">① 지표가 생기는 곳 (애플리케이션 안)</text>
+<rect x="30" y="66" width="240" height="84" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="150" y="88" text-anchor="middle" dominant-baseline="central" class="th" fill="#2C2C2A">Spring 자동 계측</text>
+<text x="150" y="112" text-anchor="middle" dominant-baseline="central" class="ts" fill="#5F5E5A">HTTP 요청 · JVM 힙/GC</text>
+<text x="150" y="132" text-anchor="middle" dominant-baseline="central" class="ts" fill="#5F5E5A">Kafka 리스너 · 커넥션 풀</text>
+
+<rect x="290" y="66" width="240" height="84" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="410" y="88" text-anchor="middle" dominant-baseline="central" class="th" fill="#2C2C2A">직접 추가한 지표</text>
+<text x="410" y="112" text-anchor="middle" dominant-baseline="central" class="ts" fill="#5F5E5A">메시지 전송 시간, 실패 횟수 등</text>
+<text x="410" y="132" text-anchor="middle" dominant-baseline="central" class="ts" fill="#5F5E5A">비즈니스 지표</text>
+
+<rect x="550" y="66" width="240" height="84" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="670" y="88" text-anchor="middle" dominant-baseline="central" class="th" fill="#2C2C2A">라이브러리 클라이언트 지표</text>
+<text x="670" y="112" text-anchor="middle" dominant-baseline="central" class="ts" fill="#5F5E5A">Kafka 컨슈머 소비 속도·Lag</text>
+<text x="670" y="132" text-anchor="middle" dominant-baseline="central" class="ts" fill="#5F5E5A">(Spring Boot가 자동 연결)</text>
+
+<line x1="150" y1="150" x2="300" y2="190" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#ar)"/>
+<line x1="410" y1="150" x2="410" y2="190" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#ar)"/>
+<line x1="670" y1="150" x2="520" y2="190" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#ar)"/>
+
+<!-- ② Micrometer API -->
+<rect x="150" y="192" width="520" height="92" rx="12" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.8"/>
+<text x="410" y="214" text-anchor="middle" dominant-baseline="central" class="th" fill="#3C3489">② Micrometer API — 공통 방식으로 한 번만 기록</text>
+<rect x="176" y="232" width="148" height="40" rx="8" fill="#FFFFFF" stroke="#534AB7" stroke-width="0.6"/>
+<text x="250" y="246" text-anchor="middle" dominant-baseline="central" class="ts" fill="#3C3489">Counter</text>
+<text x="250" y="262" text-anchor="middle" dominant-baseline="central" class="tx" fill="#534AB7">늘기만 하는 횟수</text>
+<rect x="336" y="232" width="148" height="40" rx="8" fill="#FFFFFF" stroke="#534AB7" stroke-width="0.6"/>
+<text x="410" y="246" text-anchor="middle" dominant-baseline="central" class="ts" fill="#3C3489">Timer</text>
+<text x="410" y="262" text-anchor="middle" dominant-baseline="central" class="tx" fill="#534AB7">걸린 시간 + 횟수</text>
+<rect x="496" y="232" width="148" height="40" rx="8" fill="#FFFFFF" stroke="#534AB7" stroke-width="0.6"/>
+<text x="570" y="246" text-anchor="middle" dominant-baseline="central" class="ts" fill="#3C3489">Gauge</text>
+<text x="570" y="262" text-anchor="middle" dominant-baseline="central" class="tx" fill="#534AB7">지금 이 순간의 값</text>
+
+<line x1="410" y1="284" x2="410" y2="318" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#ar)"/>
+
+<!-- ③ MeterRegistry -->
+<rect x="30" y="320" width="760" height="116" rx="14" fill="none" stroke="#5F5E5A" stroke-width="0.8" stroke-dasharray="4 4"/>
+<text x="46" y="340" class="th" fill="#2C2C2A" dominant-baseline="central">③ MeterRegistry — 모니터링 시스템별 형식으로 번역</text>
+<text x="774" y="340" text-anchor="end" class="tx" fill="#5F5E5A" dominant-baseline="central">의존성만 바꾸면 교체 · 앱 코드는 그대로</text>
+<rect x="50" y="360" width="230" height="60" rx="10" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.2"/>
+<text x="165" y="380" text-anchor="middle" dominant-baseline="central" class="th" fill="#633806">PrometheusMeterRegistry</text>
+<text x="165" y="402" text-anchor="middle" dominant-baseline="central" class="tx" fill="#854F0B">micrometer-registry-prometheus</text>
+<rect x="296" y="360" width="230" height="60" rx="10" fill="#F7F6F2" stroke="#B4B2A9" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="411" y="380" text-anchor="middle" dominant-baseline="central" class="th" fill="#888780">DatadogMeterRegistry</text>
+<text x="411" y="402" text-anchor="middle" dominant-baseline="central" class="tx" fill="#888780">앱이 Datadog으로 보냄 (Push)</text>
+<rect x="542" y="360" width="230" height="60" rx="10" fill="#F7F6F2" stroke="#B4B2A9" stroke-width="0.8" stroke-dasharray="3 3"/>
+<text x="657" y="380" text-anchor="middle" dominant-baseline="central" class="th" fill="#888780">OtlpMeterRegistry 등</text>
+<text x="657" y="402" text-anchor="middle" dominant-baseline="central" class="tx" fill="#888780">OpenTelemetry · CloudWatch …</text>
+
+<line x1="165" y1="420" x2="165" y2="466" stroke="#854F0B" stroke-width="1.2" marker-end="url(#ar)"/>
+
+<!-- ④ 노출 -->
+<rect x="30" y="468" width="470" height="110" rx="10" fill="#FBFAF7" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="46" y="488" class="th" fill="#2C2C2A" dominant-baseline="central">④ Actuator가 /actuator/prometheus 로 노출</text>
+<text x="46" y="514" class="mono" fill="#3C3489">http_server_requests_seconds_count{</text>
+<text x="46" y="530" class="mono" fill="#3C3489">    uri="/api/messages",status="200"} 1523.0</text>
+<text x="46" y="548" class="mono" fill="#3C3489">jvm_memory_used_bytes{area="heap"} 2.1E8</text>
+<text x="46" y="566" class="tx" fill="#5F5E5A">이름 + 태그(라벨) + 값 — 사람이 읽을 수 있는 텍스트 형식</text>
+
+<!-- ⑤ Prometheus -->
+<rect x="560" y="468" width="230" height="64" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.8"/>
+<text x="675" y="490" text-anchor="middle" dominant-baseline="central" class="th" fill="#3C3489">⑤ Prometheus</text>
+<text x="675" y="512" text-anchor="middle" dominant-baseline="central" class="ts" fill="#534AB7">주기적으로 가져가 저장</text>
+<line x1="500" y1="500" x2="558" y2="500" stroke="#534AB7" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="529" y="490" text-anchor="middle" class="tx" fill="#534AB7">Pull</text>
+
+<rect x="560" y="560" width="230" height="52" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text x="675" y="578" text-anchor="middle" dominant-baseline="central" class="th" fill="#085041">⑥ Grafana · 알림</text>
+<text x="675" y="598" text-anchor="middle" dominant-baseline="central" class="tx" fill="#0F6E56">대시보드 · AlertManager</text>
+<line x1="675" y1="532" x2="675" y2="558" stroke="#0F6E56" stroke-width="1.2" marker-end="url(#ar)"/>
+
+<!-- 로그와 같은 구조 -->
+<rect x="30" y="596" width="470" height="70" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+<text x="46" y="614" class="ts" fill="#0C447C" dominant-baseline="central">로그와 같은 구조 — "메트릭계의 SLF4J"</text>
+<text x="46" y="636" class="tx" fill="#185FA5" dominant-baseline="central">로그 : 코드 → SLF4J → Logback / Log4j2 → 파일 · 콘솔</text>
+<text x="46" y="654" class="tx" fill="#185FA5" dominant-baseline="central">지표 : 코드 → Micrometer → Prometheus / Datadog Registry → 각 시스템</text>
+</svg>

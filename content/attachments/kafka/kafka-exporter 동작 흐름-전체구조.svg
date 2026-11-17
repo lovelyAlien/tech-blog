@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="640" viewBox="0 0 820 640">
+<style>text{font-family:"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR",sans-serif}.tt{font-size:16px;font-weight:700}.th{font-size:14px;font-weight:600}.ts{font-size:12px}.tx{font-size:11px}.mono{font-family:"SF Mono","Menlo","Consolas",monospace;font-size:10.5px}</style>
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<rect width="820" height="640" fill="#FFFFFF"/>
+<text x="30" y="28" class="tt" fill="#2C2C2A">kafka-exporter 동작 흐름 — 브로커에 물어봐서 Lag을 지표로 만든다</text>
+
+<!-- Kafka 클러스터 -->
+<rect x="20" y="46" width="320" height="330" rx="14" fill="none" stroke="#5F5E5A" stroke-width="0.8" stroke-dasharray="4 4"/>
+<text x="34" y="64" class="ts" fill="#5F5E5A" dominant-baseline="central">Kafka 클러스터 (브로커)</text>
+
+<rect x="34" y="80" width="292" height="128" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="180" y="100" text-anchor="middle" dominant-baseline="central" class="th" fill="#2C2C2A">토픽 파티션 my-topic</text>
+<text x="180" y="120" text-anchor="middle" dominant-baseline="central" class="tx" fill="#5F5E5A">파티션별 최신 위치 (Log End Offset)</text>
+<text x="70" y="144" class="ts" fill="#2C2C2A">P0</text><text x="290" y="144" text-anchor="end" class="ts" fill="#2C2C2A">1,210</text>
+<text x="70" y="162" class="ts" fill="#2C2C2A">P1</text><text x="290" y="162" text-anchor="end" class="ts" fill="#2C2C2A">1,500</text>
+<text x="70" y="180" class="ts" fill="#2C2C2A">P2</text><text x="290" y="180" text-anchor="end" class="ts" fill="#2C2C2A">980</text>
+<text x="70" y="198" class="ts" fill="#A32D2D">P3</text><text x="290" y="198" text-anchor="end" class="ts" fill="#A32D2D">98,000</text>
+
+<rect x="34" y="226" width="292" height="138" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="180" y="246" text-anchor="middle" dominant-baseline="central" class="th" fill="#2C2C2A">그룹 코디네이터</text>
+<text x="180" y="266" text-anchor="middle" dominant-baseline="central" class="tx" fill="#5F5E5A">my-group이 커밋한 위치 (__consumer_offsets에 저장)</text>
+<text x="70" y="290" class="ts" fill="#2C2C2A">P0</text><text x="290" y="290" text-anchor="end" class="ts" fill="#2C2C2A">1,200</text>
+<text x="70" y="308" class="ts" fill="#2C2C2A">P1</text><text x="290" y="308" text-anchor="end" class="ts" fill="#2C2C2A">1,490</text>
+<text x="70" y="326" class="ts" fill="#2C2C2A">P2</text><text x="290" y="326" text-anchor="end" class="ts" fill="#2C2C2A">975</text>
+<text x="70" y="344" class="ts" fill="#A32D2D">P3</text><text x="290" y="344" text-anchor="end" class="ts" fill="#A32D2D">5,000 (멈춤)</text>
+
+<!-- 컨슈머 앱 -->
+<rect x="34" y="404" width="292" height="92" rx="10" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.8" stroke-dasharray="4 3"/>
+<text x="180" y="424" text-anchor="middle" dominant-baseline="central" class="th" fill="#791F1F">컨슈머 애플리케이션 (my-group)</text>
+<text x="180" y="448" text-anchor="middle" dominant-baseline="central" class="ts" fill="#A32D2D">P3 담당 컨슈머가 죽거나 멈춤</text>
+<text x="180" y="468" text-anchor="middle" dominant-baseline="central" class="tx" fill="#A32D2D">→ 커밋이 멈추고, 앱 안의 지표(Micrometer)도 사라짐</text>
+<text x="180" y="484" text-anchor="middle" dominant-baseline="central" class="tx" fill="#A32D2D">하지만 브로커에는 오프셋이 그대로 남아 있음</text>
+<line x1="180" y1="404" x2="180" y2="366" stroke="#A32D2D" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+<text x="188" y="388" class="tx" fill="#A32D2D">커밋</text>
+
+<!-- kafka-exporter -->
+<rect x="400" y="96" width="210" height="244" rx="12" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.8"/>
+<text x="505" y="118" text-anchor="middle" dominant-baseline="central" class="th" fill="#3C3489">kafka-exporter</text>
+<text x="505" y="138" text-anchor="middle" dominant-baseline="central" class="tx" fill="#534AB7">앱 밖 별도 프로세스 (기본 포트 9308)</text>
+<text x="414" y="168" dominant-baseline="central" class="ts" fill="#3C3489">① 파티션 최신 오프셋 조회</text>
+<text x="414" y="196" dominant-baseline="central" class="ts" fill="#3C3489">② 그룹 목록 → 그룹별</text>
+<text x="430" y="214" dominant-baseline="central" class="ts" fill="#3C3489">커밋 오프셋 조회</text>
+<text x="414" y="242" dominant-baseline="central" class="ts" fill="#3C3489">③ Lag = 최신 − 커밋</text>
+<text x="430" y="260" dominant-baseline="central" class="tx" fill="#534AB7">파티션마다 따로 계산</text>
+<text x="414" y="288" dominant-baseline="central" class="ts" fill="#3C3489">④ /metrics 로 노출</text>
+<text x="430" y="306" dominant-baseline="central" class="tx" fill="#534AB7">Prometheus 텍스트 형식</text>
+
+<line x1="398" y1="168" x2="328" y2="144" stroke="#534AB7" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="364" y="146" text-anchor="middle" class="tx" fill="#534AB7">①</text>
+<line x1="398" y1="206" x2="328" y2="290" stroke="#534AB7" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="352" y="236" text-anchor="middle" class="tx" fill="#534AB7">②</text>
+<text x="505" y="360" text-anchor="middle" class="tx" fill="#534AB7">일반 Kafka 클라이언트처럼 브로커에 "물어봄"</text>
+<text x="505" y="376" text-anchor="middle" class="tx" fill="#534AB7">(메시지는 읽지 않고 오프셋만 조회)</text>
+
+<!-- Prometheus / Grafana -->
+<rect x="650" y="120" width="150" height="64" rx="10" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+<text x="725" y="142" text-anchor="middle" dominant-baseline="central" class="th" fill="#633806">⑤ Prometheus</text>
+<text x="725" y="164" text-anchor="middle" dominant-baseline="central" class="tx" fill="#854F0B">주기적으로 가져감</text>
+<line x1="612" y1="288" x2="648" y2="170" stroke="#854F0B" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="624" y="222" text-anchor="middle" class="tx" fill="#854F0B">Pull</text>
+
+<rect x="650" y="222" width="150" height="80" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text x="725" y="244" text-anchor="middle" dominant-baseline="central" class="th" fill="#085041">⑥ Grafana · 알림</text>
+<text x="725" y="266" text-anchor="middle" dominant-baseline="central" class="tx" fill="#0F6E56">파티션별 Lag 그래프</text>
+<text x="725" y="284" text-anchor="middle" dominant-baseline="central" class="tx" fill="#0F6E56">Lag 계속 증가 시 알림</text>
+<line x1="725" y1="184" x2="725" y2="220" stroke="#0F6E56" stroke-width="1.2" marker-end="url(#ar)"/>
+
+<!-- 노출 예시 -->
+<rect x="360" y="404" width="440" height="128" rx="10" fill="#FBFAF7" stroke="#5F5E5A" stroke-width="0.8"/>
+<text x="376" y="424" class="th" fill="#2C2C2A" dominant-baseline="central">/metrics 노출 예 (P3)</text>
+<text x="376" y="450" class="mono" fill="#3C3489">kafka_topic_partition_current_offset{</text>
+<text x="376" y="464" class="mono" fill="#3C3489">  topic="my-topic",partition="3"} 98000</text>
+<text x="376" y="484" class="mono" fill="#3C3489">kafka_consumergroup_current_offset{consumergroup="my-group",</text>
+<text x="376" y="498" class="mono" fill="#3C3489">  topic="my-topic",partition="3"} 5000</text>
+<text x="376" y="518" class="mono" fill="#A32D2D">kafka_consumergroup_lag{...,partition="3"} 93000</text>
+
+<!-- 하단 요약 -->
+<line x1="20" y1="556" x2="800" y2="556" stroke="#D3D1C7" stroke-width="0.8"/>
+<text x="30" y="580" class="th" fill="#2C2C2A">핵심</text>
+<text x="78" y="580" class="ts" fill="#2C2C2A">Lag을 컨슈머에게 묻지 않고 브로커의 두 장부(최신 위치 · 커밋 위치)를 대조해서 계산한다</text>
+<text x="78" y="602" class="ts" fill="#2C2C2A">→ 컨슈머가 죽어도 P3의 Lag이 계속 오르는 게 보인다 = Lag 알림을 걸기 좋은 지표</text>
+<text x="78" y="624" class="tx" fill="#5F5E5A">Lag은 "커밋" 기준 — 처리는 끝났는데 커밋이 늦으면 실제보다 크게 보일 수 있음 (숫자는 예시)</text>
+</svg>
